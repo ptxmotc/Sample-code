@@ -6,4 +6,4 @@
 
 - 詳細說明機制可參考[資料服務使用說明文件](https://gist.github.com/ptxmotc/383118204ecf7192bdf96bc0197bb981)內之**API 認證授權機制**段落
 
-- 如何使用hmac 機制:[影片教學請點我](https://www.youtube.com/watch?v=m6mjfnvfeZE&feature=youtu.be)
+- 如何使用HMAC 機制:[影片教學請點我](https://www.youtube.com/watch?v=m6mjfnvfeZE&feature=youtu.be)
