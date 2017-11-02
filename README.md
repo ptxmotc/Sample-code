@@ -12,8 +12,8 @@
 
 除PTX所提供之java、javascript及.NET範例程式碼外，PTX會員SHI HAO WANG及Benyi也提供不同種程式語言之範例程式碼供使用者作參考。
 
-- CSharp 與 .NET Standard 2.0範例程式碼 (會員SHI HAO WANG提供)
-https://github.com/txstudio/ptx-api-authorize-httpclient-sample
+- CSharp 與 .NET Standard 2.0範例程式碼 (會員SHI HAO WANG提供):[請點我](https://github.com/txstudio/ptx-api-authorize-httpclient-sample)
 
-- PHP範例程式碼 (會員Benyi提供)
-https://gist.github.com/banqhsia/e157a68f730785c0727481d57e5325e0
+- PHP範例程式碼 (會員Benyi提供):[請點我](https://gist.github.com/banqhsia/e157a68f730785c0727481d57e5325e0)
+
+
