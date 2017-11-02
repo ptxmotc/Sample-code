@@ -1,1 +1,1 @@
-# Java-sample-code
+# Sample code
