@@ -1,4 +1,4 @@
-# 範例程式碼說明
+# PTX Public Transport API 介接範例程式碼說明
 
 ---
 
