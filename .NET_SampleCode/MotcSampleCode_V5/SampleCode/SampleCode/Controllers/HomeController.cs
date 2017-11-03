@@ -22,13 +22,11 @@ namespace SampleCode.Controllers
         /// <returns></returns>
         private ActionResult CallAPIByHMAC()
         {
-            WebClient wc = new WebClient();
-            wc.Encoding = Encoding.UTF8;
             //申請的APPID
             //（FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF 為 Guest 帳號，以IP作為API呼叫限制，請替換為註冊的APPID & APPKey）
             string APPID = "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF";
             //申請的APPKey
-            string APPKey = @"FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF";
+            string APPKey = "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF";
 
             //取得當下UTC時間
             string xdate = DateTime.Now.ToUniversalTime().ToString("r");
@@ -36,17 +34,23 @@ namespace SampleCode.Controllers
             //取得加密簽章
             string Signature = HMAC_SHA1.Signature(SignDate, APPKey);
             string sAuth = "hmac username=\"" + APPID + "\", algorithm=\"hmac-sha1\", headers=\"x-date\", signature=\"" + Signature + "\"";
-            //簽章資訊加入Headers
-            wc.Headers.Add("Authorization", sAuth);
-            wc.Headers.Add("x-date", xdate);
 
             List<RailStation> Data = new List<RailStation>();
-            //欲呼叫之API網址(此範例為台鐵車站資料)  
+            //欲呼叫之API網址(此範例為台鐵車站資料)
             var APIUrl = "http://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station?$top=10&$format=JSON";
-            string result = wc.DownloadString(APIUrl);
-            Data = JsonConvert.DeserializeObject<List<RailStation>>(result);
+            string Result = string.Empty;
+
+            using (HttpClient Client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip }))
+            {
+                Client.DefaultRequestHeaders.Add("Authorization", sAuth);
+                Client.DefaultRequestHeaders.Add("x-date", xdate);
+                Result = Client.GetStringAsync(APIUrl).Result;
+            }
+           
+            Data = JsonConvert.DeserializeObject<List<RailStation>>(Result);
             ViewBag.ticket = Signature;
             return View(Data);
+
         }
 
         /// <summary>
