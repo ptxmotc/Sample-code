@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Net.Http.WebRequest</name>
+  </assembly>
+  <members>
+    <member name="T:System.Net.Http.RtcRequestFactory">
+      <summary>表示類別，用於建立特殊的 <see cref="T:System.Net.Http.HttpRequestMessage" />，可搭配即時通訊 (RTC) 背景通知基礎結構使用。</summary>
+    </member>
+    <member name="M:System.Net.Http.RtcRequestFactory.Create(System.Net.Http.HttpMethod,System.Uri)">
+      <summary>建立搭配即時通訊 (RTC) 背景通知基礎結構使用的特殊 <see cref="T:System.Net.Http.HttpRequestMessage" />。</summary>
+      <returns>傳回 <see cref="T:System.Net.Http.HttpRequestMessage" />。 用於 RTC 背景通知基礎結構的 HTTP 要求訊息。</returns>
+      <param name="method">HTTP 方法。</param>
+      <param name="uri">要求被傳送到的 URI。</param>
+    </member>
+    <member name="T:System.Net.Http.WebRequestHandler">
+      <summary>提供 Windows 市集應用程式或其他環境中所沒有的桌面特定功能。</summary>
+    </member>
+    <member name="M:System.Net.Http.WebRequestHandler.#ctor">
+      <summary>初始化 <see cref="T:System.Net.Http.WebRequestHandler" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="P:System.Net.Http.WebRequestHandler.AllowPipelining">
+      <summary>取得或設定值，指出是否將要求導送至網際網路資源。</summary>
+      <returns>傳回 <see cref="T:System.Boolean" />。 如果要求應該要導送，則為 true，否則為 false。 預設值為 true。</returns>
+    </member>
+    <member name="P:System.Net.Http.WebRequestHandler.AuthenticationLevel">
+      <summary>取得或設定值，指出用於這個要求的驗證和模擬等級。</summary>
+      <returns>傳回 <see cref="T:System.Net.Security.AuthenticationLevel" />。 <see cref="T:System.Net.Security.AuthenticationLevel" /> 值的位元 (Bitwise) 組合。 預設值是 <see cref="F:System.Net.Security.AuthenticationLevel.MutualAuthRequested" />。</returns>
+    </member>
+    <member name="P:System.Net.Http.WebRequestHandler.CachePolicy">
+      <summary>取得或設定這個要求的快取原則。</summary>
+      <returns>傳回 <see cref="T:System.Net.Cache.RequestCachePolicy" />。 定義快取原則的 <see cref="T:System.Net.Cache.RequestCachePolicy" /> 物件。 預設值為 <see cref="P:System.Net.WebRequest.DefaultCachePolicy" />。</returns>
+    </member>
+    <member name="P:System.Net.Http.WebRequestHandler.ClientCertificates">
+      <summary>取得或設定與這個要求關聯的安全憑證集合。</summary>
+      <returns>傳回 <see cref="T:System.Security.Cryptography.X509Certificates.X509CertificateCollection" />。 與這個要求相關聯的安全憑證的集合。</returns>
+    </member>
+    <member name="P:System.Net.Http.WebRequestHandler.ContinueTimeout">
+      <summary>取得或設定在上傳資料前，應用程式等待來自伺服器的 100-Continue 的時間長度 (以毫秒為單位)。</summary>
+      <returns>傳回 <see cref="T:System.TimeSpan" />。 在上傳資料前，應用程式等待來自伺服器的 100-Continue 的時間長度 (以毫秒為單位)。 預設值為 350 毫秒。</returns>
+    </member>
+    <member name="P:System.Net.Http.WebRequestHandler.ImpersonationLevel">
+      <summary>取得或設定目前要求的模擬等級。</summary>
+      <returns>傳回 <see cref="T:System.Security.Principal.TokenImpersonationLevel" />。 要求的模擬層級。 預設值為 <see cref="F:System.Security.Principal.TokenImpersonationLevel.Delegation" />。</returns>
+    </member>
+    <member name="P:System.Net.Http.WebRequestHandler.MaxResponseHeadersLength">
+      <summary>取得或設定回應標頭的最大允許長度。</summary>
+      <returns>傳回 <see cref="T:System.Int32" />。 回應標頭的長度，以 KB (1024 位元組) 為單位。</returns>
+    </member>
+    <member name="P:System.Net.Http.WebRequestHandler.ReadWriteTimeout">
+      <summary>取得或設定寫入要求或從伺服器讀取回應時的逾時 (以毫秒為單位)。</summary>
+      <returns>傳回 <see cref="T:System.Int32" />。 寫入或讀取逾時前的毫秒數。 預設值為 300,000 毫秒 (5 分鐘)。</returns>
+    </member>
+    <member name="P:System.Net.Http.WebRequestHandler.ServerCertificateValidationCallback">
+      <summary>取得或設定用來驗證伺服器憑證的回呼方法。</summary>
+      <returns>傳回 <see cref="T:System.Net.Security.RemoteCertificateValidationCallback" />。用來驗證伺服器憑證的回呼方法。</returns>
+    </member>
+    <member name="P:System.Net.Http.WebRequestHandler.UnsafeAuthenticatedConnectionSharing">
+      <summary>取得或設定值，指出是否允許高速 NTLM 驗證連接共用。</summary>
+      <returns>傳回 <see cref="T:System.Boolean" />。 保持已驗證連接於開啟的狀態，則為 true，否則為 false。</returns>
+    </member>
+  </members>
+</doc>
