@@ -1,4 +1,7 @@
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
@@ -11,6 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.zip.GZIPInputStream;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -50,18 +54,31 @@ public class SignatureTest {
 		      connection.setRequestMethod("GET");
 		      connection.setRequestProperty("Authorization", sAuth);
 		      connection.setRequestProperty("x-date", xdate);
+		      connection.setRequestProperty("Accept-Encoding", "gzip");
 		      connection.setDoInput(true);
 		      connection.setDoOutput(true);
-		      BufferedReader in=new BufferedReader(new InputStreamReader(connection.getInputStream(),"UTF-8"));
 		      
-		      String line,response="";
+		      //將InputStream轉換為Byte
+		      InputStream inputStream = connection.getInputStream();
+	          ByteArrayOutputStream bao = new ByteArrayOutputStream();
+		      byte[] buff = new byte[1024];
+	          int bytesRead = 0;
+	          while((bytesRead = inputStream.read(buff)) != -1) {
+	             bao.write(buff, 0, bytesRead);
+	          }
+	          
+	          //解開GZIP
+		      ByteArrayInputStream bais = new ByteArrayInputStream(bao.toByteArray());
+		      GZIPInputStream gzis = new GZIPInputStream(bais);
+		      InputStreamReader reader = new InputStreamReader(gzis);
+		      BufferedReader in = new BufferedReader(reader);
 		      
 		      //讀取回傳資料
-		      while((line=in.readLine())!=null)
-		         response+=(line+"\n");
-		      in.close();
+		      String line, response="";
+		      while ((line = in.readLine()) != null) {
+		          response+=(line+"\n");
+		      }
 		      
-		      //為接收的json定義型態
 		      Type RailStationListType = new TypeToken<ArrayList<RailStation>>(){}.getType();
 		      Gson gsonReceiver = new Gson();
 		      List<RailStation> obj = gsonReceiver.fromJson(response, RailStationListType);
