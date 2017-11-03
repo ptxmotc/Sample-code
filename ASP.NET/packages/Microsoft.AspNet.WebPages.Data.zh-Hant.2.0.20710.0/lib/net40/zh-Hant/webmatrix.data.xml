@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>WebMatrix.Data</name>
+  </assembly>
+  <members>
+    <member name="T:WebMatrix.Data.ConnectionEventArgs">
+      <summary>為 <see cref="T:WebMatrix.Data.Database" /> 類別的 <see cref="E:WebMatrix.Data.Database.ConnectionOpened" /> 事件提供資料。</summary>
+    </member>
+    <member name="M:WebMatrix.Data.ConnectionEventArgs.#ctor(System.Data.Common.DbConnection)">
+      <summary>初始化 <see cref="T:WebMatrix.Data.ConnectionEventArgs" /> 類別的新執行個體。</summary>
+      <param name="connection">與事件相關聯的連線。</param>
+    </member>
+    <member name="P:WebMatrix.Data.ConnectionEventArgs.Connection">
+      <summary>取得與事件相關聯的連線。</summary>
+      <returns>開啟的連線。</returns>
+    </member>
+    <member name="T:WebMatrix.Data.Database">
+      <summary>提供方法和屬性，用來存取及管理資料庫中儲存的資料。</summary>
+    </member>
+    <member name="M:WebMatrix.Data.Database.Close">
+      <summary>關閉已開啟的資料庫。</summary>
+    </member>
+    <member name="P:WebMatrix.Data.Database.Connection">
+      <summary>取得目前的資料庫連線。</summary>
+      <returns>連線。</returns>
+    </member>
+    <member name="E:WebMatrix.Data.Database.ConnectionOpened">
+      <summary>在 <see cref="T:WebMatrix.Data.Database" /> 執行個體開啟新資料庫連線時發生。</summary>
+    </member>
+    <member name="M:WebMatrix.Data.Database.Dispose">
+      <summary>釋放由 <see cref="T:WebMatrix.Data.Database" /> 執行個體使用的所有資源。</summary>
+    </member>
+    <member name="M:WebMatrix.Data.Database.Dispose(System.Boolean)">
+      <summary>釋放由 <see cref="T:WebMatrix.Data.Database" /> 執行個體使用的 Unmanaged 資源，並選擇性地釋放 Managed 資源。</summary>
+      <param name="disposing">true 表示釋放 Managed 和 Unmanaged 資源；false 則表示只釋放 Unmanaged 資源。</param>
+    </member>
+    <member name="M:WebMatrix.Data.Database.Execute(System.String,System.Object[])">
+      <summary>執行非查詢式 SQL 陳述式。</summary>
+      <returns>受 SQL 陳述式影響的記錄計數。</returns>
+      <param name="commandText">要執行的 SQL 陳述式。</param>
+      <param name="args">(選擇性) 要傳遞給 SQL 陳述式的參數。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="commandText" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:WebMatrix.Data.Database.GetLastInsertId">
+      <summary>傳回最近插入之資料列的識別資料行。</summary>
+      <returns>最近插入之資料列的 ID。</returns>
+    </member>
+    <member name="M:WebMatrix.Data.Database.Open(System.String)">
+      <summary>使用指定的檔案名稱或使用具名連線字串，開啟資料庫連線。</summary>
+      <returns>資料庫執行個體。</returns>
+      <param name="name">與要開啟之資料庫相關聯的名稱。<paramref name="name" /> 可以指定位於 App_Data 資料夾中的 .sdf 或 .mdf 資料庫檔案 (不包含副檔名)。此外，<paramref name="name" /> 還可以在 Web.config 檔案中指定連線字串的名稱。</param>
+    </member>
+    <member name="M:WebMatrix.Data.Database.OpenConnectionString(System.String)">
+      <summary>使用指定的連線字串，開啟資料庫連線。</summary>
+      <returns>資料庫執行個體。</returns>
+      <param name="connectionString">包含用來連線到資料庫之資訊的連線字串。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="connectionString" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:WebMatrix.Data.Database.OpenConnectionString(System.String,System.String)">
+      <summary>使用連線字串和指定的提供者，開啟資料庫連線。</summary>
+      <returns>資料庫執行個體。</returns>
+      <param name="connectionString">包含用來連線到資料庫之資訊的連線字串。</param>
+      <param name="providerName">(選擇性) 用來連線到資料來源之 .NET Framework 資料提供者的名稱。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="connectionString" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:WebMatrix.Data.Database.Query(System.String,System.Object[])">
+      <summary>執行 SQL 查詢，以傳回資料列清單作為結果。</summary>
+      <returns>SQL 查詢所傳回的資料列。</returns>
+      <param name="commandText">要執行的 SQL 查詢。</param>
+      <param name="parameters">(選擇性) 要傳遞給 SQL 查詢的參數。</param>
+    </member>
+    <member name="M:WebMatrix.Data.Database.QuerySingle(System.String,System.Object[])">
+      <summary>執行 SQL 查詢，以傳回單一資料列作為結果。</summary>
+      <returns>SQL 查詢所傳回的單一資料列。</returns>
+      <param name="commandText">要執行的 SQL 查詢。</param>
+      <param name="args">(選擇性) 要傳遞給 SQL 查詢的參數。</param>
+    </member>
+    <member name="M:WebMatrix.Data.Database.QueryValue(System.String,System.Object[])">
+      <summary>執行 SQL 查詢，以傳回單一純量值作為結果。</summary>
+      <returns>SQL 查詢所傳回的純量值。</returns>
+      <param name="commandText">要執行的 SQL 查詢。</param>
+      <param name="args">(選擇性) 要傳遞給 SQL 查詢的參數。</param>
+    </member>
+    <member name="T:WebMatrix.Data.DynamicRecord">
+      <summary>使用自訂類型描述元和 Dynamic Language Runtime (DLR) 功能表示資料記錄。</summary>
+    </member>
+    <member name="P:WebMatrix.Data.DynamicRecord.Columns">
+      <summary>傳回清單，此清單包含 <see cref="T:WebMatrix.Data.DynamicRecord" /> 執行個體中各資料行的名稱。</summary>
+      <returns>包含各資料行名稱的清單。</returns>
+    </member>
+    <member name="M:WebMatrix.Data.DynamicRecord.GetDynamicMemberNames">
+      <summary>傳回清單，此清單包含 <see cref="T:WebMatrix.Data.DynamicRecord" /> 執行個體的所有動態成員名稱。</summary>
+      <returns>包含每個動態成員名稱的清單。</returns>
+    </member>
+    <member name="P:WebMatrix.Data.DynamicRecord.Item(System.Int32)">
+      <summary>使用指定的索引，傳回 <see cref="T:WebMatrix.Data.DynamicRecord" /> 執行個體中資料行的值。</summary>
+      <returns>所指定資料行的值。</returns>
+      <param name="index">資料行的索引 (以零為基底)，此資料行包含要傳回的值。</param>
+    </member>
+    <member name="P:WebMatrix.Data.DynamicRecord.Item(System.String)">
+      <summary>使用指定的名稱，傳回 <see cref="T:WebMatrix.Data.DynamicRecord" /> 執行個體中資料行的值。</summary>
+      <returns>所指定資料行的值。</returns>
+      <param name="name">資料行名稱，此資料行包含要傳回的值。名稱比對不區分大小寫。</param>
+      <exception cref="T:System.InvalidOperationException">
+        <see cref="T:WebMatrix.Data.DynamicRecord" /> 執行個體不包含名稱符合指定的名稱但大小寫不相符的資料行。</exception>
+    </member>
+    <member name="M:WebMatrix.Data.DynamicRecord.System#ComponentModel#ICustomTypeDescriptor#GetAttributes">
+      <summary>為元件的這個執行個體傳回自訂屬性清單。</summary>
+      <returns>在所有情況下均為 <see cref="P:System.ComponentModel.AttributeCollection.Empty" />。</returns>
+    </member>
+    <member name="M:WebMatrix.Data.DynamicRecord.System#ComponentModel#ICustomTypeDescriptor#GetClassName">
+      <summary>為元件的這個執行個體傳回類別名稱。</summary>
+      <returns>在所有情況下均為 null。</returns>
+    </member>
+    <member name="M:WebMatrix.Data.DynamicRecord.System#ComponentModel#ICustomTypeDescriptor#GetComponentName">
+      <summary>為元件的這個執行個體傳回名稱。</summary>
+      <returns>在所有情況下均為 null。</returns>
+    </member>
+    <member name="M:WebMatrix.Data.DynamicRecord.System#ComponentModel#ICustomTypeDescriptor#GetConverter">
+      <summary>為元件的這個執行個體傳回類型轉換器。</summary>
+      <returns>在所有情況下均為 null。</returns>
+    </member>
+    <member name="M:WebMatrix.Data.DynamicRecord.System#ComponentModel#ICustomTypeDescriptor#GetDefaultEvent">
+      <summary>為元件的這個執行個體傳回預設事件。</summary>
+      <returns>在所有情況下均為 null。</returns>
+    </member>
+    <member name="M:WebMatrix.Data.DynamicRecord.System#ComponentModel#ICustomTypeDescriptor#GetDefaultProperty">
+      <summary>為元件的這個執行個體傳回預設屬性。</summary>
+      <returns>在所有情況下均為 null。</returns>
+    </member>
+    <member name="M:WebMatrix.Data.DynamicRecord.System#ComponentModel#ICustomTypeDescriptor#GetEditor(System.Type)">
+      <summary>為元件的這個執行個體傳回所指定類型的編輯器。</summary>
+      <returns>在所有情況下均為 null。</returns>
+      <param name="editorBaseType">這個物件的編輯器。這個參數的值會被此實作所忽略，而且不影響這個方法的結果。</param>
+    </member>
+    <member name="M:WebMatrix.Data.DynamicRecord.System#ComponentModel#ICustomTypeDescriptor#GetEvents">
+      <summary>為元件的這個執行個體傳回事件。</summary>
+      <returns>在所有情況下均為 <see cref="P:System.ComponentModel.EventDescriptorCollection.Empty" />。</returns>
+    </member>
+    <member name="M:WebMatrix.Data.DynamicRecord.System#ComponentModel#ICustomTypeDescriptor#GetEvents(System.Attribute[])">
+      <summary>使用指定的篩選條件，為元件的這個執行個體傳回事件。</summary>
+      <returns>在所有情況下均為 <see cref="P:System.ComponentModel.EventDescriptorCollection.Empty" />。</returns>
+      <param name="attributes">作為篩選條件使用的陣列。這個參數的值會被此實作所忽略，而且不影響這個方法的結果。</param>
+    </member>
+    <member name="M:WebMatrix.Data.DynamicRecord.System#ComponentModel#ICustomTypeDescriptor#GetProperties">
+      <summary>為元件的這個執行個體傳回屬性。</summary>
+      <returns>代表此元件執行個體屬性的集合。</returns>
+    </member>
+    <member name="M:WebMatrix.Data.DynamicRecord.System#ComponentModel#ICustomTypeDescriptor#GetProperties(System.Attribute[])">
+      <summary>使用指定的篩選條件，為元件的這個執行個體傳回屬性。</summary>
+      <returns>代表此元件執行個體屬性的集合。</returns>
+      <param name="attributes">作為篩選條件使用的陣列。這個參數的值會被此實作所忽略，而且不影響這個方法的結果。</param>
+    </member>
+    <member name="M:WebMatrix.Data.DynamicRecord.System#ComponentModel#ICustomTypeDescriptor#GetPropertyOwner(System.ComponentModel.PropertyDescriptor)">
+      <summary>傳回包含所指定屬性的物件。</summary>
+      <returns>此 <see cref="T:WebMatrix.Data.DynamicRecord" /> 執行個體。</returns>
+      <param name="pd">要取得擁有者的屬性。</param>
+    </member>
+    <member name="M:WebMatrix.Data.DynamicRecord.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)">
+      <summary>使用指定的名稱，取得 <see cref="T:WebMatrix.Data.DynamicRecord" /> 成員的值。</summary>
+      <returns>在所有情況下均為 true。</returns>
+      <param name="binder">提供 get 作業的相關資訊。</param>
+      <param name="result">當這個方法傳回時，包含成員的值 (可以是 null)。傳遞此參數時不需設定初始值。</param>
+      <exception cref="T:System.InvalidOperationException">
+        <see cref="T:WebMatrix.Data.DynamicRecord" /> 執行個體不包含名稱符合 <paramref name="binder" /> 參數指定的名稱但大小寫不相符的成員。</exception>
+    </member>
+  </members>
+</doc>

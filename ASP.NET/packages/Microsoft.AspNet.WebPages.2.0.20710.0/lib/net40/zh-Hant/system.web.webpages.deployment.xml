@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Web.WebPages.Deployment</name>
+  </assembly>
+  <members>
+    <member name="T:System.Web.WebPages.Deployment.PreApplicationStartCode">
+      <summary>提供適用於網頁部署之應用程式啟動前程式碼的註冊點。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Deployment.PreApplicationStartCode.Start">
+      <summary>註冊適用於網頁部署的應用程式啟動前程式碼。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.Deployment.WebPagesDeployment">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Deployment.WebPagesDeployment.GetAssemblyPath(System.Version)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Deployment.WebPagesDeployment.GetExplicitWebPagesVersion(System.String)"></member>
+    <member name="M:System.Web.WebPages.Deployment.WebPagesDeployment.GetIncompatibleDependencies(System.String)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Deployment.WebPagesDeployment.GetMaxVersion">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Deployment.WebPagesDeployment.GetVersion(System.String)">
+      <param name="path">應用程式之根目錄的路徑。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Deployment.WebPagesDeployment.GetVersionWithoutEnabledCheck(System.String)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Deployment.WebPagesDeployment.GetWebPagesAssemblies">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Deployment.WebPagesDeployment.IsEnabled(System.String)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Deployment.WebPagesDeployment.IsExplicitlyDisabled(System.String)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+  </members>
+</doc>

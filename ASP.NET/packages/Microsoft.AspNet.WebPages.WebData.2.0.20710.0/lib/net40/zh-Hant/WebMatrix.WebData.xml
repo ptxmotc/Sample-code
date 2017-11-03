@@ -1,0 +1,796 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>WebMatrix.WebData</name>
+  </assembly>
+  <members>
+    <member name="T:WebMatrix.WebData.ExtendedMembershipProvider">
+      <summary>表示抽象類別，用來擴充 <see cref="T:System.Web.Security.MembershipProvider" /> 類別所提供的成員資格系統。</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.#ctor">
+      <summary>在衍生類別中覆寫時，具現化 <see cref="T:WebMatrix.WebData.ExtendedMembershipProvider" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.ConfirmAccount(System.String)">
+      <summary>啟動擱置的成員資格帳戶。</summary>
+      <returns>若已確認此帳戶，則為 true，否則為 false。</returns>
+      <param name="accountConfirmationToken">要傳遞給驗證提供者的確認語彙基元。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.ConfirmAccount(System.String,System.String)">
+      <summary>為指定的使用者啟動擱置的成員資格帳戶。</summary>
+      <returns>若已確認此帳戶，則為 true，否則為 false。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="accountConfirmationToken">要傳遞給驗證提供者的確認語彙基元。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.CreateAccount(System.String,System.String)">
+      <summary>使用指定的使用者名稱和密碼，建立新的使用者帳戶。</summary>
+      <returns>可傳送給使用者以確認帳戶的語彙基元。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="password">密碼。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.CreateAccount(System.String,System.String,System.Boolean)">
+      <summary>在衍生類別中覆寫時，使用指定的使用者名稱和密碼建立新的使用者帳戶，有時新帳戶必須先經過確認才可供使用。</summary>
+      <returns>可傳送給使用者以確認帳戶的語彙基元。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="password">密碼。</param>
+      <param name="requireConfirmationToken">(選擇性) true 以指定表示必須確認帳戶，否則為 false。預設值為 false。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.CreateOrUpdateOAuthAccount(System.String,System.String,System.String)">
+      <summary>在衍生類別中覆寫時，建立新的 OAuth 成員資格帳戶，或更新現有的 OAuth 成員資格帳戶。</summary>
+      <param name="provider">OAuth 或 OpenID 提供者。</param>
+      <param name="providerUserId">OAuth 或 OpenID 提供者的使用者 ID。這不是使用者帳戶的使用者 ID，而是 OAuth 或 Open ID 提供者的使用者 ID。</param>
+      <param name="userName">使用者名稱。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.CreateUserAndAccount(System.String,System.String)">
+      <summary>建立新的使用者設定檔和新的成員資格帳戶。</summary>
+      <returns>可傳送給使用者以確認使用者帳戶的語彙基元。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="password">密碼。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.CreateUserAndAccount(System.String,System.String,System.Boolean)">
+      <summary>建立新的使用者設定檔和新的成員資格帳戶。</summary>
+      <returns>可傳送給使用者以確認使用者帳戶的語彙基元。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="password">密碼。</param>
+      <param name="requireConfirmation">(選擇性) true 以指定必須確認使用者帳戶，否則為 false。預設值為 false。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.CreateUserAndAccount(System.String,System.String,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>在衍生類別中覆寫時，建立新的使用者設定檔和新的成員資格帳戶。</summary>
+      <returns>可傳送給使用者以確認使用者帳戶的語彙基元。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="password">密碼。</param>
+      <param name="requireConfirmation">(選擇性) true 以指定必須確認使用者帳戶，否則為 false。預設值為 false。</param>
+      <param name="values">(選擇性) 包含其他要儲存在使用者設定檔之使用者屬性的字典。預設值為 null。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.CreateUserAndAccount(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>在衍生類別中覆寫時，建立新的使用者設定檔和新的成員資格帳戶。</summary>
+      <returns>可傳送給使用者以確認使用者帳戶的語彙基元。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="password">密碼。</param>
+      <param name="values">(選擇性) 包含其他要儲存在使用者設定檔之使用者屬性的字典。預設值為 null。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.DeleteAccount(System.String)">
+      <summary>在衍生類別中覆寫時，刪除指定的成員資格帳戶。</summary>
+      <returns>若已刪除使用者帳戶，則為 true，否則為 false。</returns>
+      <param name="userName">使用者名稱。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.DeleteOAuthAccount(System.String,System.String)">
+      <summary>在衍生類別中覆寫時，刪除具有指定之提供者名稱和提供者使用者識別碼的 OAuth 或 OpenID 帳戶。</summary>
+      <param name="provider">OAuth 或 OpenID 提供者的名稱。</param>
+      <param name="providerUserId">OAuth 或 OpenID 提供者的使用者 ID。這不是使用者帳戶的使用者 ID，而是 OAuth 或 Open ID 提供者的使用者 ID。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.DeleteOAuthToken(System.String)"></member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GeneratePasswordResetToken(System.String)">
+      <summary>產生能透過電子郵件傳送給使用者的密碼重設語彙基元。</summary>
+      <returns>要傳送給使用者的語彙基元。</returns>
+      <param name="userName">使用者名稱。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GeneratePasswordResetToken(System.String,System.Int32)">
+      <summary>在衍生類別中覆寫時，產生能透過電子郵件傳送給使用者的密碼重設語彙基元。</summary>
+      <returns>要傳送給使用者的語彙基元。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="tokenExpirationInMinutesFromNow">(選擇性) 密碼重設語彙基元到期前的時間 (以分鐘為單位)。預設值為 1440 (24 小時)。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetAccountsForUser(System.String)">
+      <summary>在衍生類別中覆寫時，傳回與指定的使用者名稱相關聯的所有 OAuth 成員資格帳戶。</summary>
+      <returns>與指定的使用者名稱相關聯的所有 OAuth 成員資格帳戶清單。</returns>
+      <param name="userName">使用者名稱。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetCreateDate(System.String)">
+      <summary>在衍生類別中覆寫時，傳回建立指定之使用者帳戶的日期和時間。</summary>
+      <returns>建立帳戶的日期和時間，若無法取得帳戶建立日期，則為 <see cref="F:System.DateTime.MinValue" />。</returns>
+      <param name="userName">帳戶的使用者名稱。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetLastPasswordFailureDate(System.String)">
+      <summary>在衍生類別中覆寫時，傳回最近為指定的使用者帳戶輸入錯誤密碼的日期和時間。</summary>
+      <returns>最近為此使用者帳戶輸入錯誤密碼的日期和時間，若沒有為此使用者帳戶輸入錯誤密碼，則為 <see cref="F:System.DateTime.MinValue" />。</returns>
+      <param name="userName">帳戶的使用者名稱。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetOAuthTokenSecret(System.String)"></member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetPasswordChangedDate(System.String)">
+      <summary>在衍生類別中覆寫時，傳回最近為指定的成員資格帳戶變更密碼的日期和時間。</summary>
+      <returns>最近為成員資格帳戶變更密碼的日期和時間，若從未變更此使用者帳戶的密碼，則為 <see cref="F:System.DateTime.MinValue" />。</returns>
+      <param name="userName">帳戶的使用者名稱。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetPasswordFailuresSinceLastSuccess(System.String)">
+      <summary>在衍生類別中覆寫時，傳回最近成功登入或建立使用者帳戶以後，所指定使用者帳戶的密碼輸入錯誤次數。</summary>
+      <returns>指定之使用者帳戶的密碼嘗試失敗計數。</returns>
+      <param name="userName">帳戶的使用者名稱。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetUserIdFromOAuth(System.String,System.String)">
+      <summary>在衍生類別中覆寫時，傳回所指定 OAuth 或 OpenID 提供者和提供者使用者識別碼的使用者識別碼。</summary>
+      <param name="provider">OAuth 或 OpenID 提供者的名稱。</param>
+      <param name="providerUserId">OAuth 或 OpenID 提供者的使用者 ID。這不是使用者帳戶的使用者 ID，而是 OAuth 或 Open ID 提供者的使用者 ID。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetUserIdFromPasswordResetToken(System.String)">
+      <summary>在衍生類別中覆寫時，根據密碼重設語彙基元傳回使用者的識別碼。</summary>
+      <returns>使用者 ID。</returns>
+      <param name="token">密碼重設語彙基元。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.GetUserNameFromId(System.Int32)">
+      <summary>傳回與指定的使用者 ID 相關聯的使用者名稱。</summary>
+      <returns>使用者名稱。</returns>
+      <param name="userId">要取得其名稱的使用者 ID。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.HasLocalAccount(System.Int32)"></member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.IsConfirmed(System.String)">
+      <summary>在衍生類別中覆寫時，傳回一個值，這個值表示提供者是否已確認使用者帳戶。</summary>
+      <returns>若已確認使用者，則為 true，否則為 false。</returns>
+      <param name="userName">使用者名稱。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.ReplaceOAuthRequestTokenWithAccessToken(System.String,System.String,System.String)"></member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.ResetPasswordWithToken(System.String,System.String)">
+      <summary>在衍生類別中覆寫時，在確認指定的密碼重設語彙基元有效之後重設密碼。</summary>
+      <returns>若已變更密碼，則為 true，否則為 false。</returns>
+      <param name="token">密碼重設語彙基元。</param>
+      <param name="newPassword">新密碼。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.ExtendedMembershipProvider.StoreOAuthRequestToken(System.String,System.String)"></member>
+    <member name="T:WebMatrix.WebData.FormsAuthenticationSettings">
+      <summary>定義索引鍵名稱，以覆寫 Web.config 檔案的 &lt;appSettings&gt; 區段中的預設值。</summary>
+    </member>
+    <member name="F:WebMatrix.WebData.FormsAuthenticationSettings.DefaultLoginUrl">
+      <summary>用來存取預設登入 URL 的索引鍵。</summary>
+    </member>
+    <member name="F:WebMatrix.WebData.FormsAuthenticationSettings.LoginUrlKey">
+      <summary>用來存取登入 URL 索引鍵的索引鍵。</summary>
+    </member>
+    <member name="F:WebMatrix.WebData.FormsAuthenticationSettings.PreserveLoginUrlKey">
+      <summary>用來存取可保留 "login" 一詞，而非使用 "logon" 加以覆寫之設定的索引鍵。</summary>
+    </member>
+    <member name="T:WebMatrix.WebData.OAuthAccountData">
+      <summary>表示 OAuth 或 OpenID 帳戶。</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.OAuthAccountData.#ctor(System.String,System.String)">
+      <summary>使用指定的 OAuth 或 Open ID 提供者和提供者使用者識別碼，初始化 <see cref="T:WebMatrix.WebData.OAuthAccountData" /> 類別的新執行個體。</summary>
+      <param name="provider">提供者。</param>
+      <param name="providerUserId">提供者使用者識別碼。</param>
+    </member>
+    <member name="P:WebMatrix.WebData.OAuthAccountData.Provider">
+      <summary>取得 OAuth 或 Open ID 提供者名稱。</summary>
+      <returns>提供者名稱。</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.OAuthAccountData.ProviderUserId">
+      <summary>取得 OAuth 或 Open ID 提供者使用者識別碼。</summary>
+      <returns>提供者使用者識別碼。</returns>
+    </member>
+    <member name="T:WebMatrix.WebData.PreApplicationStartCode">
+      <summary>提供簡單成員資格應用程式啟動前程式碼的註冊點。</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.PreApplicationStartCode.Start">
+      <summary>註冊簡單成員資格應用程式啟動前程式碼。</summary>
+    </member>
+    <member name="T:WebMatrix.WebData.SimpleMembershipProvider">
+      <summary>提供網站成員資格工作的支援，例如建立帳戶、刪除帳戶及管理密碼。</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.#ctor">
+      <summary>初始化 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.#ctor(System.Web.Security.MembershipProvider)">
+      <summary>使用指定的成員資格提供者，初始化 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 類別的新執行個體。</summary>
+      <param name="previousProvider">要使用的成員資格提供者。</param>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.ApplicationName">
+      <summary>取得或設定應用程式的名稱。</summary>
+      <returns>應用程式的名稱。</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ChangePassword(System.String,System.String,System.String)">
+      <summary>變更指定之成員資格帳戶的密碼。</summary>
+      <returns>若已成功變更密碼，則為 true，否則為 false。</returns>
+      <param name="username">使用者名稱。</param>
+      <param name="oldPassword">舊密碼。</param>
+      <param name="newPassword">新密碼。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ChangePasswordQuestionAndAnswer(System.String,System.String,System.String,System.String)">
+      <summary>變更指定之帳戶的密碼問題和解答。</summary>
+      <returns>若已成功變更密碼問題和解答，則為 true，否則為 false。</returns>
+      <param name="username">使用者名稱。</param>
+      <param name="password">新密碼。</param>
+      <param name="newPasswordQuestion">使用者必須回答才能變更密碼的安全性問題。</param>
+      <param name="newPasswordAnswer">安全性問題的解答。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ConfirmAccount(System.String)">
+      <summary>啟動擱置的成員資格帳戶。</summary>
+      <returns>若已確認使用者帳戶，則為 true，否則為 false。</returns>
+      <param name="accountConfirmationToken">要傳遞給驗證提供者的確認語彙基元。</param>
+      <exception cref="T:System.InvalidOperationException">並未使用對 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法的呼叫來初始化 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 類別。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ConfirmAccount(System.String,System.String)">
+      <returns>傳回 <see cref="T:System.Boolean" />。</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.CreateAccount(System.String,System.String,System.Boolean)">
+      <summary>使用指定的使用者名稱和密碼，建立新的使用者帳戶。</summary>
+      <returns>可傳送給使用者以確認使用者帳戶的語彙基元。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="password">密碼。</param>
+      <param name="requireConfirmationToken">(選擇性) true 以指定必須確認使用者帳戶，否則為 false。預設值為 false。</param>
+      <exception cref="T:System.Web.Security.MembershipCreateUserException">
+        <paramref name="username" /> 是空的。-或-<paramref name="username" /> 已經有使用者帳戶。-或-<paramref name="password" /> 是空的。-或-<paramref name="password" /> 的長度超過 128 個字元。-或-<see cref="P:WebMatrix.WebData.SimpleMembershipProvider.UserTableName" /> 資料表 (使用者設定檔資料表) 中沒有對應到 <paramref name="username" /> 的使用者記錄。-或-資料庫作業失敗。</exception>
+      <exception cref="T:System.InvalidOperationException">並未使用對 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法的呼叫來初始化 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 類別。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.CreateOrUpdateOAuthAccount(System.String,System.String,System.String)">
+      <summary>建立新的 OAuth 成員資格帳戶，或更新現有的 OAuth 成員資格帳戶。</summary>
+      <param name="provider">OAuth 或 OpenID 提供者。</param>
+      <param name="providerUserId">OAuth 或 OpenID 提供者的使用者 ID。這不是使用者帳戶的使用者 ID，而是 OAuth 或 Open ID 提供者的使用者 ID。</param>
+      <param name="userName">使用者名稱。</param>
+      <exception cref="T:System.InvalidOperationException">並未使用對 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法的呼叫來初始化 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 類別。</exception>
+      <exception cref="T:System.Web.Security.MembershipCreateUserException">
+        <paramref name="username" /> 是空的。-或-<see cref="P:WebMatrix.WebData.SimpleMembershipProvider.UserTableName" /> 資料表 (使用者設定檔資料表) 中沒有對應到 <paramref name="username" /> 的使用者記錄。-或-資料庫作業失敗。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.CreateUser(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Object,System.Web.Security.MembershipCreateStatus@)">
+      <summary>將指定的使用者加入至成員資格資料庫。</summary>
+      <returns>已填入新建立之使用者帳戶資訊的 <see cref="T:System.Web.Security.MembershipUser" /> 物件。</returns>
+      <param name="username">新使用者帳戶的使用者名稱。</param>
+      <param name="password">新使用者帳戶的密碼。</param>
+      <param name="email">新使用者帳戶的電子郵件地址。</param>
+      <param name="passwordQuestion">新使用者帳戶的安全性問題。</param>
+      <param name="passwordAnswer">新使用者帳戶的安全性問題解答。</param>
+      <param name="isApproved">true 表示已核准使用者帳戶進行驗證，否則為 false。</param>
+      <param name="providerUserKey">成員資格資料來源中使用者帳戶的唯一識別碼。</param>
+      <param name="status">當這個方法傳回時，包含表示使用者帳戶是否已成功建立的 <see cref="T:System.Web.Security.MembershipCreateStatus" /> 列舉值。傳遞此參數時不需設定起始值。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.CreateUserAndAccount(System.String,System.String,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>建立新的使用者設定檔和新的成員資格帳戶。</summary>
+      <returns>可傳送給使用者以確認使用者帳戶的語彙基元。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="password">密碼。</param>
+      <param name="requireConfirmation">(選擇性) true 表示必須使用 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.ConfirmAccount(System.String)" /> 方法來確認使用者帳戶，否則為 false。預設值為 false。</param>
+      <param name="values">(選擇性) 包含您可以加入至資料存放區的其他索引鍵/值組屬性 (作為新使用者設定檔的預設值) 的字典。每個項目的索引鍵都是資料庫資料行，而每個項目的值則是資料行的值。預設值為 null。</param>
+      <exception cref="T:System.InvalidOperationException">並未使用對 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法的呼叫來初始化 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 類別。</exception>
+      <exception cref="T:System.Web.Security.MembershipCreateUserException">成員資格資料庫中已經存在此使用者名稱的成員資格帳戶。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.DeleteAccount(System.String)">
+      <summary>刪除指定的成員資格帳戶。</summary>
+      <returns>若已刪除使用者帳戶，則為 true，否則為 false。</returns>
+      <param name="userName">使用者名稱。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="username" /> 為 null 或空白。</exception>
+      <exception cref="T:System.InvalidOperationException">並未使用對 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法的呼叫來初始化 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 類別。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.DeleteOAuthAccount(System.String,System.String)">
+      <summary>刪除具有指定之提供者名稱和提供者使用者 ID 的 OAuth 或 OpenID 帳戶。</summary>
+      <param name="provider">OAuth 或 OpenID 提供者的名稱。</param>
+      <param name="providerUserId">OAuth 或 OpenID 提供者的使用者 ID。這不是使用者帳戶的使用者 ID，而是 OAuth 或 Open ID 提供者的使用者 ID。</param>
+      <exception cref="T:System.InvalidOperationException">並未使用對 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法的呼叫來初始化 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 類別。</exception>
+      <exception cref="T:System.Web.Security.MembershipCreateUserException">
+        <paramref name="username" /> 是空的。-或-<see cref="P:WebMatrix.WebData.SimpleMembershipProvider.UserTableName" /> 資料表 (使用者設定檔資料表) 中沒有對應到 <paramref name="username" /> 的使用者記錄。-或-資料庫作業失敗。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.DeleteOAuthToken(System.String)"></member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.DeleteUser(System.String,System.Boolean)">
+      <summary>刪除指定的使用者帳戶，並選擇性刪除與該使用者帳戶相關的所有設定檔資料。</summary>
+      <returns>若已刪除使用者帳戶，則為 true，否則為 false。</returns>
+      <param name="username">使用者名稱。</param>
+      <param name="deleteAllRelatedData">true 表示要刪除與使用者相關的設定檔資料，或 false 表示要保留與使用者相關的資料。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="username" /> 為 null 或空白。</exception>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.EnablePasswordReset">
+      <summary>取得值，這個值表示成員資格提供者是否讓使用者重設其密碼。</summary>
+      <returns>若成員資格提供者支援密碼重設，則為 true，否則為 false。預設值為 true。</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.EnablePasswordRetrieval">
+      <summary>取得值，這個值表示成員資格提供者是否讓使用者擷取其密碼。</summary>
+      <returns>若成員資格提供者支援密碼擷取，則為 true，否則為 false。預設值為 false。</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.FindUsersByEmail(System.String,System.Int32,System.Int32,System.Int32@)">
+      <summary>傳回電子郵件地址符合指定之電子郵件地址的所有使用者帳戶。</summary>
+      <returns>包含一頁 <paramref name="pageSize" /> 使用者帳戶 (從 <paramref name="pageIndex" /> 指定的頁面開始) 的集合。</returns>
+      <param name="emailToMatch">要搜尋的電子郵件地址。</param>
+      <param name="pageIndex">要傳回的結果頁面之以零起始的索引。</param>
+      <param name="pageSize">要傳回的結果頁面大小。</param>
+      <param name="totalRecords">當這個方法傳回時，包含相符使用者帳戶的總數。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.FindUsersByName(System.String,System.Int32,System.Int32,System.Int32@)">
+      <summary>傳回名稱符合指定之使用者名稱的所有使用者帳戶。</summary>
+      <returns>包含一頁 <paramref name="pageSize" /> 使用者帳戶 (從 <paramref name="pageIndex" /> 指定的頁面開始) 的集合。</returns>
+      <param name="usernameToMatch">要搜尋的使用者名稱。</param>
+      <param name="pageIndex">要傳回的結果頁面之以零起始的索引。</param>
+      <param name="pageSize">要傳回的結果頁面大小。</param>
+      <param name="totalRecords">當這個方法傳回時，包含相符使用者的總數。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GeneratePasswordResetToken(System.String,System.Int32)">
+      <summary>產生能透過電子郵件傳送給使用者的密碼重設語彙基元。</summary>
+      <returns>要傳送給使用者的語彙基元。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="tokenExpirationInMinutesFromNow">(選擇性) 密碼重設語彙基元到期前的時間 (以分鐘為單位)。預設值為 1440 (24 小時)。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="username" /> 是空的。</exception>
+      <exception cref="T:System.Configuration.Provider.ProviderException">資料庫作業失敗。</exception>
+      <exception cref="T:System.InvalidOperationException">並未使用對 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法的呼叫來初始化 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 類別。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetAccountsForUser(System.String)">
+      <summary>傳回與指定的使用者名稱相關聯的所有 OAuth 成員資格帳戶。</summary>
+      <returns>與指定的使用者名稱相關聯的所有 OAuth 成員資格帳戶清單。</returns>
+      <param name="userName">使用者名稱。</param>
+      <exception cref="T:System.InvalidOperationException">並未使用對 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法的呼叫來初始化 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 類別。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetAllUsers(System.Int32,System.Int32,System.Int32@)">
+      <summary>傳回資料來源中的所有使用者帳戶。</summary>
+      <returns>包含一頁 <paramref name="pageSize" /> 使用者帳戶 (從 <paramref name="pageIndex" /> 指定的頁面開始) 的集合。</returns>
+      <param name="pageIndex">要傳回的結果頁面之以零起始的索引。</param>
+      <param name="pageSize">要傳回的結果頁面大小。</param>
+      <param name="totalRecords">當這個方法傳回時，包含相符使用者帳戶的總數。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetCreateDate(System.String)">
+      <summary>傳回指定之使用者帳戶的建立日期和時間。</summary>
+      <returns>使用者帳戶的建立日期和時間，若無法取得使用者帳戶建立日期，則為 <see cref="F:System.DateTime.MinValue" />。</returns>
+      <param name="userName">帳戶的使用者名稱。</param>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="userName" /> 指定的使用者沒有使用者帳戶。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetLastPasswordFailureDate(System.String)">
+      <summary>傳回最近為指定的使用者帳戶輸入錯誤密碼的日期和時間。</summary>
+      <returns>最近為此使用者帳戶輸入錯誤密碼的日期和時間，若沒有為此使用者帳戶輸入錯誤密碼，則為 <see cref="F:System.DateTime.MinValue" />。</returns>
+      <param name="userName">帳戶的使用者名稱。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetNumberOfUsersOnline">
+      <summary>傳回目前正在存取應用程式的使用者數目。</summary>
+      <returns>目前正在存取應用程式的使用者數目。</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetOAuthTokenSecret(System.String)"></member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetPassword(System.String,System.String)">
+      <summary>從資料來源傳回指定之使用者帳戶的密碼。</summary>
+      <returns>指定之使用者帳戶的密碼。</returns>
+      <param name="username">要擷取其密碼的使用者。</param>
+      <param name="answer">密碼安全性問題的解答。</param>
+      <exception cref="T:System.NotSupportedException">
+        <see cref="P:WebMatrix.WebData.SimpleMembershipProvider.EnablePasswordRetrieval" /> 為 false。</exception>
+      <exception cref="T:System.Web.Security.MembershipPasswordException">
+        <paramref name="answer" /> 不符合使用者帳戶的安全性解答，且 <see cref="P:WebMatrix.WebData.SimpleMembershipProvider.RequiresQuestionAndAnswer" /> 為 true。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetPasswordChangedDate(System.String)">
+      <summary>傳回最近為指定的成員資格帳戶變更密碼的日期和時間。</summary>
+      <returns>最近為此帳戶變更密碼的日期和時間，若從未變更此成員資格帳戶的密碼，則為 <see cref="F:System.DateTime.MinValue" />。</returns>
+      <param name="userName">帳戶的使用者名稱。</param>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="userName" /> 指定的使用者沒有成員資格帳戶。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetPasswordFailuresSinceLastSuccess(System.String)">
+      <summary>傳回最近成功登入或建立所指定使用者帳戶以後，該使用者帳戶的密碼輸入錯誤次數。</summary>
+      <returns>指定之使用者帳戶的密碼輸入錯誤計數，如果 <paramref name="userName" /> 指定的使用者沒有使用者帳戶，則為 -1。</returns>
+      <param name="userName">帳戶的使用者名稱。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetUser(System.Object,System.Boolean)">
+      <summary>使用指定的使用者 ID 傳回使用者帳戶相關資訊，並選擇性更新使用者帳戶的最近活動時間戳記。</summary>
+      <returns>填入使用者帳戶資訊的物件，如果找不到 <paramref name="providerUserKey" />，則為 null。</returns>
+      <param name="providerUserKey">要取得其資訊之使用者帳戶的 ID。此 ID 是儲存為 <see cref="T:System.Object" /> 執行個體的 <see cref="T:System.Int32" /> 值。</param>
+      <param name="userIsOnline">true 表示要更新使用者帳戶的最近活動時間戳記，或 false 表示要傳回使用者帳戶資訊，但不更新時間戳記。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetUser(System.String,System.Boolean)">
+      <summary>使用指定的使用者名稱傳回使用者帳戶相關資訊，並選擇性更新使用者帳戶的最近活動時間戳記。</summary>
+      <returns>填入使用者帳戶資訊的物件，如果找不到 <paramref name="username" />，則為 null。</returns>
+      <param name="username">要取得其資訊之使用者的名稱。</param>
+      <param name="userIsOnline">true 表示要更新使用者帳戶的最近活動時間戳記，或 false 表示要傳回使用者帳戶資訊，但不更新時間戳記。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetUserId(System.String)">
+      <summary>根據指定的使用者名稱傳回使用者的 ID。</summary>
+      <returns>使用者 ID。</returns>
+      <param name="userName">使用者名稱。</param>
+      <exception cref="T:System.InvalidOperationException">並未使用對 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法的呼叫來初始化 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 類別。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetUserIdFromOAuth(System.String,System.String)">
+      <summary>傳回所指定 OAuth 的使用者 ID 或 OpenID 提供者和提供者使用者 ID。</summary>
+      <returns>使用者 ID，若 OAuth 或 Open ID 提供者使用者 ID 沒有相關聯的使用者 ID，則為 -1。</returns>
+      <param name="provider">OAuth 或 OpenID 提供者的名稱。</param>
+      <param name="providerUserId">OAuth 或 OpenID 提供者的使用者 ID。這不是使用者帳戶的使用者 ID，而是 OAuth 或 Open ID 提供者的使用者 ID。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetUserIdFromPasswordResetToken(System.String)">
+      <summary>根據密碼重設語彙基元傳回使用者的 ID。</summary>
+      <returns>使用者 ID，如果沒有與指定之密碼重設語彙基元相關聯的使用者 ID，則為 -1。</returns>
+      <param name="token">密碼重設語彙基元。</param>
+      <exception cref="T:System.InvalidOperationException">並未使用對 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法的呼叫來初始化 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 類別。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetUserNameByEmail(System.String)">
+      <summary>傳回與指定的電子郵件地址相關聯的使用者名稱。</summary>
+      <returns>與指定之電子郵件地址相關聯的使用者名稱，如果找不到相符項目，則為 null。</returns>
+      <param name="email">要搜尋的電子郵件地址。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.GetUserNameFromId(System.Int32)">
+      <summary>傳回與指定的使用者 ID 相關聯的使用者名稱。</summary>
+      <returns>使用者名稱。</returns>
+      <param name="userId">要取得其名稱的使用者 ID。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.HasLocalAccount(System.Int32)"></member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
+      <summary>初始化提供者。</summary>
+      <param name="name">提供者的好記名稱。</param>
+      <param name="config">代表提供者特定屬性的名稱/值組集合。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="config" /> 為 null。</exception>
+      <exception cref="T:System.Configuration.Provider.ProviderException">
+        <paramref name="config" /> 包含無法辨識的屬性。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.IsConfirmed(System.String)">
+      <summary>傳回值，這個值表示提供者是否已確認使用者帳戶。</summary>
+      <returns>若已確認使用者帳戶，則為 true，否則為 false。</returns>
+      <param name="userName">使用者名稱。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="userName" /> 為 null 或空白。</exception>
+      <exception cref="T:System.InvalidOperationException">並未使用對 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法的呼叫來初始化 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 類別。</exception>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.MaxInvalidPasswordAttempts">
+      <summary>取得在成員資格使用者遭到鎖定之前，允許嘗試的無效密碼或密碼解答次數。</summary>
+      <returns>在成員資格使用者遭到鎖定之前，允許嘗試的無效密碼或密碼解答次數。</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.MinRequiredNonAlphanumericCharacters">
+      <summary>取得密碼必須包含的特殊 (非英數字元) 字元數下限。</summary>
+      <returns>密碼必須包含的特殊字元數下限。</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.MinRequiredPasswordLength">
+      <summary>取得密碼所需的長度下限。</summary>
+      <returns>密碼所需的長度下限。</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.PasswordAttemptWindow">
+      <summary>取得分鐘數，這段期間內允許在鎖定使用者帳戶之前嘗試最多次的無效密碼或安全性問題解答。</summary>
+      <returns>分鐘數。</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.PasswordFormat">
+      <summary>取得值，這個值表示用於儲存密碼的格式。</summary>
+      <returns>表示格式的其中一個列舉值。</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.PasswordStrengthRegularExpression">
+      <summary>取得用來評估密碼複雜度的規則運算式。</summary>
+      <returns>用來評估密碼複雜度的規則運算式。</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ReplaceOAuthRequestTokenWithAccessToken(System.String,System.String,System.String)"></member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.RequiresQuestionAndAnswer">
+      <summary>取得值，這個值表示成員資格提供者是否要求使用者回答安全性問題，才能重設和擷取密碼。</summary>
+      <returns>如果需要安全性問題解答，則為 true，否則為 false。預設值為 true。</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.RequiresUniqueEmail">
+      <summary>取得值，這個值表示成員資格提供者是否要求每個使用者名稱都有唯一的電子郵件地址。</summary>
+      <returns>若成員資格提供者需要唯一的電子郵件地址，則為 true，否則為 false。預設值為 true。</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ResetPassword(System.String,System.String)">
+      <summary>將使用者帳戶的密碼重設為自動產生的全新密碼。</summary>
+      <returns>指定之使用者帳戶的新密碼。</returns>
+      <param name="username">要重設其密碼的使用者帳戶。</param>
+      <param name="answer">新使用者的安全性問題解答。</param>
+      <exception cref="T:System.NotSupportedException">
+        <see cref="P:WebMatrix.WebData.SimpleMembershipProvider.EnablePasswordReset" /> 為 false。</exception>
+      <exception cref="T:System.Web.Security.MembershipPasswordException">
+        <paramref name="answer" /> 不符合成員資格資料表中使用者帳戶的安全性解答，且 <see cref="P:WebMatrix.WebData.SimpleMembershipProvider.RequiresQuestionAndAnswer" /> 為 true。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ResetPasswordWithToken(System.String,System.String)">
+      <summary>在確認指定的密碼重設語彙基元有效之後重設密碼。</summary>
+      <returns>若已變更密碼，則為 true，否則為 false。</returns>
+      <param name="token">密碼重設語彙基元。</param>
+      <param name="newPassword">新密碼。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="newPassword" /> 為 null 或空白。</exception>
+      <exception cref="T:System.InvalidOperationException">並未使用對 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法的呼叫來初始化 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 類別。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.StoreOAuthRequestToken(System.String,System.String)"></member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.UnlockUser(System.String)">
+      <summary>將使用者帳戶解除鎖定，才可以驗證成員資格使用者。</summary>
+      <returns>若已將使用者帳戶解除鎖定，則為 true，否則為 false。</returns>
+      <param name="userName">您要將其使用者帳戶解除鎖定的使用者。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.UpdateUser(System.Web.Security.MembershipUser)">
+      <summary>更新使用者資訊。</summary>
+      <param name="user">此物件代表要更新的使用者帳戶以及要針對該使用者帳戶更新的資訊。</param>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.UserIdColumn">
+      <summary>取得或設定含有使用者 ID 的資料庫資料行名稱。</summary>
+      <returns>含有使用者 ID 的資料庫資料行名稱。</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.UserNameColumn">
+      <summary>取得或設定含有使用者名稱的資料庫資料行名稱。</summary>
+      <returns>含有使用者名稱的資料庫資料行名稱。</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleMembershipProvider.UserTableName">
+      <summary>取得或設定含有使用者資訊的資料庫資料表名稱。</summary>
+      <returns>含有使用者資訊的資料庫資料表名稱。</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleMembershipProvider.ValidateUser(System.String,System.String)">
+      <summary>驗證指定的使用者帳戶和密碼是否存在。</summary>
+      <returns>若指定的使用者名稱和密碼都存在，而且帳戶已經過確認，則為 true，否則為 false。</returns>
+      <param name="username">要驗證的使用者帳戶名稱。</param>
+      <param name="password">指定之使用者的密碼。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="username" /> 或 <paramref name="password" /> 為 null 或空白。</exception>
+    </member>
+    <member name="T:WebMatrix.WebData.SimpleRoleProvider">
+      <summary>提供基本角色管理功能。</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.#ctor">
+      <summary>初始化 <see cref="T:WebMatrix.WebData.SimpleRoleProvider" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.#ctor(System.Web.Security.RoleProvider)">
+      <summary>使用指定的角色提供者，初始化 <see cref="T:WebMatrix.WebData.SimpleRoleProvider" /> 類別的新執行個體。</summary>
+      <param name="previousProvider">先前的角色提供者。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.AddUsersToRoles(System.String[],System.String[])">
+      <summary>將指定的使用者名稱新增至指定的角色。</summary>
+      <param name="usernames">要新增的使用者名稱。</param>
+      <param name="roleNames">要新增名稱的角色。</param>
+      <exception cref="T:System.InvalidOperationException">一或多個指定的使用者已經扮演一或多個指定的角色。</exception>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleRoleProvider.ApplicationName">
+      <summary>取得或設定要儲存和擷取其角色資訊的應用程式名稱。</summary>
+      <returns>要儲存和擷取其角色資訊的應用程式名稱。</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.CreateRole(System.String)">
+      <summary>新增角色。</summary>
+      <param name="roleName">要建立的角色名稱。</param>
+      <exception cref="T:System.InvalidOperationException">此角色已經存在。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.DeleteRole(System.String,System.Boolean)">
+      <summary>刪除指定的角色。</summary>
+      <returns>若已刪除角色，為 true，否則為 false。</returns>
+      <param name="roleName">要刪除的角色名稱。</param>
+      <param name="throwOnPopulatedRole">如果一或多個使用者扮演 <paramref name="roleName" />，則 true 會導致擲回例外狀況。在此情況下，不會刪除指定的角色。</param>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="roleName" /> 具有一或多個成員，而且 <paramref name="throwOnPopulatedRole" /> 為 true。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.FindUsersInRole(System.String,System.String)">
+      <summary>傳回所有扮演指定之角色的指定使用者。</summary>
+      <returns>使用者名稱符合 <paramref name="usernameToMatch" /> 且該使用者扮演指定之角色的所有使用者名稱。</returns>
+      <param name="roleName">用於搜尋的角色。</param>
+      <param name="usernameToMatch">要搜尋的使用者名稱。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.GetAllRoles">
+      <summary>傳回所有角色的清單。</summary>
+      <returns>所有角色的名稱。</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.GetRolesForUser(System.String)">
+      <summary>傳回指定的使用者扮演的角色清單。</summary>
+      <returns>指定的使用者所屬的所有角色名稱。</returns>
+      <param name="username">要傳回其角色清單的使用者。</param>
+      <exception cref="T:System.InvalidOperationException">指定的使用者沒有成員資格帳戶。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.GetUsersInRole(System.String)">
+      <summary>傳回扮演指定之角色的使用者名稱。</summary>
+      <returns>扮演指定之角色的使用者名稱。</returns>
+      <param name="roleName">角色的名稱。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.IsUserInRole(System.String,System.String)">
+      <summary>傳回值，這個值表示指定的使用者是否扮演指定的角色。</summary>
+      <returns>若使用者扮演此角色，為 true，否則為 false。</returns>
+      <param name="username">使用者名稱。</param>
+      <param name="roleName">角色的名稱。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.RemoveUsersFromRoles(System.String[],System.String[])">
+      <summary>從指定的角色移除指定的使用者名稱。</summary>
+      <param name="usernames">要從指定的角色移除的使用者名稱。</param>
+      <param name="roleNames">要移除指定之使用者名稱的角色名稱。</param>
+      <exception cref="T:System.InvalidOperationException">一或多個指定的角色不存在。-或-一或多個使用者未扮演所有指定的角色。</exception>
+      <exception cref="T:System.Configuration.Provider.ProviderException">資料庫作業失敗。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.SimpleRoleProvider.RoleExists(System.String)">
+      <summary>傳回值，這個值表示指定的角色是否存在。</summary>
+      <returns>若角色存在，為 true，否則為 false。</returns>
+      <param name="roleName">角色的名稱。</param>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleRoleProvider.UserIdColumn">
+      <summary>取得含有使用者識別碼的資料庫資料行名稱。</summary>
+      <returns>
+        <see cref="P:WebMatrix.WebData.SimpleRoleProvider.UserTableName" /> 資料表中含有使用者識別碼的資料庫資料行名稱。</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleRoleProvider.UserNameColumn">
+      <summary>取得含有使用者名稱的資料庫資料行名稱。</summary>
+      <returns>
+        <see cref="P:WebMatrix.WebData.SimpleRoleProvider.UserTableName" /> 資料表中含有使用者名稱的資料庫資料行名稱。</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.SimpleRoleProvider.UserTableName">
+      <summary>取得含有使用者資訊的資料庫資料表名稱。</summary>
+      <returns>
+        <see cref="P:WebMatrix.WebData.SimpleRoleProvider.UserTableName" /> 資料表中含有使用者資訊的資料庫資料表名稱。</returns>
+    </member>
+    <member name="T:WebMatrix.WebData.WebSecurity">
+      <summary>提供 ASP.NET Web Pages 應用程式的安全性和驗證功能，包含建立使用者帳戶、登入和登出使用者、重設或變更密碼及執行相關工作的能力。</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.ChangePassword(System.String,System.String,System.String)">
+      <summary>變更指定之使用者的密碼。</summary>
+      <returns>若已成功變更密碼，則為 true，否則為 false。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="currentPassword">使用者的目前密碼。</param>
+      <param name="newPassword">新密碼。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.ConfirmAccount(System.String)">
+      <summary>確認帳戶有效並啟動帳戶。</summary>
+      <returns>若已確認此帳戶，則為 true，否則為 false。</returns>
+      <param name="accountConfirmationToken">要傳遞給驗證提供者的確認語彙基元。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.ConfirmAccount(System.String,System.String)">
+      <summary>確認指定之使用者名稱的帳戶有效，並啟動該帳戶。</summary>
+      <returns>若已確認此帳戶，則為 true，否則為 false。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="accountConfirmationToken">要傳遞給驗證提供者的確認語彙基元。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.CreateAccount(System.String,System.String,System.Boolean)">
+      <summary>使用指定的使用者名稱和密碼建立新成員資格帳戶，並可讓您選擇性指定使用者必須明確確認此帳戶。</summary>
+      <returns>可傳送給使用者以確認帳戶的語彙基元。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="password">密碼。</param>
+      <param name="requireConfirmationToken">(選擇性) true 表示必須使用語彙基元傳回值來確認帳戶，否則為 false。預設值為 false。</param>
+      <exception cref="T:System.Web.Security.MembershipCreateUserException">
+        <paramref name="username" /> 是空的。-或-<paramref name="username" /> 已經有成員資格帳戶。-或-<paramref name="password" /> 是空的。-或-<paramref name="password" /> 太長。-或-資料庫作業失敗。</exception>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.CreateUserAndAccount(System.String,System.String,System.Object,System.Boolean)">
+      <summary>建立新的使用者設定檔項目和新的成員資格帳戶。</summary>
+      <returns>可傳送給使用者以確認使用者帳戶的語彙基元。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="password">使用者的密碼。</param>
+      <param name="propertyValues">(選擇性) 包含其他使用者屬性的字典。預設值為 null。</param>
+      <param name="requireConfirmationToken">(選擇性) true 以指定必須確認使用者帳戶，否則為 false。預設值為 false。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="P:WebMatrix.WebData.WebSecurity.CurrentUserId">
+      <summary>取得目前使用者的 ID。</summary>
+      <returns>目前使用者的 ID。</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.WebSecurity.CurrentUserName">
+      <summary>取得目前使用者的使用者名稱。</summary>
+      <returns>目前使用者的名稱。</returns>
+    </member>
+    <member name="F:WebMatrix.WebData.WebSecurity.EnableSimpleMembershipKey">
+      <summary>代表 <see cref="P:System.Configuration.ConfigurationManager.AppSettings" /> 屬性中 enableSimpleMembership 值的索引鍵。</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.GeneratePasswordResetToken(System.String,System.Int32)">
+      <summary>產生能透過電子郵件傳送給使用者的密碼重設語彙基元。</summary>
+      <returns>要傳送給使用者的語彙基元。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="tokenExpirationInMinutesFromNow">(選擇性) 密碼重設語彙基元到期前的時間 (以分鐘為單位)。預設值為 1440 (24 小時)。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.GetCreateDate(System.String)">
+      <summary>傳回指定之成員資格帳戶的建立日期和時間。</summary>
+      <returns>成員資格帳戶的建立日期和時間，若無法取得帳戶建立日期，則為 <see cref="F:System.DateTime.MinValue" />。</returns>
+      <param name="userName">成員資格帳戶的使用者名稱。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.GetLastPasswordFailureDate(System.String)">
+      <summary>傳回最近為指定的帳戶輸入錯誤密碼的日期和時間。</summary>
+      <returns>最近為此帳戶輸入錯誤密碼的日期和時間，若沒有為此帳戶輸入錯誤密碼，則為 <see cref="F:System.DateTime.MinValue" />。</returns>
+      <param name="userName">成員資格帳戶的使用者名稱。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.GetPasswordChangedDate(System.String)">
+      <summary>傳回最近為指定的成員資格帳戶變更密碼的日期和時間。</summary>
+      <returns>最近變更密碼的日期和時間，若未變更此帳戶的密碼，則為 <see cref="F:System.DateTime.MinValue" />。</returns>
+      <param name="userName">帳戶的使用者名稱。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.GetPasswordFailuresSinceLastSuccess(System.String)">
+      <summary>傳回最近成功登入或建立所指定成員資格帳戶以後，該帳戶的密碼輸入錯誤次數。</summary>
+      <returns>指定之帳戶的密碼嘗試失敗計數。</returns>
+      <param name="userName">帳戶的使用者名稱。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.GetUserId(System.String)">
+      <summary>根據指定的使用者名稱傳回使用者的 ID。</summary>
+      <returns>使用者 ID。</returns>
+      <param name="userName">使用者名稱。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.GetUserIdFromPasswordResetToken(System.String)">
+      <summary>從密碼重設語彙基元傳回使用者 ID。</summary>
+      <returns>使用者 ID。</returns>
+      <param name="token">密碼重設語彙基元。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="P:WebMatrix.WebData.WebSecurity.HasUserId">
+      <summary>取得值，這個值表示目前使用者是否具有使用者 ID。</summary>
+      <returns>若使用者具有使用者 ID，則為 true，否則為 false。</returns>
+    </member>
+    <member name="P:WebMatrix.WebData.WebSecurity.Initialized">
+      <summary>取得值，這個值表示是否已經呼叫 <see cref="M:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection(System.String,System.String,System.String,System.String,System.Boolean)" /> 方法。</summary>
+      <returns>若已呼叫初始化方法，則為 true，否則為 false。</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection(System.String,System.String,System.String,System.String,System.Boolean)">
+      <summary>連接到含有使用者資訊的資料庫，以初始化成員資格系統，並選擇性地建立成員資格資料表 (如果還沒有這類資料表的話)。</summary>
+      <param name="connectionStringName">含有使用者資訊之資料庫的連線字串名稱。如果您是使用 SQL Server Compact，此名稱可以是資料庫檔案 (.sdf 檔) 的名稱 (但不含 .sdf 副檔名)。</param>
+      <param name="userTableName">含有使用者設定檔資訊的資料庫資料表名稱。</param>
+      <param name="userIdColumn">含有使用者 ID 的資料庫資料行名稱。此資料行的型別必須是整數 (int)。</param>
+      <param name="userNameColumn">含有使用者名稱的資料庫資料行名稱。此資料行用於比對使用者設定檔資料與成員資格帳戶資料。</param>
+      <param name="autoCreateTables">true 表示必須建立使用者設定檔和成員資格資料表 (若不存在的話)，而 false 表示不應自動建立這些資料表。雖然可以自動建立成員資格資料表，但資料庫本身必須早就存在。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection(System.String,System.String,System.String,System.String,System.String,System.Boolean)">
+      <summary>使用指定的成員資格或角色提供者連接到含有使用者資訊的資料庫，以初始化成員資格系統，並選擇性地建立成員資格資料表 (如果還沒有這類資料表的話)。</summary>
+      <param name="connectionString">含有使用者資訊之資料庫的連線字串名稱。如果您是使用 SQL Server Compact，此名稱可以是資料庫檔案 (.sdf 檔) 的名稱 (但不含 .sdf 副檔名)。</param>
+      <param name="providerName">ADO.NET 資料提供者的名稱。如果您想使用 Microsoft SQL Server，則建議 <see cref="M:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection(System.String,System.String,System.String,System.String,System.Boolean)" /> 多載。</param>
+      <param name="userTableName">含有使用者設定檔資訊的資料庫資料表名稱。</param>
+      <param name="userIdColumn">含有使用者 ID 的資料庫資料行名稱。此資料行的型別必須是整數 (int)。</param>
+      <param name="userNameColumn">含有使用者名稱的資料庫資料行名稱。此資料行用於比對使用者設定檔資料與成員資格帳戶資料。</param>
+      <param name="autoCreateTables">true 表示必須自動建立使用者設定檔和成員資格資料表，而 false 表示不應自動建立這些資料表。雖然可以自動建立成員資格資料表，但資料庫本身必須早就存在。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.IsAccountLockedOut(System.String,System.Int32,System.Int32)">
+      <summary>傳回值，這個值表示指定的成員資格帳戶是否會因為在指定的秒數內密碼輸入錯誤太多次，而暫時遭到鎖定。</summary>
+      <returns>若已鎖定成員資格帳戶，則為 true，否則為 false。</returns>
+      <param name="userName">成員資格帳戶的使用者名稱。</param>
+      <param name="allowedPasswordAttempts">允許使用者在成員資格帳戶遭到鎖定之前嘗試輸入密碼的次數。</param>
+      <param name="intervalInSeconds">在密碼嘗試次數超出 <paramref name="allowedPasswordAttempts" /> 參數值之後，用來鎖定使用者帳戶的秒數。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.IsAccountLockedOut(System.String,System.Int32,System.TimeSpan)">
+      <summary>傳回值，這個值表示指定的成員資格帳戶是否會因為在指定的時間範圍內密碼輸入錯誤太多次，而暫時遭到鎖定。</summary>
+      <returns>若已鎖定成員資格帳戶，則為 true，否則為 false。</returns>
+      <param name="userName">成員資格帳戶的使用者名稱。</param>
+      <param name="allowedPasswordAttempts">允許使用者在成員資格帳戶遭到鎖定之前嘗試輸入密碼的次數。</param>
+      <param name="interval">在密碼嘗試次數超出 <paramref name="allowedPasswordAttempts" /> 參數值之後，用來鎖定使用者帳戶的秒數。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="P:WebMatrix.WebData.WebSecurity.IsAuthenticated">
+      <summary>取得目前使用者的驗證狀態。</summary>
+      <returns>若已驗證目前使用者，則為 true，否則為 false。預設值為 false。</returns>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.IsConfirmed(System.String)">
+      <summary>傳回值，這個值表示是否已經確認使用者。</summary>
+      <returns>若已確認使用者，則為 true，否則為 false。</returns>
+      <param name="userName">使用者名稱。</param>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.IsCurrentUser(System.String)">
+      <summary>傳回值，這個值表示已登入使用者的使用者名稱是否符合指定的使用者名稱。</summary>
+      <returns>若登入的使用者名稱符合 <paramref name="userName" />，則為 true，否則為 false。</returns>
+      <param name="userName">要與登入的使用者名稱進行比較的使用者名稱。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.Login(System.String,System.String,System.Boolean)">
+      <summary>讓使用者登入。</summary>
+      <returns>使用者若已登入，則為 true，否則為 false。</returns>
+      <param name="userName">使用者名稱。</param>
+      <param name="password">密碼。</param>
+      <param name="persistCookie">(選擇性) true 表示必須在目前工作階段之後持續保留 Cookie 中的驗證語彙基元，否則為 false。預設值為 false。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.Logout">
+      <summary>讓使用者登出。</summary>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.RequireAuthenticatedUser">
+      <summary>如果使用者未經驗證，請將 HTTP 狀態設定為 401 (未經授權)。</summary>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.RequireRoles(System.String[])">
+      <summary>如果目前使用者不具備任何指定的角色，請將 HTTP 狀態碼設定為 401 (未經授權)。</summary>
+      <param name="roles">要檢查的角色。目前使用者必須具備已傳入此參數的所有角色。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.RequireUser(System.Int32)">
+      <summary>如果指定的使用者並未登入，請將 HTTP 狀態設定為 401 (未經授權)。</summary>
+      <param name="userId">要比較之使用者的 ID。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.RequireUser(System.String)">
+      <summary>如果目前使用者不符合指定的使用者名稱，請將 HTTP 狀態設定為 401 (未經授權)。</summary>
+      <param name="userName">要比較之使用者的名稱。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.ResetPassword(System.String,System.String)">
+      <summary>使用密碼重設語彙基元來重設密碼。</summary>
+      <returns>若已變更密碼，則為 true，否則為 false。</returns>
+      <param name="passwordResetToken">密碼重設語彙基元。</param>
+      <param name="newPassword">新密碼。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+    <member name="M:WebMatrix.WebData.WebSecurity.UserExists(System.String)">
+      <summary>傳回值，這個值表示指定的使用者是否存在於成員資格資料庫中。</summary>
+      <returns>若 <paramref name="username" /> 存在於使用者設定檔資料表中，則為 true，否則為 false。</returns>
+      <param name="userName">使用者名稱。</param>
+      <exception cref="T:System.InvalidOperationException">不會呼叫 <see cref="M:WebMatrix.WebData.SimpleMembershipProvider.Initialize(System.String,System.Collections.Specialized.NameValueCollection)" /> 方法。-或-不會呼叫 <see cref="Overload:WebMatrix.WebData.WebSecurity.InitializeDatabaseConnection" /> 方法。-或-並未在站台的組態中註冊 <see cref="T:WebMatrix.WebData.SimpleMembershipProvider" /> 成員資格提供者。如需詳細資訊，請連絡站台的系統管理員。</exception>
+    </member>
+  </members>
+</doc>

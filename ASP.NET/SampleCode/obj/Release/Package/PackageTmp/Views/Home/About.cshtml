@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "關於";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>@ViewBag.Message</h2>
+</hgroup>
+
+<article>
+    <p>
+        使用此區域提供其他資訊。
+    </p>
+
+    <p>
+        使用此區域提供其他資訊。
+    </p>
+
+    <p>
+        使用此區域提供其他資訊。
+    </p>
+</article>
+
+<aside>
+    <h3>側邊標題</h3>
+    <p>
+        使用此區域提供其他資訊。
+    </p>
+    <ul>
+        <li>@Html.ActionLink("首頁", "Index", "Home")</li>
+        <li>@Html.ActionLink("關於", "About", "Home")</li>
+        <li>@Html.ActionLink("連絡", "Contact", "Home")</li>
+    </ul>
+</aside>

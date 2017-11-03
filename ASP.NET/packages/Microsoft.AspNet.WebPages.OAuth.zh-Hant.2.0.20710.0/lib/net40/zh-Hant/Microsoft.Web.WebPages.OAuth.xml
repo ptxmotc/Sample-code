@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>Microsoft.Web.WebPages.OAuth</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.Web.WebPages.OAuth.AuthenticationClientData"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.AuthenticationClientData.#ctor(DotNetOpenAuth.AspNet.IAuthenticationClient,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})"></member>
+    <member name="P:Microsoft.Web.WebPages.OAuth.AuthenticationClientData.AuthenticationClient"></member>
+    <member name="P:Microsoft.Web.WebPages.OAuth.AuthenticationClientData.DisplayName"></member>
+    <member name="P:Microsoft.Web.WebPages.OAuth.AuthenticationClientData.ExtraData"></member>
+    <member name="T:Microsoft.Web.WebPages.OAuth.OAuthAccount">
+      <summary>表示 OAuth 或 OpenID 帳戶。</summary>
+    </member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthAccount.#ctor(System.String,System.String)">
+      <summary>初始化 <see cref="T:Microsoft.Web.WebPages.OAuth.OAuthAccount" /> 類別的新執行個體。</summary>
+      <param name="provider">提供者的名稱。</param>
+      <param name="providerUserId">提供者使用者識別碼。</param>
+    </member>
+    <member name="P:Microsoft.Web.WebPages.OAuth.OAuthAccount.Provider">
+      <summary>取得提供者名稱。</summary>
+      <returns>提供者名稱。</returns>
+    </member>
+    <member name="P:Microsoft.Web.WebPages.OAuth.OAuthAccount.ProviderUserId">
+      <summary>取得提供者使用者識別碼。</summary>
+      <returns>提供者使用者識別碼。</returns>
+    </member>
+    <member name="T:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity">
+      <summary>管理使用 OAuth 驗證提供者 (例如 Facebook、Twitter、LinkedIn、Windows Live 和 OpenID 驗證提供者 (如 Google 和 Yahoo)) 的安全性。</summary>
+    </member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.CreateOrUpdateAccount(System.String,System.String,System.String)">
+      <summary>使用提供者識別碼的指定提供者和使用者識別碼來建立或更新帳戶，以及建立新帳戶與所指定使用者名稱的關聯。</summary>
+      <param name="providerName">提供者名稱。</param>
+      <param name="providerUserId">所指定提供者的使用者識別碼。</param>
+      <param name="userName">使用者的名稱。</param>
+    </member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.DeleteAccount(System.String,System.String)">
+      <summary>刪除指定的成員資格帳戶。</summary>
+      <returns>如果已刪除帳戶，則為 true，否則為 false。</returns>
+      <param name="providerName">提供者名稱。</param>
+      <param name="providerUserId">所指定提供者的使用者識別碼。</param>
+    </member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.GetAccountsFromUserName(System.String)">
+      <summary>取得使用所指定使用者名稱建立關聯的一或多個帳戶。</summary>
+      <returns>帳戶的集合。</returns>
+      <param name="userName">使用者名稱。</param>
+    </member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.GetOAuthClientData(System.String)"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.GetUserName(System.String,System.String)">
+      <summary>傳回所指定 OAuth 的使用者 ID 或 OpenID 提供者和提供者使用者 ID。</summary>
+      <returns>使用者識別碼，或者，如果沒有與 OAuth 或 OpenID 提供者使用者識別碼相關聯的使用者識別碼，則為 null。</returns>
+      <param name="providerName">提供者名稱。</param>
+      <param name="providerUserId">所指定提供者的使用者識別碼。</param>
+    </member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.HasLocalAccount(System.Int32)"></member>
+    <member name="P:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.IsAuthenticatedWithOAuth">
+      <summary>取得值，這個值表示是否已使用 OAuth 驗證使用者。</summary>
+      <returns>如果已使用 OAuth 驗證使用者，則為 true，否則為 false。</returns>
+    </member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.Login(System.String,System.String,System.Boolean)">
+      <summary>讓使用者登入。</summary>
+      <returns>如果登入成功，則為 true，否則為 false。</returns>
+      <param name="providerName">提供者名稱。</param>
+      <param name="providerUserId">所指定提供者的使用者識別碼。</param>
+      <param name="createPersistentCookie">true 建立永續性 Cookie，以跨瀏覽器工作階段儲存登入資訊，否則為 false。</param>
+    </member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterClient(DotNetOpenAuth.AspNet.IAuthenticationClient)">
+      <summary>註冊 OAuth 驗證用戶端。</summary>
+      <param name="client">其中一個支援的 OAuth 用戶端。</param>
+    </member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterClient(DotNetOpenAuth.AspNet.IAuthenticationClient,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})"></member>
+    <member name="P:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisteredClientData"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterFacebookClient(System.String,System.String)"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterFacebookClient(System.String,System.String,System.String)"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterFacebookClient(System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterGoogleClient"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterGoogleClient(System.String)"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterGoogleClient(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterLinkedInClient(System.String,System.String)"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterLinkedInClient(System.String,System.String,System.String)"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterLinkedInClient(System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterMicrosoftClient(System.String,System.String)"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterMicrosoftClient(System.String,System.String,System.String)"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterMicrosoftClient(System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterTwitterClient(System.String,System.String)"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterTwitterClient(System.String,System.String,System.String)"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterTwitterClient(System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterYahooClient"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterYahooClient(System.String)"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RegisterYahooClient(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RequestAuthentication(System.String)">
+      <summary>將使用者導向至外部網站，以要求指定的提供者開始驗證。</summary>
+      <param name="provider">OAuth 提供者。</param>
+    </member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.RequestAuthentication(System.String,System.String)">
+      <summary>將使用者導向至外部網站以要求指定的提供者開始驗證，以及在驗證成功時，指示提供者將使用者重新導向至指定的 URL。</summary>
+      <param name="provider">OAuth 提供者。</param>
+      <param name="returnUrl">要在驗證成功時傳回的 URL。</param>
+    </member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.SerializeProviderUserId(System.String,System.String)"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.TryDeserializeProviderUserId(System.String,System.String@,System.String@)"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.TryGetOAuthClientData(System.String,Microsoft.Web.WebPages.OAuth.AuthenticationClientData@)"></member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.VerifyAuthentication">
+      <summary>傳回值，這個值表示提供者是否已確認使用者帳戶。</summary>
+      <returns>可查詢以判斷驗證是否成功的 <see cref="T:DotNetOpenAuth.AspNet.AuthenticationResult" /> 執行個體。</returns>
+    </member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.OAuthWebSecurity.VerifyAuthentication(System.String)"></member>
+    <member name="T:Microsoft.Web.WebPages.OAuth.PreApplicationStartCode">
+      <summary>提供 OAuth 型安全性之應用程式啟動前程式碼的註冊點。</summary>
+    </member>
+    <member name="M:Microsoft.Web.WebPages.OAuth.PreApplicationStartCode.Start">
+      <summary>註冊 OAuth 應用程式啟動前程式碼。</summary>
+    </member>
+  </members>
+</doc>

@@ -1,0 +1,2640 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Web.WebPages</name>
+  </assembly>
+  <members>
+    <member name="T:System.Web.Helpers.AntiForgery">
+      <summary>有助於防止惡意指令碼送出偽造的頁面要求。</summary>
+    </member>
+    <member name="M:System.Web.Helpers.AntiForgery.GetHtml">
+      <summary>將驗證語彙基元加入至表單，以協助防範要求偽造。</summary>
+      <returns>傳回字串，這個字串包含隱藏 HTML 欄位中加密的語彙基元值。</returns>
+      <exception cref="T:System.ArgumentException">目前 <see cref="T:System.Web.HttpContext" /> 物件是 null。</exception>
+    </member>
+    <member name="M:System.Web.Helpers.AntiForgery.GetHtml(System.Web.HttpContextBase,System.String,System.String,System.String)">
+      <summary>將驗證語彙基元新增至表單，以協助防範要求偽造，並讓呼叫者指定驗證詳細資料。</summary>
+      <returns>傳回隱藏 HTML 欄位中的加密語彙基元值。</returns>
+      <param name="httpContext">要求的 HTTP 內容資料。</param>
+      <param name="salt">為獲得額外安全性，用來將複雜性加入至加密的選擇性隨機字元字串 (例如 Z*7g1&amp;p4)。預設值為 null。</param>
+      <param name="domain">從中送出要求的 Web 應用程式網域。</param>
+      <param name="path">從中送出要求之 Web 應用程式的虛擬根目錄路徑。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="httpContext" /> 是 null。</exception>
+    </member>
+    <member name="M:System.Web.Helpers.AntiForgery.GetTokens(System.String,System.String@,System.String@)"></member>
+    <member name="M:System.Web.Helpers.AntiForgery.Validate">
+      <summary>驗證 HTML 表單欄位中的輸入資料是否來自於送出資料的使用者。</summary>
+      <exception cref="T:System.ArgumentException">目前 <see cref="T:System.Web.HttpContext" /> 值是 null。</exception>
+      <exception cref="T:System.Web.Helpers.HttpAntiForgeryException">遺漏隨附有效要求的 HTTP Cookie 語彙基元-或-遺漏表單語彙基元。-或-表單語彙基元值不符合 Cookie 語彙基元值。-或-表單語彙基元值不符合 Cookie 語彙基元值。</exception>
+    </member>
+    <member name="M:System.Web.Helpers.AntiForgery.Validate(System.String,System.String)"></member>
+    <member name="M:System.Web.Helpers.AntiForgery.Validate(System.Web.HttpContextBase,System.String)">
+      <summary>驗證 HTML 表單欄位中的輸入資料是否來自已送出資料的使用者，並讓呼叫者指定其他驗證詳細資料。</summary>
+      <param name="httpContext">要求的 HTTP 內容資料。</param>
+      <param name="salt">用來解密 <see cref="T:System.Web.Helpers.AntiForgery" /> 類別所建立之驗證語彙基元的選擇性隨機字元字串 (如 Z*7g1&amp;p4)。預設值為 null。</param>
+      <exception cref="T:System.ArgumentException">目前 <see cref="T:System.Web.HttpContext" /> 值是 null。</exception>
+      <exception cref="T:System.Web.Helpers.HttpAntiForgeryException">遺漏隨附有效要求的 HTTP Cookie 語彙基元。-或-遺漏表單語彙基元。-或-表單語彙基元值不符合 Cookie 語彙基元值。-或-表單語彙基元值不符合 Cookie 語彙基元值。-或-提供的 <paramref name="salt" /> 值不符合用來建立表單語彙基元的 <paramref name="salt" /> 值。</exception>
+    </member>
+    <member name="T:System.Web.Helpers.AntiForgeryConfig">
+      <summary>提供防偽語彙基元系統的程式設計組態。</summary>
+    </member>
+    <member name="P:System.Web.Helpers.AntiForgeryConfig.AdditionalDataProvider">
+      <summary>取得資料提供者，這個資料提供者可以提供要放入所有產生的語彙基元的其他資料，以及可以驗證傳入語彙基元的其他資料。</summary>
+      <returns>資料提供者。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.AntiForgeryConfig.CookieName">
+      <summary>取得或設定防偽系統所使用 Cookie 的名稱。</summary>
+      <returns>Cookie 名稱。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.AntiForgeryConfig.RequireSsl">
+      <summary>取得或設定值，這個值表示防偽 Cookie 是否需要 SSL 以傳回給伺服器。</summary>
+      <returns>如果需要 SSL 以將防偽 Cookie 傳回給伺服器，則為 true，否則為 false。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.AntiForgeryConfig.SuppressIdentityHeuristicChecks">
+      <summary>取得或設定值，這個值表示防偽系統是否不應該檢查可能表示誤用系統的條件。</summary>
+      <returns>如果防偽系統不應該檢查可能的誤用，則為 true，否則為 false。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.AntiForgeryConfig.UniqueClaimTypeIdentifier">
+      <summary>如果正在使用宣告型授權，請從身分識別取得或設定用來唯一識別使用者的宣告類型。</summary>
+      <returns>宣告類型。</returns>
+    </member>
+    <member name="T:System.Web.Helpers.IAntiForgeryAdditionalDataProvider">
+      <summary>提供方法，併入或驗證防偽語彙基元的自訂資料。</summary>
+    </member>
+    <member name="M:System.Web.Helpers.IAntiForgeryAdditionalDataProvider.GetAdditionalData(System.Web.HttpContextBase)">
+      <summary>提供其他資料，這是要針對此要求期間產生的防偽語彙基元儲存的資料。</summary>
+      <returns>要內嵌在防偽語彙基元中的補充資料。</returns>
+      <param name="context">目前要求的相關資訊。</param>
+    </member>
+    <member name="M:System.Web.Helpers.IAntiForgeryAdditionalDataProvider.ValidateAdditionalData(System.Web.HttpContextBase,System.String)">
+      <summary>驗證已內嵌在傳入防偽語彙基元內的其他資料。</summary>
+      <returns>如果資料有效，為 true；如果資料無效，則為 false。</returns>
+      <param name="context">目前要求的相關資訊。</param>
+      <param name="additionalData">已內嵌在語彙基元中的補充資料。</param>
+    </member>
+    <member name="T:System.Web.Helpers.UnvalidatedRequestValues">
+      <summary>提供對 <see cref="T:System.Web.HttpRequest" /> 物件中未驗證表單值的存取。</summary>
+    </member>
+    <member name="P:System.Web.Helpers.UnvalidatedRequestValues.Form">
+      <summary>取得從瀏覽器張貼之未驗證表單值的集合。</summary>
+      <returns>未驗證的表單值集合。</returns>
+    </member>
+    <member name="P:System.Web.Helpers.UnvalidatedRequestValues.Item(System.String)">
+      <summary>取得 <see cref="T:System.Web.HttpRequest" /> 物件中已張貼值集合的指定未驗證物件。</summary>
+      <returns>指定的成員，或者，如果找不到指定的項目，則為 null。</returns>
+      <param name="key">要取得之集合成員的名稱。</param>
+    </member>
+    <member name="P:System.Web.Helpers.UnvalidatedRequestValues.QueryString">
+      <summary>取得未驗證查詢字串值的集合。</summary>
+      <returns>未驗證查詢字串值的集合。</returns>
+    </member>
+    <member name="T:System.Web.Helpers.Validation">
+      <summary>排除 Request 物件的欄位，不檢查可能不安全的 HTML 標記和用戶端指令碼。</summary>
+    </member>
+    <member name="M:System.Web.Helpers.Validation.Unvalidated(System.Web.HttpRequest)">
+      <summary>傳回表單值、Cookie 和查詢字串變數的版本，而不需先檢查這些項目是否存在於 HTML 標記和用戶端指令碼中。</summary>
+      <returns>含有表單和查詢字串值之未驗證版本的物件。</returns>
+      <param name="request">含有要從要求驗證排除之值的 <see cref="T:System.Web.HttpRequest" /> 物件。</param>
+    </member>
+    <member name="M:System.Web.Helpers.Validation.Unvalidated(System.Web.HttpRequest,System.String)">
+      <summary>從指定的表單欄位、Cookie 或查詢字串變數傳回值，而不需先檢查這個值是否存在於 HTML 標記和用戶端指令碼中。</summary>
+      <returns>含有所指定欄位、Cookie 或查詢字串值之未驗證文字的字串。</returns>
+      <param name="request">含有要從驗證排除之值的 <see cref="T:System.Web.HttpRequest" /> 物件。</param>
+      <param name="key">要從驗證排除的欄位名稱。<paramref name="key" /> 可能是表單欄位、Cookie 或查詢字串變數。</param>
+    </member>
+    <member name="M:System.Web.Helpers.Validation.Unvalidated(System.Web.HttpRequestBase)">
+      <summary>傳回 Request 物件 (包括表單欄位、Cookie 和查詢字串) 中的所有值，而不需先檢查這些值是否存在於 HTML 標記和用戶端指令碼中。</summary>
+      <returns>含有表單、Cookie 和查詢字串值之未驗證版本的物件。</returns>
+      <param name="request">含有要從驗證排除之值的 <see cref="T:System.Web.HttpRequest" /> 物件。</param>
+    </member>
+    <member name="M:System.Web.Helpers.Validation.Unvalidated(System.Web.HttpRequestBase,System.String)">
+      <summary>傳回 Request 物件的指定值，而不需先檢查這個值是否存在於 HTML 標記和用戶端指令碼中。</summary>
+      <returns>含有所指定欄位、Cookie 或查詢字串值之未驗證文字的字串。</returns>
+      <param name="request">含有要從驗證排除之值的 <see cref="T:System.Web.HttpRequestBase" /> 物件。</param>
+      <param name="key">要從驗證排除的欄位名稱。<paramref name="key" /> 可能是表單欄位、Cookie 或查詢字串變數。</param>
+    </member>
+    <member name="T:System.Web.Mvc.HttpAntiForgeryException">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.Mvc.HttpAntiForgeryException.#ctor">
+      <summary>這個成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.Mvc.HttpAntiForgeryException.#ctor(System.String)">
+      <summary>這個成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.Mvc.HttpAntiForgeryException.#ctor(System.String,System.Exception)">
+      <summary>這個成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+      <param name="message">訊息。</param>
+      <param name="innerException">內部例外狀況。</param>
+    </member>
+    <member name="T:System.Web.Mvc.ModelClientValidationEqualToRule">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.Mvc.ModelClientValidationEqualToRule.#ctor(System.String,System.Object)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+      <param name="errorMessage">錯誤訊息。</param>
+      <param name="other">其他。</param>
+    </member>
+    <member name="T:System.Web.Mvc.ModelClientValidationRangeRule">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.Mvc.ModelClientValidationRangeRule.#ctor(System.String,System.Object,System.Object)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+      <param name="errorMessage">錯誤訊息。</param>
+      <param name="minValue">最小值。</param>
+      <param name="maxValue">最大值。</param>
+    </member>
+    <member name="T:System.Web.Mvc.ModelClientValidationRegexRule">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.Mvc.ModelClientValidationRegexRule.#ctor(System.String,System.String)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.Mvc.ModelClientValidationRemoteRule">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.Mvc.ModelClientValidationRemoteRule.#ctor(System.String,System.String,System.String,System.String)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.Mvc.ModelClientValidationRequiredRule">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.Mvc.ModelClientValidationRequiredRule.#ctor(System.String)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.Mvc.ModelClientValidationRule">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.Mvc.ModelClientValidationRule.#ctor">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.Mvc.ModelClientValidationRule.ErrorMessage">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.Mvc.ModelClientValidationRule.ValidationParameters">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.Mvc.ModelClientValidationRule.ValidationType">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.Mvc.ModelClientValidationStringLengthRule">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.Mvc.ModelClientValidationStringLengthRule.#ctor(System.String,System.Int32,System.Int32)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.Mvc.TagBuilder">
+      <summary>包含用來建立 HTML 元素的類別和屬性。此類別用來撰寫協助程式 (例如在 <see cref="N:System.Web.Helpers" /> 命名空間中找到的協助程式)。</summary>
+    </member>
+    <member name="M:System.Web.Mvc.TagBuilder.#ctor(System.String)">
+      <summary>建立具有所指定標記名稱的新標記。</summary>
+      <param name="tagName">沒有 "&lt;"、"/" 或 "&gt;" 分隔符號的標記名稱。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="tagName" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.Mvc.TagBuilder.AddCssClass(System.String)">
+      <summary>將 CSS 類別新增至標記中的 CSS 類別清單。</summary>
+      <param name="value">要新增的 CSS 類別。</param>
+    </member>
+    <member name="P:System.Web.Mvc.TagBuilder.Attributes">
+      <summary>取得屬性的集合。</summary>
+      <returns>屬性的集合。</returns>
+    </member>
+    <member name="M:System.Web.Mvc.TagBuilder.CreateSanitizedId(System.String)">
+      <summary>以有效 HTML 字元取代標記識別碼中的每個無效字元。</summary>
+      <returns>處理過的標記識別碼，或者，如果 <paramref name="originalId" /> 為 null 或空白，或如果 <paramref name="originalId" /> 的開頭不是字母，則為 null。</returns>
+      <param name="originalId">可能包含要取代之字元的識別碼。</param>
+    </member>
+    <member name="M:System.Web.Mvc.TagBuilder.CreateSanitizedId(System.String,System.String)">
+      <summary>以指定的取代字串取代標記識別碼中的每個無效字元。</summary>
+      <returns>處理過的標記識別碼，或者，如果 <paramref name="originalId" /> 為 null 或空白，或如果 <paramref name="originalId" /> 的開頭不是字母，則為 null。</returns>
+      <param name="originalId">可能包含要取代之字元的識別碼。</param>
+      <param name="invalidCharReplacement">取代字串。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="invalidCharReplacement" /> 是 null。</exception>
+    </member>
+    <member name="M:System.Web.Mvc.TagBuilder.GenerateId(System.String)">
+      <summary>使用指定的名稱，產生標記的處理過 ID 屬性。</summary>
+      <param name="name">用來產生 ID 屬性的名稱。</param>
+    </member>
+    <member name="P:System.Web.Mvc.TagBuilder.IdAttributeDotReplacement">
+      <summary>取得或設定字串，這個字串可以用來取代無效的 HTML 字元。</summary>
+      <returns>要用來取代無效 HTML 字元的字串。</returns>
+    </member>
+    <member name="P:System.Web.Mvc.TagBuilder.InnerHtml">
+      <summary>取得或設定元素的內部 HTML 值。</summary>
+      <returns>元素的內部 HTML 值。</returns>
+    </member>
+    <member name="M:System.Web.Mvc.TagBuilder.MergeAttribute(System.String,System.String)">
+      <summary>將屬性新增至標記。</summary>
+      <param name="key">屬性的索引鍵。</param>
+      <param name="value">屬性的值。</param>
+    </member>
+    <member name="M:System.Web.Mvc.TagBuilder.MergeAttribute(System.String,System.String,System.Boolean)">
+      <summary>新增屬性，或選擇性地取代開啟標記中的現有屬性。</summary>
+      <param name="key">屬性的索引鍵。</param>
+      <param name="value">屬性的值。</param>
+      <param name="replaceExisting">true 以在屬性具有指定的 <paramref name="key" /> 值時取代現有屬性，或 false 保留原始屬性不變。</param>
+    </member>
+    <member name="M:System.Web.Mvc.TagBuilder.MergeAttributes``2(System.Collections.Generic.IDictionary{``0,``1})">
+      <summary>將屬性新增至標記。</summary>
+      <param name="attributes">要新增的屬性集合。</param>
+      <typeparam name="TKey">索引鍵物件的類型。</typeparam>
+      <typeparam name="TValue">值物件的類型。</typeparam>
+    </member>
+    <member name="M:System.Web.Mvc.TagBuilder.MergeAttributes``2(System.Collections.Generic.IDictionary{``0,``1},System.Boolean)">
+      <summary>新增屬性，或選擇性地取代標記中的現有屬性。</summary>
+      <param name="attributes">要新增或取代的屬性集合。</param>
+      <param name="replaceExisting">針對 <paramref name="attributes" /> 中的每個屬性，true 以在屬性具有相同索引鍵時取代屬性，或 false 保留原始屬性不變。</param>
+      <typeparam name="TKey">索引鍵物件的類型。</typeparam>
+      <typeparam name="TValue">值物件的類型。</typeparam>
+    </member>
+    <member name="M:System.Web.Mvc.TagBuilder.SetInnerText(System.String)">
+      <summary>將元素的 <see cref="P:System.Web.Mvc.TagBuilder.InnerHtml" /> 屬性設定為所指定字串的 HTML 編碼版本。</summary>
+      <param name="innerText">要進行 HTML 編碼的字串。</param>
+    </member>
+    <member name="P:System.Web.Mvc.TagBuilder.TagName">
+      <summary>取得此標記的標記名稱。</summary>
+      <returns>名稱。</returns>
+    </member>
+    <member name="M:System.Web.Mvc.TagBuilder.ToString">
+      <summary>將元素呈現為 <see cref="F:System.Web.Mvc.TagRenderMode.Normal" /> 元素。</summary>
+    </member>
+    <member name="M:System.Web.Mvc.TagBuilder.ToString(System.Web.Mvc.TagRenderMode)">
+      <summary>使用指定的呈現模式，來呈現 HTML 標記。</summary>
+      <returns>呈現的 HTML 標記。</returns>
+      <param name="renderMode">呈現模式。</param>
+    </member>
+    <member name="T:System.Web.Mvc.TagRenderMode">
+      <summary>列舉可用於呈現 HTML 標記的模式。</summary>
+    </member>
+    <member name="F:System.Web.Mvc.TagRenderMode.Normal">
+      <summary>代表用於呈現標準文字的模式。</summary>
+    </member>
+    <member name="F:System.Web.Mvc.TagRenderMode.StartTag">
+      <summary>代表用於呈現開啟標記 (例如，&lt;tag&gt;) 的模式。</summary>
+    </member>
+    <member name="F:System.Web.Mvc.TagRenderMode.EndTag">
+      <summary>代表用於呈現關閉標記 (例如，&lt;/tag&gt;) 的模式。</summary>
+    </member>
+    <member name="F:System.Web.Mvc.TagRenderMode.SelfClosing">
+      <summary>代表用於呈現自行關閉標記 (例如，&lt;tag /&gt;) 的模式。</summary>
+    </member>
+    <member name="T:System.Web.Mvc.UnobtrusiveValidationAttributesGenerator">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.Mvc.UnobtrusiveValidationAttributesGenerator.GetValidationAttributes(System.Collections.Generic.IEnumerable{System.Web.Mvc.ModelClientValidationRule},System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.ApplicationPart">
+      <summary>包含可以將組件登錄為應用程式組件的方法。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.ApplicationPart.#ctor(System.Reflection.Assembly,System.String)">
+      <summary>使用指定的組件和根虛擬路徑，初始化 <see cref="T:System.Web.WebPages.ApplicationPart" /> 類別的新執行個體。</summary>
+      <param name="assembly">組件。</param>
+      <param name="rootVirtualPath">根虛擬路徑。</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="rootVirtualPath" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.ApplicationPart.ProcessVirtualPath(System.Reflection.Assembly,System.String,System.String)">
+      <summary>使用指定的基底擬路徑和指定的虛擬路徑，將路徑解析為指定的組件或組件內的資源。</summary>
+      <returns>組件或資源的路徑。</returns>
+      <param name="assembly">組件。</param>
+      <param name="baseVirtualPath">基底虛擬路徑。</param>
+      <param name="virtualPath">虛擬路徑。</param>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="assembly" /> 尚未登錄。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.ApplicationPart.Register(System.Web.WebPages.ApplicationPart)">
+      <summary>將組件和組件內的所有網頁新增至可用應用程式組件的清單中。</summary>
+      <param name="applicationPart">應用程式組件。</param>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="applicationPart" /> 已經登錄。</exception>
+    </member>
+    <member name="T:System.Web.WebPages.ApplicationStartPage">
+      <summary>提供物件和方法，以用來執行和呈現 ASP.NET 網頁應用程式起始頁 (_AppStart.cshtml 或 _AppStart.vbhtml 檔案)。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.ApplicationStartPage.#ctor">
+      <summary>初始化 <see cref="T:System.Web.WebPages.ApplicationStartPage" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.ApplicationStartPage.Application">
+      <summary>取得 HTTP 應用程式物件，此物件會參照此應用程式啟動頁。</summary>
+      <returns>會參照此應用程式啟動頁的 HTTP 應用程式物件。</returns>
+    </member>
+    <member name="F:System.Web.WebPages.ApplicationStartPage.CacheKeyPrefix">
+      <summary>套用至所有索引鍵的首碼，應用程式起始頁會將這些索引鍵新增至快取中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.ApplicationStartPage.Context">
+      <summary>取得 <see cref="T:System.Web.HttpContextBase" /> 物件，此物件代表與此頁面相關聯的內容資料。</summary>
+      <returns>目前的內容資料。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.ApplicationStartPage.GetOutputWriter">
+      <summary>傳回可用來呈現頁面的文字寫入器執行個體。</summary>
+      <returns>文字寫入器。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.ApplicationStartPage.Markup">
+      <summary>取得應用程式起始頁的輸出以作為 HTML 編碼的字串。</summary>
+      <returns>應用程式起始頁的輸出，可作為 HTML 編碼的字串。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.ApplicationStartPage.Output">
+      <summary>取得頁面的文字寫入器。</summary>
+      <returns>頁面的文字寫入器。</returns>
+    </member>
+    <member name="F:System.Web.WebPages.ApplicationStartPage.StartPageVirtualPath">
+      <summary>應用程式起始頁的路徑。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.ApplicationStartPage.VirtualPath">
+      <summary>取得或設定頁面的虛擬路徑。</summary>
+      <returns>虛擬路徑。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.ApplicationStartPage.Write(System.Object)">
+      <summary>寫入指定參數的字串表示法以作為 HTML 編碼的字串。</summary>
+      <param name="value">要編碼和寫入的物件。</param>
+    </member>
+    <member name="M:System.Web.WebPages.ApplicationStartPage.Write(System.Web.WebPages.HelperResult)">
+      <summary>寫入指定的 <see cref="T:System.Web.WebPages.HelperResult" /> 物件以作為 HTML 編碼的字串。</summary>
+      <param name="result">要編碼和寫入的協助程式結果。</param>
+    </member>
+    <member name="M:System.Web.WebPages.ApplicationStartPage.WriteLiteral(System.Object)">
+      <summary>寫入指定的物件，而不進行 HTML 編碼。</summary>
+      <param name="value">要寫入的物件。</param>
+    </member>
+    <member name="T:System.Web.WebPages.AttributeValue">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.AttributeValue.#ctor(System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.Instrumentation.PositionTagged{System.Object},System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.AttributeValue.FromTuple(System.Tuple`3)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.AttributeValue.Literal">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.AttributeValue.op_Implicit(System.Tuple`3)~System.Web.WebPages.AttributeValue">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.AttributeValue.Prefix">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.AttributeValue.Value">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.BrowserHelpers">
+      <summary>提供方法來指定自訂的瀏覽器 (使用者代理程式) 資訊。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.BrowserHelpers.ClearOverriddenBrowser(System.Web.HttpContextBase)">
+      <summary>移除目前要求之任何已覆寫的使用者代理程式。</summary>
+      <param name="httpContext">目前的內容。</param>
+    </member>
+    <member name="M:System.Web.WebPages.BrowserHelpers.GetOverriddenBrowser(System.Web.HttpContextBase)">
+      <summary>傳回已覆寫之瀏覽器功能的瀏覽器功能物件，如果未指定任何覆寫，則為實際瀏覽器的瀏覽器功能物件。</summary>
+      <returns>瀏覽器功能。</returns>
+      <param name="httpContext">目前的內容。</param>
+    </member>
+    <member name="M:System.Web.WebPages.BrowserHelpers.GetOverriddenUserAgent(System.Web.HttpContextBase)">
+      <summary>傳回已覆寫的使用者代理程式值，如果未指定任何覆寫，則為實際的使用者代理程式字串。</summary>
+      <returns>使用者代理程式字串</returns>
+      <param name="httpContext">目前的內容。</param>
+    </member>
+    <member name="M:System.Web.WebPages.BrowserHelpers.GetVaryByCustomStringForOverriddenBrowser(System.Web.HttpContext)">
+      <summary>取得字串，這個字串會根據瀏覽器的類型而變化。</summary>
+      <returns>識別瀏覽器的字串。</returns>
+      <param name="httpContext">目前的內容。</param>
+    </member>
+    <member name="M:System.Web.WebPages.BrowserHelpers.GetVaryByCustomStringForOverriddenBrowser(System.Web.HttpContextBase)">
+      <summary>取得字串，這個字串會根據瀏覽器的類型而變化。</summary>
+      <returns>識別瀏覽器的字串。</returns>
+      <param name="httpContext">目前的內容基底。</param>
+    </member>
+    <member name="M:System.Web.WebPages.BrowserHelpers.SetOverriddenBrowser(System.Web.HttpContextBase,System.String)">
+      <summary>使用指定的使用者代理程式，覆寫要求的實際使用者代理程式值。</summary>
+      <param name="httpContext">目前的內容。</param>
+      <param name="userAgent">要使用的使用者代理程式。</param>
+    </member>
+    <member name="M:System.Web.WebPages.BrowserHelpers.SetOverriddenBrowser(System.Web.HttpContextBase,System.Web.WebPages.BrowserOverride)">
+      <summary>使用指定的瀏覽器覆寫資訊，覆寫要求的實際使用者代理程式值。</summary>
+      <param name="httpContext">目前的內容。</param>
+      <param name="browserOverride">其中一個列舉值，代表要使用的瀏覽器覆寫資訊。</param>
+    </member>
+    <member name="T:System.Web.WebPages.BrowserOverride">
+      <summary>指定可針對 <see cref="M:System.Web.WebPages.BrowserHelpers.SetOverriddenBrowser(System.Web.HttpContextBase,System.Web.WebPages.BrowserOverride)" /> 方法定義的瀏覽器類型。</summary>
+    </member>
+    <member name="F:System.Web.WebPages.BrowserOverride.Desktop">
+      <summary>指定桌面瀏覽器。</summary>
+    </member>
+    <member name="F:System.Web.WebPages.BrowserOverride.Mobile">
+      <summary>指定行動瀏覽器。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.BrowserOverrideStore">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.BrowserOverrideStore.#ctor">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.BrowserOverrideStore.GetOverriddenUserAgent(System.Web.HttpContextBase)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.BrowserOverrideStore.SetOverriddenUserAgent(System.Web.HttpContextBase,System.String)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.BrowserOverrideStores">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.BrowserOverrideStores.#ctor">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.BrowserOverrideStores.Current">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.CookieBrowserOverrideStore">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.CookieBrowserOverrideStore.#ctor">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.CookieBrowserOverrideStore.#ctor(System.Int32)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.CookieBrowserOverrideStore.GetOverriddenUserAgent(System.Web.HttpContextBase)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.CookieBrowserOverrideStore.SetOverriddenUserAgent(System.Web.HttpContextBase,System.String)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.DefaultDisplayMode">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.DefaultDisplayMode.#ctor">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.DefaultDisplayMode.#ctor(System.String)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.DefaultDisplayMode.CanHandleContext(System.Web.HttpContextBase)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.DefaultDisplayMode.ContextCondition">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.DefaultDisplayMode.DisplayModeId">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.DefaultDisplayMode.GetDisplayInfo(System.Web.HttpContextBase,System.String,System.Func`2)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.DefaultDisplayMode.TransformPath(System.String,System.String)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.DisplayInfo">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.DisplayInfo.#ctor(System.String,System.Web.WebPages.IDisplayMode)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.DisplayInfo.DisplayMode">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.DisplayInfo.FilePath">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.DisplayModeProvider">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="F:System.Web.WebPages.DisplayModeProvider.DefaultDisplayModeId">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.DisplayModeProvider.GetAvailableDisplayModesForContext(System.Web.HttpContextBase,System.Web.WebPages.IDisplayMode)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.DisplayModeProvider.GetDisplayInfoForVirtualPath(System.String,System.Web.HttpContextBase,System.Func`2,System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.DisplayModeProvider.Instance">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="F:System.Web.WebPages.DisplayModeProvider.MobileDisplayModeId">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.DisplayModeProvider.Modes">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.DisplayModeProvider.RequireConsistentDisplayMode">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.HelperPage">
+      <summary>表示頁面的基底類別，當 ASP.NET 編譯 .cshtml 或 .vbhtml 檔時會使用此基底類別，而且此基底類別可公開頁面層級和應用程式層級的屬性和方法。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.HelperPage.#ctor">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.App">
+      <summary>取得應用程式狀態資料以作為 <see cref="T:System.Dynamic.DynamicObject" /> 物件，呼叫者可以使用此物件來建立和存取自訂的應用程式領域屬性。</summary>
+      <returns>應用程式狀態資料。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.AppState">
+      <summary>取得全域應用程式狀態資料的參照，此資料可在 ASP.NET 應用程式中跨工作階段和要求加以共用。</summary>
+      <returns>應用程式狀態資料。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.HelperPage.BeginContext(System.IO.TextWriter,System.String,System.Int32,System.Int32,System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.HelperPage.BeginContext(System.String,System.Int32,System.Int32,System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.Cache">
+      <summary>取得目前應用程式網域的快取物件。</summary>
+      <returns>快取物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.Context">
+      <summary>取得與頁面相關聯的 <see cref="T:System.Web.HttpContextBase" /> 物件。</summary>
+      <returns>目前的內容資料。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.CurrentPage">
+      <summary>取得此 Helper 頁面的目前頁面。</summary>
+      <returns>目前的頁面。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.HelperPage.EndContext(System.IO.TextWriter,System.String,System.Int32,System.Int32,System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.HelperPage.EndContext(System.String,System.Int32,System.Int32,System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.HelperVirtualPath">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.HelperPage.Href(System.String,System.Object[])">
+      <summary>使用指定的參數，從應用程式相對的 URL 建置絕對的 URL。</summary>
+      <returns>絕對 URL。</returns>
+      <param name="path">要在 URL 中使用的初始路徑。</param>
+      <param name="pathParts">其他的路徑資訊，例如，資料夾和子資料夾。</param>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.Html">
+      <summary>取得與頁面相關聯的 <see cref="T:System.Web.WebPages.Html.HtmlHelper" /> 物件。</summary>
+      <returns>支援在頁面上呈現 HTML 表單控制項的物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.IsAjax">
+      <summary>取得值，這個值表示是否會在網頁要求期間使用 Ajax。</summary>
+      <returns>如果會在要求期間使用 Ajax，則為 true，否則為 false。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.IsPost">
+      <summary>取得值，這個值表示目前的要求是否為 POST (使用 HTTP POST 指令動詞所提交)。</summary>
+      <returns>如果 HTTP 指令動詞為 POST，則為 true，否則為 false。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.Model">
+      <summary>取得與頁面相關聯的模型。</summary>
+      <returns>代表與頁面檢視資料相關聯之模型的物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.ModelState">
+      <summary>取得與頁面相關聯的模型狀態資料。</summary>
+      <returns>模型的狀態。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.Page">
+      <summary>取得具有屬性特性的頁面資料存取權，此資料在頁面、版面配置頁面及部分頁面之間共用。</summary>
+      <returns>包含頁面資料的物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.PageContext">
+      <summary>取得和設定網頁的 HTTP 內容。</summary>
+      <returns>網頁的 HTTP 內容。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.PageData">
+      <summary>取得具有陣列特性的頁面資料存取權，此資料在頁面、版面配置頁面及部分頁面之間共用。</summary>
+      <returns>提供具有陣列特性之頁面資料存取權的物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.Request">
+      <summary>取得目前 HTTP 要求的 <see cref="T:System.Web.HttpRequest" /> 物件。</summary>
+      <returns>
+        <see cref="T:System.Web.HttpRequest" /> 物件，其中包含用戶端在 Web 要求期間傳送的 HTTP 值。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.Response">
+      <summary>取得目前 HTTP 回應的 <see cref="T:System.Web.HttpResponse" /> 物件。</summary>
+      <returns>
+        <see cref="T:System.Web.HttpResponse" /> 物件，其中包含來自 ASP.NET 作業的 HTTP 回應資訊。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.Server">
+      <summary>取得 <see cref="T:System.Web.HttpServerUtility" /> 物件，此物件提供可用來作為網頁處理一部分的方法。</summary>
+      <returns>
+        <see cref="T:System.Web.HttpServerUtility" /> 物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.Session">
+      <summary>取得目前 HTTP 要求的 <see cref="T:System.Web.HttpSessionState" /> 物件。</summary>
+      <returns>目前 HTTP 要求的 <see cref="T:System.Web.HttpSessionState" /> 物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.UrlData">
+      <summary>取得與 URL 路徑相關的資料。</summary>
+      <returns>與 URL 路徑相關的資料。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.User">
+      <summary>取得以 HTTP 內容為根據的使用者值。</summary>
+      <returns>以 HTTP 內容為根據的使用者值。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.HelperPage.VirtualPath">
+      <summary>取得頁面的虛擬路徑。</summary>
+      <returns>虛擬路徑。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.HelperPage.WriteAttributeTo(System.IO.TextWriter,System.String,System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.AttributeValue[])">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.HelperPage.WriteLiteralTo(System.IO.TextWriter,System.Object)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.HelperPage.WriteLiteralTo(System.IO.TextWriter,System.Web.WebPages.HelperResult)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.HelperPage.WriteTo(System.IO.TextWriter,System.Object)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.HelperPage.WriteTo(System.IO.TextWriter,System.Web.WebPages.HelperResult)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.HelperResult">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.HelperResult.#ctor(System.Action{System.IO.TextWriter})">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.HelperResult.ToHtmlString">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.HelperResult.ToString">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.HelperResult.WriteTo(System.IO.TextWriter)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.HttpContextExtensions">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.HttpContextExtensions.RedirectLocal(System.Web.HttpContextBase,System.String)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.HttpContextExtensions.RegisterForDispose(System.Web.HttpContextBase,System.IDisposable)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.IDisplayMode">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.IDisplayMode.CanHandleContext(System.Web.HttpContextBase)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.IDisplayMode.DisplayModeId">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.IDisplayMode.GetDisplayInfo(System.Web.HttpContextBase,System.String,System.Func`2)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.ITemplateFile">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.ITemplateFile.TemplateInfo">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.IValidator">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.IValidator.ClientValidationRule">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.IValidator.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.IVirtualPathFactory">
+      <summary>定義由虛擬路徑處理常式 Factory 實作的方法。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.IVirtualPathFactory.CreateInstance(System.String)">
+      <summary>建立指定虛擬路徑的處理常式 Factory。</summary>
+      <returns>指定虛擬路徑的處理常式 Factory。</returns>
+      <param name="virtualPath">虛擬路徑。</param>
+    </member>
+    <member name="M:System.Web.WebPages.IVirtualPathFactory.Exists(System.String)">
+      <summary>判斷指定的虛擬路徑是否會與處理常式 Factory 相關聯。</summary>
+      <returns>如果指定虛擬路徑的處理常式 Factory 存在，則為 true，否則為 false。</returns>
+      <param name="virtualPath">虛擬路徑。</param>
+    </member>
+    <member name="T:System.Web.WebPages.IWebPageRequestExecutor">
+      <summary>定義方法以實作執行程式類別，此類別可以在網頁上執行程式碼。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.IWebPageRequestExecutor.Execute(System.Web.WebPages.WebPage)">
+      <summary>在指定的網頁上執行程式碼。</summary>
+      <returns>如果執行程式已接管網頁的執行，則為 true，否則為 false。</returns>
+      <param name="page">網頁。</param>
+    </member>
+    <member name="T:System.Web.WebPages.PageVirtualPathAttribute">
+      <summary>代表網頁類別的路徑屬性。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.PageVirtualPathAttribute.#ctor(System.String)">
+      <summary>使用指定的虛擬路徑，初始化 <see cref="T:System.Web.WebPages.PageVirtualPathAttribute" /> 類別的新執行個體。</summary>
+      <param name="virtualPath">虛擬路徑。</param>
+    </member>
+    <member name="P:System.Web.WebPages.PageVirtualPathAttribute.VirtualPath">
+      <summary>取得目前網頁的虛擬路徑。</summary>
+      <returns>虛擬路徑。</returns>
+    </member>
+    <member name="T:System.Web.WebPages.PreApplicationStartCode">
+      <summary>提供適用於網頁之應用程式啟動前程式碼的登錄點。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.PreApplicationStartCode.Start">
+      <summary>登錄適用於網頁的應用程式啟動前程式碼。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.RequestExtensions">
+      <summary>定義 <see cref="T:System.Web.HttpRequestBase" /> 類別的擴充方法。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.RequestExtensions.IsUrlLocalToHost(System.Web.HttpRequestBase,System.String)">
+      <summary>判斷指定的 URL 是否會參照本機電腦。</summary>
+      <returns>如果指定的 URL 會參照本機電腦，則為 true，否則為 false。</returns>
+      <param name="request">HTTP 要求物件。</param>
+      <param name="url">要測試的 URL。</param>
+    </member>
+    <member name="T:System.Web.WebPages.RequestFieldValidatorBase">
+      <summary>作為驗證 Helper 類別的抽象基底類別。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.RequestFieldValidatorBase.#ctor(System.String)">
+      <summary>初始化衍生類別的新執行個體，並指定要驗證之 HTML 項目的名稱。</summary>
+      <param name="errorMessage">要驗證之使用者輸入項目的名稱 (name 屬性的值)。</param>
+    </member>
+    <member name="M:System.Web.WebPages.RequestFieldValidatorBase.#ctor(System.String,System.Boolean)">
+      <summary>初始化衍生類別的新執行個體、註冊指定的字串作為錯誤訊息以便在未提供值時顯示，以及指定此方法是否可以使用未經驗證的資料。</summary>
+      <param name="errorMessage">錯誤訊息。</param>
+      <param name="useUnvalidatedValues">true 表示使用未經驗證的使用者輸入，false 表示拒絕未經驗證的資料。此參數已設定為 true，作法是在使用者輸入的實際值並不重要 (例如，針對必要欄位) 的情況下呼叫方法。</param>
+    </member>
+    <member name="P:System.Web.WebPages.RequestFieldValidatorBase.ClientValidationRule">
+      <summary>在衍生類別中實作時，取得適用於必要欄位的用戶端驗證容器。</summary>
+      <returns>容器。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.RequestFieldValidatorBase.GetHttpContext(System.ComponentModel.DataAnnotations.ValidationContext)">
+      <summary>傳回目前要求的 HTTP 內容。</summary>
+      <returns>內容。</returns>
+      <param name="validationContext">驗證內容。</param>
+    </member>
+    <member name="M:System.Web.WebPages.RequestFieldValidatorBase.GetRequestValue(System.Web.HttpRequestBase,System.String)">
+      <summary>傳回要驗證的值。</summary>
+      <returns>要驗證的值。</returns>
+      <param name="request">目前的要求。</param>
+      <param name="field">來自目前要驗證之要求的欄位名稱。</param>
+    </member>
+    <member name="M:System.Web.WebPages.RequestFieldValidatorBase.IsValid(System.Web.HttpContextBase,System.String)">
+      <summary>傳回值，這個值表示指定的值是否有效。</summary>
+      <returns>如果值有效，則為 true，否則為 false。</returns>
+      <param name="httpContext">目前的內容。</param>
+      <param name="value">要驗證的值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.RequestFieldValidatorBase.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
+      <summary>執行驗證測試。</summary>
+      <returns>驗證測試的結果。</returns>
+      <param name="validationContext">內容。</param>
+    </member>
+    <member name="T:System.Web.WebPages.ResponseExtensions">
+      <summary>定義 <see cref="T:System.Web.HttpResponseBase" /> 基底類別的擴充方法。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.ResponseExtensions.OutputCache(System.Web.HttpResponseBase,System.Int32,System.Boolean,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.Web.HttpCacheability)">
+      <summary>設定 HTTP 回應執行個體的快取原則。</summary>
+      <param name="response">HTTP 回應執行個體。</param>
+      <param name="numberOfSeconds">快取中的項目在到期前的時間長度，以秒為單位。</param>
+      <param name="sliding">true 表示快取中的項目到期時間會變動，false 表示項目會在到達預先定義的到期時間時到期。</param>
+      <param name="varyByParams">所有參數的清單，您可以透過會影響快取的 GET 或 POST 作業來接收這些參數。</param>
+      <param name="varyByHeaders">會影響快取的所有 HTTP 標頭清單。</param>
+      <param name="varyByContentEncodings">會影響快取的所有內容編碼標頭清單。</param>
+      <param name="cacheability">其中一個列舉值，可指定快取項目的方式。</param>
+    </member>
+    <member name="M:System.Web.WebPages.ResponseExtensions.SetStatus(System.Web.HttpResponseBase,System.Int32)">
+      <summary>使用指定的整數值，設定 HTTP 回應的 HTTP 狀態碼。</summary>
+      <param name="response">HTTP 回應執行個體。</param>
+      <param name="httpStatusCode">HTTP 狀態碼。</param>
+    </member>
+    <member name="M:System.Web.WebPages.ResponseExtensions.SetStatus(System.Web.HttpResponseBase,System.Net.HttpStatusCode)">
+      <summary>使用指定的 HTTP 狀態碼列舉值，設定 HTTP 回應的 HTTP 狀態碼。</summary>
+      <param name="response">HTTP 回應執行個體。</param>
+      <param name="httpStatusCode">HTTP 狀態碼</param>
+    </member>
+    <member name="M:System.Web.WebPages.ResponseExtensions.WriteBinary(System.Web.HttpResponseBase,System.Byte[])">
+      <summary>將表示未指定型別之二進位內容的位元組序列寫入 HTTP 回應的輸出資料流。</summary>
+      <param name="response">HTTP 回應執行個體。</param>
+      <param name="data">包含要寫入之位元組的陣列。</param>
+    </member>
+    <member name="M:System.Web.WebPages.ResponseExtensions.WriteBinary(System.Web.HttpResponseBase,System.Byte[],System.String)">
+      <summary>將表示指定 MIME 型別之二進位內容的位元組序列寫入 HTTP 回應的輸出資料流。</summary>
+      <param name="response">收到的 HTTP 回應執行個體。</param>
+      <param name="data">包含要寫入之位元組的陣列。</param>
+      <param name="mimeType">二進位內容的 MIME 型別。</param>
+    </member>
+    <member name="T:System.Web.WebPages.SectionWriter">
+      <summary>提供委派，這個委派表示會在寫入內容區段時呼叫的一或多個方法。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.StartPage">
+      <summary>提供方法和屬性，以用來呈現使用 Razor 檢視引擎的起始頁。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.StartPage.#ctor">
+      <summary>初始化 <see cref="T:System.Web.WebPages.StartPage" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.StartPage.ChildPage">
+      <summary>取得或設定目前起始頁的子頁面。</summary>
+      <returns>目前起始頁的子頁面。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.StartPage.Context">
+      <summary>取得或設定 <see cref="P:System.Web.WebPages.StartPage.ChildPage" /> 頁面的內容。</summary>
+      <returns>
+        <see cref="P:System.Web.WebPages.StartPage.ChildPage" /> 頁面的內容。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.StartPage.ExecutePageHierarchy">
+      <summary>呼叫方法，這類方法可用來執行 _PageStart 起始頁和 <see cref="P:System.Web.WebPages.StartPage.ChildPage" /> 頁面中開發人員所撰寫的程式碼。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.StartPage.GetOutputWriter">
+      <summary>傳回可用來呈現頁面的文字寫入器執行個體。</summary>
+      <returns>文字寫入器。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.StartPage.GetStartPage(System.Web.WebPages.WebPageRenderingBase,System.String,System.Collections.Generic.IEnumerable{System.String})">
+      <summary>傳回指定頁面的初始頁面。</summary>
+      <returns>如果 _AppStart 頁面存在，為 _AppStart 頁面。如果找不到 _AppStart 頁面，若 _PageStart 頁面存在，則會傳回 _PageStart 頁面。如果找不到 _AppStart 和 _PageStart 頁面，就會傳回 <paramref name="page" />。</returns>
+      <param name="page">頁面。</param>
+      <param name="fileName">頁面的檔案名稱。</param>
+      <param name="supportedExtensions">副檔名的集合，可以包含 ASP.NET Razor 語法，例如「cshtml」和「vbhtml」。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="page" /> 或 <paramref name="fileName" /> 為 null。</exception>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="supportedExtensions" /> 為 null 或空白。</exception>
+    </member>
+    <member name="P:System.Web.WebPages.StartPage.Layout">
+      <summary>取得或設定 <see cref="P:System.Web.WebPages.StartPage.ChildPage" /> 頁面之版面配置頁的路徑。</summary>
+      <returns>
+        <see cref="P:System.Web.WebPages.StartPage.ChildPage" /> 頁面之版面配置頁的路徑。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.StartPage.Page">
+      <summary>取得與屬性相關之 <see cref="P:System.Web.WebPages.StartPage.ChildPage" /> 頁面資料的存取權限，此資料可以在頁面、版面配置頁及部分頁面之間共用。</summary>
+      <returns>包含 <see cref="P:System.Web.WebPages.StartPage.ChildPage" /> 頁面資料的物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.StartPage.PageData">
+      <summary>取得與陣列相關之 <see cref="P:System.Web.WebPages.StartPage.ChildPage" /> 頁面資料的存取權限，此資料可以在頁面、版面配置頁及部分頁面之間共用。</summary>
+      <returns>提供與陣列相關之 <see cref="P:System.Web.WebPages.StartPage.ChildPage" /> 頁面資料存取權的物件。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.StartPage.RenderPage(System.String,System.Object[])">
+      <summary>呈現 <see cref="P:System.Web.WebPages.StartPage.ChildPage" /> 頁面。</summary>
+      <returns>表示網頁的 HTML 標記。</returns>
+      <param name="path">要呈現的頁面路徑。</param>
+      <param name="data">用來呈現頁面的其他資料。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StartPage.RunPage">
+      <summary>在 <see cref="P:System.Web.WebPages.StartPage.ChildPage" /> 頁面中執行開發人員所撰寫的程式碼。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.StartPage.Write(System.Object)">
+      <summary>寫入指定參數的字串表示法以作為 HTML 編碼的字串。</summary>
+      <param name="value">要編碼和寫入的物件。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StartPage.Write(System.Web.WebPages.HelperResult)">
+      <summary>寫入指定 <see cref="T:System.Web.WebPages.HelperResult" /> 物件的字串表示法以作為 HTML 編碼的字串。</summary>
+      <param name="result">要編碼和寫入的協助程式結果。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StartPage.WriteLiteral(System.Object)">
+      <summary>寫入指定參數的字串表示法，而不進行 HTML 編碼。</summary>
+      <param name="value">要寫入的物件。</param>
+    </member>
+    <member name="T:System.Web.WebPages.StringExtensions">
+      <summary>提供公用程式方法，以用來將字串值轉換成其他資料型別。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.As``1(System.String)">
+      <summary>將字串轉換成指定資料型別的強型別值。</summary>
+      <returns>轉換的值。</returns>
+      <param name="value">要轉換的值。</param>
+      <typeparam name="TValue">要轉換成的資料型別。</typeparam>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.As``1(System.String,``0)">
+      <summary>將字串轉換成指定的資料型別並指定預設值。</summary>
+      <returns>轉換的值。</returns>
+      <param name="value">要轉換的值。</param>
+      <param name="defaultValue">當 <paramref name="value" /> 為 null 時要傳回的值。</param>
+      <typeparam name="TValue">要轉換成的資料型別。</typeparam>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.AsBool(System.String)">
+      <summary>將字串轉換成布林 (true/false) 值。</summary>
+      <returns>轉換的值。</returns>
+      <param name="value">要轉換的值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.AsBool(System.String,System.Boolean)">
+      <summary>將字串轉換成布林 (true/false) 值並指定預設值。</summary>
+      <returns>轉換的值。</returns>
+      <param name="value">要轉換的值。</param>
+      <param name="defaultValue">當 <paramref name="value" /> 為 null 或者為無效值時要傳回的值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.AsDateTime(System.String)">
+      <summary>將字串轉換成 <see cref="T:System.DateTime" /> 值。</summary>
+      <returns>轉換的值。</returns>
+      <param name="value">要轉換的值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.AsDateTime(System.String,System.DateTime)">
+      <summary>將字串轉換成 <see cref="T:System.DateTime" /> 值並指定預設值。</summary>
+      <returns>轉換的值。</returns>
+      <param name="value">要轉換的值。</param>
+      <param name="defaultValue">當 <paramref name="value" /> 為 null 或者為無效值時要傳回的值。預設值為系統上的最小時間值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.AsDecimal(System.String)">
+      <summary>將字串轉換成 <see cref="T:System.Decimal" /> 數字。</summary>
+      <returns>轉換的值。</returns>
+      <param name="value">要轉換的值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.AsDecimal(System.String,System.Decimal)">
+      <summary>將字串轉換成 <see cref="T:System.Decimal" /> 數字並指定預設值。</summary>
+      <returns>轉換的值。</returns>
+      <param name="value">要轉換的值。</param>
+      <param name="defaultValue">當 <paramref name="value" /> 為 null 或無效值時要傳回的值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.AsFloat(System.String)">
+      <summary>將字串轉換成 <see cref="T:System.Single" /> 數字。</summary>
+      <returns>轉換的值。</returns>
+      <param name="value">要轉換的值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.AsFloat(System.String,System.Single)">
+      <summary>將字串轉換成 <see cref="T:System.Single" /> 數字並指定預設值。</summary>
+      <returns>轉換的值。</returns>
+      <param name="value">要轉換的值。</param>
+      <param name="defaultValue">當 <paramref name="value" /> 為 null 時要傳回的值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.AsInt(System.String)">
+      <summary>將字串轉換成整數。</summary>
+      <returns>轉換的值。</returns>
+      <param name="value">要轉換的值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.AsInt(System.String,System.Int32)">
+      <summary>將字串轉換成整數並指定預設值。</summary>
+      <returns>轉換的值。</returns>
+      <param name="value">要轉換的值。</param>
+      <param name="defaultValue">當 <paramref name="value" /> 為 null 或者為無效值時要傳回的值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.Is``1(System.String)">
+      <summary>檢查是否可以將字串轉換成指定的資料型別。</summary>
+      <returns>如果可以將 <paramref name="value" /> 轉換成指定的型別，則為 true，否則為 false。</returns>
+      <param name="value">要測試的值。</param>
+      <typeparam name="TValue">要轉換成的資料型別。</typeparam>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.IsBool(System.String)">
+      <summary>檢查是否可以將字串轉換成布林 (true/false) 型別。</summary>
+      <returns>如果可以將 <paramref name="value" /> 轉換成指定的型別，則為 true，否則為 false。</returns>
+      <param name="value">要測試的字串值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.IsDateTime(System.String)">
+      <summary>檢查是否可以將字串轉換成 <see cref="T:System.DateTime" /> 型別。</summary>
+      <returns>如果可以將 <paramref name="value" /> 轉換成指定的型別，則為 true，否則為 false。</returns>
+      <param name="value">要測試的字串值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.IsDecimal(System.String)">
+      <summary>檢查是否可以將字串轉換成 <see cref="T:System.Decimal" /> 型別。</summary>
+      <returns>如果可以將 <paramref name="value" /> 轉換成指定的型別，則為 true，否則為 false。</returns>
+      <param name="value">要測試的字串值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.IsEmpty(System.String)">
+      <summary>檢查字串值是否為 null 或空白。</summary>
+      <returns>如果 <paramref name="value" /> 為 null 或為零長度字串 ("")，則為 true，否則為 false。</returns>
+      <param name="value">要測試的字串值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.IsFloat(System.String)">
+      <summary>檢查是否可以將字串轉換成 <see cref="T:System.Single" /> 型別。</summary>
+      <returns>如果可以將 <paramref name="value" /> 轉換成指定的型別，則為 true，否則為 false。</returns>
+      <param name="value">要測試的字串值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.StringExtensions.IsInt(System.String)">
+      <summary>檢查是否可以將字串轉換成整數。</summary>
+      <returns>如果可以將 <paramref name="value" /> 轉換成指定的型別，則為 true，否則為 false。</returns>
+      <param name="value">要測試的字串值。</param>
+    </member>
+    <member name="T:System.Web.WebPages.TemplateFileInfo">
+      <summary>包含描述檔案資訊範本的方法和屬性。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.TemplateFileInfo.#ctor(System.String)">
+      <summary>使用指定的虛擬路徑，初始化 <see cref="T:System.Web.WebPages.TemplateFileInfo" /> 類別的新執行個體。</summary>
+      <param name="virtualPath">虛擬路徑。</param>
+    </member>
+    <member name="P:System.Web.WebPages.TemplateFileInfo.VirtualPath">
+      <summary>取得網頁的虛擬路徑。</summary>
+      <returns>虛擬路徑。</returns>
+    </member>
+    <member name="T:System.Web.WebPages.TemplateStack">
+      <summary>表示 <see cref="T:System.Web.WebPages.ITemplateFile" /> 範本檔案的後進先出 (LIFO) 集合。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.TemplateStack.GetCurrentTemplate(System.Web.HttpContextBase)">
+      <summary>從指定的 HTTP 內容傳回目前的範本檔案。</summary>
+      <returns>範本檔案，已從堆疊的最上方移除。</returns>
+      <param name="httpContext"> 包含儲存範本檔案之堆疊的 HTTP 內容。</param>
+    </member>
+    <member name="M:System.Web.WebPages.TemplateStack.Pop(System.Web.HttpContextBase)">
+      <summary>移除並傳回位於指定 HTTP 內容中堆疊最上方的範本檔案。</summary>
+      <returns>範本檔案，已從堆疊的最上方移除。</returns>
+      <param name="httpContext">包含儲存範本檔案之堆疊的 HTTP 內容。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="httpContext" /> 是 null。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.TemplateStack.Push(System.Web.HttpContextBase,System.Web.WebPages.ITemplateFile)">
+      <summary>在指定之 HTTP 內容的堆疊最上方插入範本檔案。</summary>
+      <param name="httpContext">包含儲存範本檔案之堆疊的 HTTP 內容。</param>
+      <param name="templateFile">要推入指定之堆疊的範本檔案。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="httpContext" /> 或 <paramref name="templateFile" /> 為 null。</exception>
+    </member>
+    <member name="T:System.Web.WebPages.ValidationHelper">
+      <summary>實作使用者輸入的驗證。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.ValidationHelper.Add(System.Collections.Generic.IEnumerable{System.String},System.Web.WebPages.IValidator[])">
+      <summary>註冊使用者輸入項目清單以進行驗證。</summary>
+      <param name="fields">要驗證之使用者輸入項目的名稱 (name 屬性的值)。</param>
+      <param name="validators">要針對 <paramref name="fields" /> 中指定之每個使用者輸入項目進行註冊的驗證型別。</param>
+    </member>
+    <member name="M:System.Web.WebPages.ValidationHelper.Add(System.String,System.Web.WebPages.IValidator[])">
+      <summary>註冊使用者輸入項目以進行驗證。</summary>
+      <param name="field">要驗證之使用者輸入項目的名稱 (name 屬性的值)。</param>
+      <param name="validators">要註冊之一或多個驗證型別的清單。</param>
+    </member>
+    <member name="M:System.Web.WebPages.ValidationHelper.AddFormError(System.String)"></member>
+    <member name="M:System.Web.WebPages.ValidationHelper.ClassFor(System.String)">
+      <summary>呈現屬性，此屬性會參照 CSS 樣式定義，在呈現使用者輸入項目的驗證訊息時加以使用。</summary>
+      <returns>屬性。</returns>
+      <param name="field">要驗證之使用者輸入項目的名稱 (name 屬性的值)。</param>
+    </member>
+    <member name="M:System.Web.WebPages.ValidationHelper.For(System.String)">
+      <summary>呈現屬性，這些屬性會針對個別使用者輸入項目啟用用戶端驗證。</summary>
+      <returns>要呈現的屬性。</returns>
+      <param name="field">要驗證之使用者輸入項目的名稱 (name 屬性的值)。</param>
+    </member>
+    <member name="P:System.Web.WebPages.ValidationHelper.FormField">
+      <summary>取得目前表單的名稱。這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+      <returns>名稱。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.ValidationHelper.GetErrors(System.String[])">
+      <summary>傳回目前驗證錯誤的清單，並選擇性地讓您指定要檢查的欄位清單。</summary>
+      <returns>錯誤清單。</returns>
+      <param name="fields">選擇性。要取得其錯誤資訊之使用者輸入項目的名稱 (name 屬性的值)。您可以指定任意數目的項目名稱，並以逗號分隔。如果您未指定欄位清單，則此方法會傳回所有欄位的錯誤。</param>
+    </member>
+    <member name="P:System.Web.WebPages.ValidationHelper.InvalidCssClass">
+      <summary>取得類別的名稱，此類別可用來指定在發生錯誤時，錯誤訊息顯示的出現方式。這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+      <returns>名稱。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.ValidationHelper.IsValid(System.String[])">
+      <summary>判斷使用者輸入欄位的內容是否通過驗證檢查，以及選擇性地讓您指定要檢查的欄位清單。</summary>
+      <returns>如果所有指定的欄位都已通過驗證檢查，則為 true；如果有任何一個欄位包含驗證錯誤，則為 false。</returns>
+      <param name="fields">選擇性。要針對驗證錯誤進行檢查之使用者輸入項目的名稱 (name 屬性的值)。您可以指定任意數目的項目名稱，並以逗號分隔。如果您未指定欄位清單，則此方法會檢查所有已註冊要進行驗證的項目。</param>
+    </member>
+    <member name="M:System.Web.WebPages.ValidationHelper.RequireField(System.String)">
+      <summary>將指定的欄位註冊為需要使用者輸入的欄位。</summary>
+      <param name="field">要驗證之使用者輸入項目的名稱 (name 屬性的值)。</param>
+    </member>
+    <member name="M:System.Web.WebPages.ValidationHelper.RequireField(System.String,System.String)">
+      <summary>將指定的欄位註冊為需要使用者輸入的欄位，並將指定的字串註冊為未提供任何值時要顯示的錯誤訊息。</summary>
+      <param name="field">要驗證之使用者輸入項目的名稱 (name 屬性的值)。</param>
+      <param name="errorMessage">錯誤訊息。</param>
+    </member>
+    <member name="M:System.Web.WebPages.ValidationHelper.RequireFields(System.String[])">
+      <summary>將指定的欄位註冊為需要使用者輸入的欄位。</summary>
+      <param name="fields">要驗證之使用者輸入項目的名稱 (name 屬性的值)。您可以指定任意數目的項目名稱，並以逗號分隔。</param>
+    </member>
+    <member name="M:System.Web.WebPages.ValidationHelper.Validate(System.String[])">
+      <summary>在註冊為要驗證的項目上執行驗證，並選擇性地讓您指定要檢查的欄位清單。</summary>
+      <returns>如果發生任何驗證錯誤，則為指定欄位的錯誤清單。</returns>
+      <param name="fields">選擇性。要驗證之使用者輸入項目的名稱 (name 屬性的值)。您可以指定任意數目的項目名稱，並以逗號分隔。如果您未指定清單，則此方法會驗證所有已註冊的項目。</param>
+    </member>
+    <member name="P:System.Web.WebPages.ValidationHelper.ValidCssClass">
+      <summary>取得類別的名稱，此類別可用來指定在發生錯誤時，錯誤訊息顯示的出現方式。這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+      <returns>名稱。</returns>
+    </member>
+    <member name="T:System.Web.WebPages.Validator">
+      <summary>定義可以使用 <see cref="M:System.Web.WebPages.ValidationHelper.Add(System.String,System.Web.WebPages.IValidator[])" /> 方法註冊的驗證測試。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Validator.#ctor">
+      <summary>初始化 <see cref="T:System.Web.WebPages.Validator" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Validator.DateTime(System.String)">
+      <summary>定義驗證測試，測試是否可以將值視為日期/時間值。</summary>
+      <returns>驗證測試。</returns>
+      <param name="errorMessage">驗證失敗時顯示的錯誤訊息。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Validator.Decimal(System.String)">
+      <summary>定義驗證測試，測試是否可以將值視為十進位數字。</summary>
+      <returns>驗證測試。</returns>
+      <param name="errorMessage">驗證失敗時顯示的錯誤訊息。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Validator.EqualsTo(System.String,System.String)">
+      <summary>定義驗證測試，根據其他欄位的值測試使用者輸入。</summary>
+      <returns>驗證測試。</returns>
+      <param name="errorMessage">驗證失敗時顯示的錯誤訊息。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Validator.Float(System.String)">
+      <summary>定義驗證測試，測試是否可以將值視為浮點數。</summary>
+      <returns>驗證測試。</returns>
+      <param name="errorMessage">驗證失敗時顯示的錯誤訊息。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Validator.Integer(System.String)">
+      <summary>定義驗證測試，測試是否可以將值視為整數。</summary>
+      <returns>驗證測試。</returns>
+      <param name="errorMessage">驗證失敗時顯示的錯誤訊息。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Validator.Range(System.Double,System.Double,System.String)">
+      <summary>定義驗證測試，測試某個十進位數字是否會介於指定的範圍內。</summary>
+      <returns>驗證測試。</returns>
+      <param name="minValue">最小值。預設值為 0。</param>
+      <param name="maxValue">最大值。</param>
+      <param name="errorMessage">驗證失敗時顯示的錯誤訊息。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Validator.Range(System.Int32,System.Int32,System.String)">
+      <summary>定義驗證測試，測試某個整數值是否會介於指定的範圍內。</summary>
+      <returns>驗證測試。</returns>
+      <param name="minValue">最小值。預設值為 0。</param>
+      <param name="maxValue">最大值。</param>
+      <param name="errorMessage">驗證失敗時顯示的錯誤訊息。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Validator.Regex(System.String,System.String)">
+      <summary>定義驗證測試，根據指定為規則運算式的模式來測試值。</summary>
+      <returns>驗證測試。</returns>
+      <param name="pattern">要用來測試使用者輸入的規則運算式。</param>
+      <param name="errorMessage">驗證失敗時顯示的錯誤訊息。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Validator.Required(System.String)">
+      <summary>定義驗證測試，測試是否已提供值。</summary>
+      <returns>驗證測試。</returns>
+      <param name="errorMessage">驗證失敗時顯示的錯誤訊息。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Validator.StringLength(System.Int32,System.Int32,System.String)">
+      <summary>定義驗證測試，測試字串的長度。</summary>
+      <returns>驗證測試。</returns>
+      <param name="maxLength">字串的最大長度。</param>
+      <param name="minLength">字串的最小長度。預設值為 0。</param>
+      <param name="errorMessage">驗證失敗時顯示的錯誤訊息。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Validator.Url(System.String)">
+      <summary>定義驗證測試，測試值是否為正確格式的 URL。</summary>
+      <returns>驗證測試。</returns>
+      <param name="errorMessage">驗證失敗時顯示的錯誤訊息。</param>
+    </member>
+    <member name="T:System.Web.WebPages.VirtualPathFactoryManager">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.VirtualPathFactoryManager.CreateInstance(System.String)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.VirtualPathFactoryManager.Exists(System.String)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.VirtualPathFactoryManager.RegisterVirtualPathFactory(System.Web.WebPages.IVirtualPathFactory)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.WebPage">
+      <summary>表示 ASP.NET Razor 頁面。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPage.#ctor">
+      <summary>從衍生類別中呼叫，以建立新的執行個體，此執行個體是以 <see cref="T:System.Web.WebPages.WebPage" /> 類別為基礎。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.WebPage.Context">
+      <summary>取得或設定與頁面相關聯的 <see cref="T:System.Web.HttpContextBase" /> 物件。</summary>
+      <returns>目前的內容資料。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.WebPage.ExecutePageHierarchy">
+      <summary>在一組相依的頁面上執行程式碼。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.WebPage.Html">
+      <summary>取得與頁面相關聯的 <see cref="T:System.Web.WebPages.Html.HtmlHelper" /> 物件。</summary>
+      <returns>可以在頁面上呈現 HTML 表單控制項的物件。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.WebPage.InitializePage">
+      <summary>初始化繼承自 <see cref="T:System.Web.WebPages.WebPage" /> 類別的物件。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.WebPage.Model">
+      <summary>取得與頁面相關聯的模型。</summary>
+      <returns>代表與頁面檢視資料相關聯之模型的物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPage.ModelState">
+      <summary>取得與頁面相關聯的模型狀態。</summary>
+      <returns>模型的狀態。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.WebPage.RegisterPageExecutor(System.Web.WebPages.IWebPageRequestExecutor)">
+      <summary>將類別加入至類別清單，這些類別可以處理頁面執行和實作頁面的自訂功能。</summary>
+      <param name="executor">要加入的類別。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPage.RenderPage(System.String,System.Object[])">
+      <summary>呈現內容頁面。</summary>
+      <returns>可以寫入頁面之輸出的物件。</returns>
+      <param name="path">要呈現的頁面路徑。</param>
+      <param name="data">要傳遞至頁面的資料。</param>
+    </member>
+    <member name="P:System.Web.WebPages.WebPage.Validation">
+      <summary>取得目前頁面內容的驗證 Helper。</summary>
+      <returns>驗證 Helper。</returns>
+    </member>
+    <member name="T:System.Web.WebPages.WebPageBase">
+      <summary>作為表示 ASP.NET Razor 頁面之類別的基底類別。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.#ctor">
+      <summary>初始化 <see cref="T:System.Web.WebPages.WebPageBase" /> 類別，以供繼承的類別執行個體使用。此建構函式僅能由繼承的類別呼叫。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.ConfigurePage(System.Web.WebPages.WebPageBase)">
+      <summary>在衍生類別中覆寫時，根據父網頁的組態來設定目前的網頁。</summary>
+      <param name="parentPage">要從中讀取組態資訊的父頁面。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.CreateInstanceFromVirtualPath(System.String)">
+      <summary>使用指定的虛擬路徑，建立 <see cref="T:System.Web.WebPages.WebPageBase" /> 類別的新執行個體。</summary>
+      <returns>新的 <see cref="T:System.Web.WebPages.WebPageBase" /> 物件。</returns>
+      <param name="virtualPath">要用來建立執行個體的虛擬路徑。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.DefineSection(System.String,System.Web.WebPages.SectionWriter)">
+      <summary>由內容頁面呼叫來建立具名的內容區段。</summary>
+      <param name="name">要建立的區段名稱。</param>
+      <param name="action">要對新區段採取的動作類型。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.ExecutePageHierarchy">
+      <summary>在一組相依的網頁上執行程式碼。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.ExecutePageHierarchy(System.Web.WebPages.WebPageContext,System.IO.TextWriter)">
+      <summary>使用指定的參數，在一組相依的網頁上執行程式碼。</summary>
+      <param name="pageContext">頁面的內容資料。</param>
+      <param name="writer">要用來寫入執行之 HTML 的寫入器。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.ExecutePageHierarchy(System.Web.WebPages.WebPageContext,System.IO.TextWriter,System.Web.WebPages.WebPageRenderingBase)">
+      <summary>使用指定的內容、寫入器及起始頁，在一組相依的網頁上執行程式碼。</summary>
+      <param name="pageContext">頁面的內容資料。</param>
+      <param name="writer">要用來寫入執行之 HTML 的寫入器。</param>
+      <param name="startPage">要在頁面階層中開始執行的頁面。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.GetOutputWriter">
+      <summary>傳回可用來呈現頁面的文字寫入器執行個體。</summary>
+      <returns>文字寫入器。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.InitializePage">
+      <summary>初始化目前的頁面。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.IsSectionDefined(System.String)">
+      <summary>傳回值，這個值表示是否已在頁面中定義指定的區段。</summary>
+      <returns>如果已在頁面中定義指定的區段，則為 true，否則為 false。</returns>
+      <param name="name">要搜尋的區段名稱。</param>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageBase.Layout">
+      <summary>取得或設定版面配置頁面的路徑。</summary>
+      <returns>版面配置頁面的路徑。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageBase.Output">
+      <summary>取得頁面目前的 <see cref="T:System.IO.TextWriter" /> 物件。</summary>
+      <returns>
+        <see cref="T:System.IO.TextWriter" /> 物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageBase.OutputStack">
+      <summary>取得目前頁面內容的 <see cref="T:System.IO.TextWriter" /> 物件堆疊。</summary>
+      <returns>
+        <see cref="T:System.IO.TextWriter" /> 物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageBase.Page">
+      <summary>提供具有屬性特性的頁面資料存取權，此資料在頁面、版面配置頁面及部分頁面之間共用。</summary>
+      <returns>包含頁面資料的物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageBase.PageData">
+      <summary>提供具有陣列特性的頁面資料存取權，此資料在頁面、版面配置頁面及部分頁面之間共用。</summary>
+      <returns>包含頁面資料的字典。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.PopContext">
+      <summary>從 <see cref="P:System.Web.WebPages.WebPageBase.OutputStack" /> 執行個體的最上方傳回和移除內容。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.PushContext(System.Web.WebPages.WebPageContext,System.IO.TextWriter)">
+      <summary>在 <see cref="P:System.Web.WebPages.WebPageBase.OutputStack" /> 執行個體的最上方插入指定的內容。</summary>
+      <param name="pageContext">要推入 <see cref="P:System.Web.WebPages.WebPageBase.OutputStack" /> 執行個體的頁面內容。</param>
+      <param name="writer">頁面內容的寫入器。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.RenderBody">
+      <summary>在版面配置頁面中，呈現不在具名區段內之內容頁面的一部分。</summary>
+      <returns>要呈現的 HTML 內容。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.RenderPage(System.String,System.Object[])">
+      <summary>在其他頁面內呈現某一個頁面的內容。</summary>
+      <returns>要呈現的 HTML 內容。</returns>
+      <param name="path">要呈現的頁面路徑。</param>
+      <param name="data">(選擇性) 要傳遞到所呈現頁面的資料陣列。在呈現的頁面中，可以使用 <see cref="P:System.Web.WebPages.WebPageBase.PageData" /> 屬性來存取這些參數。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.RenderSection(System.String)">
+      <summary>在版面配置頁面中，呈現具名區段的內容。</summary>
+      <returns>要呈現的 HTML 內容。</returns>
+      <param name="name">要呈現的區段。</param>
+      <exception cref="T:System.Web.HttpException">
+        <paramref name="name" /> 區段已經呈現。-或-<paramref name="name" /> 區段已標記為必要項，但卻找不到。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.RenderSection(System.String,System.Boolean)">
+      <summary>在版面配置頁面中，呈現具名區段的內容，並指定該區段是否為必要項。</summary>
+      <returns>要呈現的 HTML 內容。</returns>
+      <param name="name">要呈現的區段。</param>
+      <param name="required">true 表示指定該區段為必要項，否則為 false。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.Write(System.Object)">
+      <summary>寫入指定物件作為 HTML 編碼的字串。</summary>
+      <param name="value">要編碼和寫入的物件。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.Write(System.Web.WebPages.HelperResult)">
+      <summary>寫入指定的 <see cref="T:System.Web.WebPages.HelperResult" /> 物件以作為 HTML 編碼的字串。</summary>
+      <param name="result">要編碼和寫入的協助程式結果。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageBase.WriteLiteral(System.Object)">
+      <summary>寫入指定物件，而不先進行 HTML 編碼。</summary>
+      <param name="value">要寫入的物件。</param>
+    </member>
+    <member name="T:System.Web.WebPages.WebPageContext">
+      <summary>包含資料，<see cref="T:System.Web.WebPages.WebPage" /> 物件會使用此資料來參照有關 Web 應用程式、目前的 HTTP 要求、目前的執行內容，以及網頁呈現之資料的詳細資料。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageContext.#ctor">
+      <summary>初始化 <see cref="T:System.Web.WebPages.WebPageContext" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageContext.#ctor(System.Web.HttpContextBase,System.Web.WebPages.WebPageRenderingBase,System.Object)">
+      <summary>使用指定的內容、頁面及模型，初始化類別的新執行個體。</summary>
+      <param name="context">要與頁面內容相關聯的 HTTP 要求內容資料。</param>
+      <param name="page">要在頁面、版面配置頁及部分頁面之間共用的頁面資料。</param>
+      <param name="model">要與檢視資料相關聯的模型。</param>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageContext.Current">
+      <summary>取得目前 <see cref="T:System.Web.WebPages.WebPageContext" /> 物件的參照，此物件會與頁面相關聯。</summary>
+      <returns>目前的頁面內容物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageContext.Model">
+      <summary>取得與頁面相關聯的模型。</summary>
+      <returns>代表與頁面檢視資料相關聯之模型的物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageContext.Page">
+      <summary>取得與頁面相關聯的 <see cref="T:System.Web.WebPages.WebPageRenderingBase" /> 物件。</summary>
+      <returns>呈現頁面的物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageContext.PageData">
+      <summary>取得頁面資料，此資料可以在頁面、版面配置頁及部分頁面之間共用。</summary>
+      <returns>包含頁面資料的字典。</returns>
+    </member>
+    <member name="T:System.Web.WebPages.WebPageExecutingBase">
+      <summary>提供物件和方法，可用來執行和呈現包含 Razor 語法的 ASP.NET 頁面。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.#ctor">
+      <summary>初始化 <see cref="T:System.Web.WebPages.WebPageExecutingBase" /> 類別，以供繼承的類別執行個體使用。此建構函式僅能由繼承的類別呼叫。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageExecutingBase.App">
+      <summary>取得應用程式狀態資料以作為 <see cref="T:System.Dynamic.DynamicObject" /> 物件，呼叫者可以使用此物件來建立和存取自訂的應用程式領域屬性。</summary>
+      <returns>應用程式狀態資料。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageExecutingBase.AppState">
+      <summary>取得全域應用程式狀態資料的參照，此資料可在 ASP.NET 應用程式中跨工作階段和要求加以共用。</summary>
+      <returns>應用程式狀態資料。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.BeginContext(System.Int32,System.Int32,System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.BeginContext(System.IO.TextWriter,System.Int32,System.Int32,System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.BeginContext(System.IO.TextWriter,System.String,System.Int32,System.Int32,System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.BeginContext(System.String,System.Int32,System.Int32,System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageExecutingBase.Context">
+      <summary>在衍生類別中覆寫時，取得或設定與頁面相關聯的 <see cref="T:System.Web.HttpContextBase" /> 物件。</summary>
+      <returns>目前的內容資料。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.EndContext(System.Int32,System.Int32,System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.EndContext(System.IO.TextWriter,System.Int32,System.Int32,System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.EndContext(System.IO.TextWriter,System.String,System.Int32,System.Int32,System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.EndContext(System.String,System.Int32,System.Int32,System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.Execute">
+      <summary>在目前使用 Razor 語法標記的網頁中執行伺服器程式碼。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.GetOutputWriter">
+      <summary>傳回可用來呈現頁面的文字寫入器執行個體。</summary>
+      <returns>文字寫入器。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.Href(System.String,System.Object[])">
+      <summary>使用指定的參數，從應用程式相對的 URL 建置絕對的 URL。</summary>
+      <returns>絕對 URL。</returns>
+      <param name="path">要在 URL 中使用的初始路徑。</param>
+      <param name="pathParts">其他的路徑資訊，例如，資料夾和子資料夾。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.NormalizePath(System.String)">
+      <summary>從指定的路徑傳回標準化路徑。</summary>
+      <returns>標準化路徑。</returns>
+      <param name="path">要標準化的路徑。</param>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageExecutingBase.VirtualPath">
+      <summary>取得或設定頁面的虛擬路徑。</summary>
+      <returns>虛擬路徑。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageExecutingBase.VirtualPathFactory">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.Write(System.Object)">
+      <summary>寫入指定參數的字串表示法以作為 HTML 編碼的字串。</summary>
+      <param name="value">要編碼和寫入的物件。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.Write(System.Web.WebPages.HelperResult)">
+      <summary>寫入指定的 <see cref="T:System.Web.WebPages.HelperResult" /> 物件以作為 HTML 編碼的字串。</summary>
+      <param name="result">要編碼和寫入的協助程式結果。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.WriteAttribute(System.String,System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.AttributeValue[])">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.WriteAttributeTo(System.IO.TextWriter,System.String,System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.AttributeValue[])">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.WriteAttributeTo(System.String,System.IO.TextWriter,System.String,System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.Instrumentation.PositionTagged{System.String},System.Web.WebPages.AttributeValue[])">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.WriteLiteral(System.Object)">
+      <summary>寫入指定的物件，而不進行 HTML 編碼。</summary>
+      <param name="value">要寫入的物件。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.WriteLiteralTo(System.IO.TextWriter,System.Object)">
+      <summary>將指定的物件寫入指定的 <see cref="T:System.IO.TextWriter" /> 執行個體，而不進行 HTML 編碼。</summary>
+      <param name="writer">文字寫入器。</param>
+      <param name="content">要寫入的物件。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.WriteTo(System.IO.TextWriter,System.Object)">
+      <summary>以 HTML 編碼的字串將指定的物件寫入指定的文字寫入器。</summary>
+      <param name="writer">文字寫入器。</param>
+      <param name="content">要編碼和寫入的物件。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageExecutingBase.WriteTo(System.IO.TextWriter,System.Web.WebPages.HelperResult)">
+      <summary>以 HTML 編碼的字串將指定的 <see cref="T:System.Web.WebPages.HelperResult" /> 物件寫入指定的文字寫入器。</summary>
+      <param name="writer">文字寫入器。</param>
+      <param name="content">要編碼和寫入的協助程式結果。</param>
+    </member>
+    <member name="T:System.Web.WebPages.WebPageHttpHandler">
+      <summary>提供可用來處理特定 URL 副檔名的方法和屬性。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageHttpHandler.#ctor(System.Web.WebPages.WebPage)">
+      <summary>使用指定的網頁，初始化 <see cref="T:System.Web.WebPages.WebPageHttpHandler" /> 類別的新執行個體。</summary>
+      <param name="webPage">要處理的網頁。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="webPage" /> 為 null。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageHttpHandler.CreateFromVirtualPath(System.String)">
+      <summary>從指定的虛擬路徑建立新的 <see cref="T:System.Web.IHttpHandler" /> 處理常式物件。</summary>
+      <returns>指定之虛擬路徑的 <see cref="T:System.Web.IHttpHandler" /> 物件。</returns>
+      <param name="virtualPath">要用來建立處理常式的虛擬路徑。</param>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageHttpHandler.DisableWebPagesResponseHeader">
+      <summary>取得或設定值，這個值表示是否已停用網頁回應標頭。</summary>
+      <returns>如果已停用網頁回應標頭，則為 true，否則為 false。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageHttpHandler.GetRegisteredExtensions">
+      <summary>傳回目前 <see cref="T:System.Web.WebPages.WebPageHttpHandler" /> 執行個體可以處理的副檔名清單。</summary>
+      <returns>目前 <see cref="T:System.Web.WebPages.WebPageHttpHandler" /> 執行個體所處理之副檔名的唯讀清單。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageHttpHandler.IsReusable">
+      <summary>取得值，這個值表示另一個要求是否可以使用 <see cref="T:System.Web.WebPages.WebPageHttpHandler" /> 執行個體。</summary>
+      <returns>如果 <see cref="T:System.Web.WebPages.WebPageHttpHandler" /> 執行個體可重複使用，則為 true，否則為 false。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageHttpHandler.ProcessRequest(System.Web.HttpContext)">
+      <summary>使用指定的內容來處理網頁。</summary>
+      <param name="context">處理網頁時所使用的內容。</param>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageHttpHandler.RegisterExtension(System.String)">
+      <summary>將副檔名加入至目前 <see cref="T:System.Web.WebPages.WebPageHttpHandler" /> 執行個體所處理的副檔名清單。</summary>
+      <param name="extension">要加入的副檔名 (不含前置句號)。</param>
+    </member>
+    <member name="F:System.Web.WebPages.WebPageHttpHandler.WebPagesVersionHeaderName">
+      <summary>此網頁所使用之 ASP.NET Web Pages 規格版本的 HTML 標記名稱 (X-AspNetWebPages-Version)。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.WebPageRenderingBase">
+      <summary>提供方法和屬性，以用來呈現使用 Razor 檢視引擎的頁面。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageRenderingBase.#ctor">
+      <summary>初始化 <see cref="T:System.Web.WebPages.WebPageRenderingBase" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Cache">
+      <summary>在衍生類別中覆寫時，取得目前應用程式網域的快取物件。</summary>
+      <returns>快取物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Culture">
+      <summary>在衍生類別中覆寫時，取得或設定目前執行緒的文化特性。</summary>
+      <returns>目前執行緒的文化特性。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.DisplayMode">
+      <summary>取得要求的顯示模式。</summary>
+      <returns>顯示模式。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageRenderingBase.ExecutePageHierarchy">
+      <summary>在衍生類別中覆寫時，呼叫用來初始化頁面的方法。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.IsAjax">
+      <summary>在衍生類別中覆寫時，取得值，這個值表示是否會在網頁要求期間使用 Ajax。</summary>
+      <returns>如果會在要求期間使用 Ajax，則為 true，否則為 false。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.IsPost">
+      <summary>在衍生類別中覆寫時，傳回值，這個值表示用戶端用來要求網頁的 HTTP 資料傳輸方法是否為 POST 要求。</summary>
+      <returns>如果 HTTP 指令動詞為「POST」，為 true，否則為 false。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Layout">
+      <summary>在衍生類別中覆寫時，取得或設定版面配置頁的路徑。</summary>
+      <returns>版面配置頁的路徑。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Page">
+      <summary>在衍生類別中覆寫時，提供與屬性相關之頁面資料的存取權限，此資料可以在頁面、版面配置頁及部分頁面之間共用。</summary>
+      <returns>包含頁面資料的物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.PageContext">
+      <summary>在衍生類別中覆寫時，取得網頁的 HTTP 內容。</summary>
+      <returns>網頁的 HTTP 內容。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.PageData">
+      <summary>在衍生類別中覆寫時，提供與陣列相關之頁面資料的存取權限，此資料可以在頁面、版面配置頁及部分頁面之間共用。</summary>
+      <returns>提供具有陣列特性之頁面資料存取權的物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Profile">
+      <summary>取得目前要求內容的設定檔資訊。</summary>
+      <returns>設定檔資訊。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.WebPageRenderingBase.RenderPage(System.String,System.Object[])">
+      <summary>在衍生類別中覆寫時，呈現網頁。</summary>
+      <returns>表示網頁的標記。</returns>
+      <param name="path">要呈現的頁面路徑。</param>
+      <param name="data">用來呈現頁面的其他資料。</param>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Request">
+      <summary>在衍生類別中覆寫時，提供目前 HTTP 要求的 <see cref="T:System.Web.HttpRequest" /> 物件。</summary>
+      <returns>
+        <see cref="T:System.Web.HttpRequest" /> 物件，其中包含用戶端在 Web 要求期間傳送的 HTTP 值。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Response">
+      <summary>在衍生類別中覆寫時，提供目前 HTTP 回應的 <see cref="T:System.Web.HttpResponse" /> 物件。</summary>
+      <returns>
+        <see cref="T:System.Web.HttpResponse" /> 物件，其中包含來自 ASP.NET 作業的 HTTP 回應資訊。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Server">
+      <summary>在衍生類別中覆寫時，取得 <see cref="T:System.Web.HttpServerUtility" /> 物件，此物件提供可用來作為網頁處理一部分的方法。</summary>
+      <returns>
+        <see cref="T:System.Web.HttpServerUtility" /> 物件。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.Session">
+      <summary>在衍生類別中覆寫時，提供目前 HTTP 要求的 <see cref="T:System.Web.HttpSessionState" /> 物件。</summary>
+      <returns>目前要求的工作階段資料。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.TemplateInfo">
+      <summary>在衍生類別中覆寫時，取得目前執行之檔案的相關資訊。</summary>
+      <returns>目前執行之檔案的相關資訊。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.UICulture">
+      <summary>在衍生類別中覆寫時，取得或設定資源管理員目前使用的文化特性，以便在執行階段查詢文化特性特有的資源。</summary>
+      <returns>資源管理員目前使用的文化特性。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.UrlData">
+      <summary>在衍生類別中覆寫時，取得與 URL 路徑相關的資料。</summary>
+      <returns>與 URL 路徑相關的資料。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.WebPageRenderingBase.User">
+      <summary>在衍生類別中覆寫時，根據 HTTP 內容取得使用者值。</summary>
+      <returns>以 HTTP 內容為根據的使用者值。</returns>
+    </member>
+    <member name="T:System.Web.WebPages.Html.HtmlHelper">
+      <summary>提供在網頁中呈現 HTML 表單控制項和執行表單驗證的支援。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.AttributeEncode(System.Object)">
+      <summary>傳回 HTML 編碼的字串，這個字串表示使用最小的編碼方式指定的物件，此編碼方式僅適用於以引號括起來的 HTML 屬性。</summary>
+      <returns>表示物件的 HTML 編碼字串。</returns>
+      <param name="value">要編碼的物件。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.AttributeEncode(System.String)">
+      <summary>傳回 HTML 編碼的字串，這個字串表示使用最小的編碼方式指定的字串，此編碼方式僅適用於以引號括起來的 HTML 屬性。</summary>
+      <returns>表示原始字串的 HTML 編碼的字串。</returns>
+      <param name="value">要編碼的字串</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.CheckBox(System.String)">
+      <summary>傳回含有指定名稱的 HTML 核取方塊控制項。</summary>
+      <returns>表示核取方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.CheckBox(System.String,System.Boolean)">
+      <summary>傳回含有指定名稱和預設已核取狀態的 HTML 核取方塊控制項。</summary>
+      <returns>表示核取方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <param name="isChecked">true 表示已將 checked 屬性設定為 checked，否則為 false。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.CheckBox(System.String,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 核取方塊控制項，此控制項含有指定名稱、預設已核取狀態，以及透過屬性字典定義的自訂屬性。</summary>
+      <returns>表示核取方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <param name="isChecked">true 表示已將 checked 屬性設定為 checked，否則為 false。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.CheckBox(System.String,System.Boolean,System.Object)">
+      <summary>傳回 HTML 核取方塊控制項，此控制項含有指定的名稱、預設的已核取狀態，以及透過屬性物件定義的自訂屬性。</summary>
+      <returns>表示核取方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <param name="isChecked">true 表示已將 checked 屬性設定為 checked，否則為 false。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.CheckBox(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 核取方塊控制項，此控制項含有指定名稱和透過屬性字典定義的自訂屬性。</summary>
+      <returns>表示核取方塊控制項的 HTML 標記。</returns>
+      <param name="name"> 指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.CheckBox(System.String,System.Object)">
+      <summary>傳回 HTML 核取方塊控制項，此控制項含有指定名稱和透過屬性物件定義的自訂屬性。</summary>
+      <returns>表示核取方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.DropDownList(System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem})">
+      <summary>傳回 HTML 下拉式清單控制項，此控制項含有指定名稱並包含指定清單項目。</summary>
+      <returns>表示下拉式清單控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.DropDownList(System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 下拉式清單控制項，此控制項含有指定名稱和透過屬性字典定義的自訂屬性，並包含指定清單項目。</summary>
+      <returns>表示下拉式清單控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.DropDownList(System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object)">
+      <summary>傳回 HTML 下拉式清單控制項，此控制項含有指定名稱和透過屬性物件定義的自訂屬性，並包含指定清單項目。</summary>
+      <returns>表示下拉式清單控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.DropDownList(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem})">
+      <summary>傳回 HTML 下拉式清單控制項，此控制項含有指定名稱，並包含指定清單項目和預設項目。</summary>
+      <returns>表示下拉式清單控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="defaultOption">要針對清單中預設選項顯示的文字。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.DropDownList(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 下拉式清單控制項，此控制項含有指定的名稱和透過屬性字典定義的自訂屬性，並包含指定的清單項目和預設項目。</summary>
+      <returns>表示下拉式清單控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="defaultOption">要針對清單中預設選項顯示的文字。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.DropDownList(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object)">
+      <summary>傳回 HTML 下拉式清單控制項，此控制項含有指定名稱和透過屬性物件定義的自訂屬性，並包含指定清單項目和預設項目。</summary>
+      <returns>表示下拉式清單控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="defaultOption">要針對清單中預設選項顯示的文字。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.DropDownList(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 下拉式清單控制項，此控制項含有指定名稱、透過屬性字典定義的自訂屬性，以及預設的選取項目，並包含指定清單項目和預設項目。</summary>
+      <returns>表示下拉式清單控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="defaultOption">要針對清單中預設選項顯示的文字。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="selectedValue">用以指定清單中預設選取之項目的值。選取的項目是清單中的第一個項目，其值會與參數相符 (或者，如果沒有值，則其文字會相符)。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.DropDownList(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object,System.Object)">
+      <summary>傳回 HTML 下拉式清單控制項，此控制項含有指定名稱、透過屬性物件定義的自訂屬性，以及預設的選取項目，並包含指定清單項目和預設項目。</summary>
+      <returns>表示下拉式清單控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="defaultOption">要針對清單中預設選項顯示的文字。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="selectedValue">用以指定清單中預設選取之項目的值。選取的項目是清單中的第一個項目，此項目含有相符的值，或者，如果此項目沒有值，則它會符合項目顯示的文字。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Encode(System.Object)">
+      <summary>傳回 HTML 編碼的字串，這個字串表示使用適用於任意 HTML 之完整編碼方式指定的物件。</summary>
+      <returns>表示物件的 HTML 編碼字串。</returns>
+      <param name="value">要編碼的物件。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Encode(System.String)">
+      <summary>傳回 HTML 編碼的字串，這個字串表示使用適用於任意 HTML 之完整編碼方式指定的字串。</summary>
+      <returns>表示原始字串的 HTML 編碼的字串。</returns>
+      <param name="value">要編碼的字串。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Hidden(System.String)">
+      <summary>傳回 HTML 隱藏控制項，此控制項含有指定的名稱。</summary>
+      <returns>表示隱藏控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Hidden(System.String,System.Object)">
+      <summary>傳回 HTML 隱藏控制項，此控制項含有指定的名稱和值。</summary>
+      <returns>表示隱藏控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <param name="value">指派給項目之 value 屬性的值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Hidden(System.String,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 隱藏控制項，此控制項含有指定名稱、值和透過屬性字典定義的自訂屬性。</summary>
+      <returns>表示隱藏控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <param name="value">指派給項目之 value 屬性的值。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Hidden(System.String,System.Object,System.Object)">
+      <summary>傳回 HTML 隱藏控制項，此控制項含有指定名稱、值和透過屬性物件定義的自訂屬性。</summary>
+      <returns>表示隱藏控制項的 HTML 標記。</returns>
+      <param name="name"> 指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <param name="value">指派給項目之 value 屬性的值。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="P:System.Web.WebPages.Html.HtmlHelper.IdAttributeDotReplacement">
+      <summary>取得或設定字元，這個字元用於取代所呈現表單控制項之 id 屬性中的句點 (.)。</summary>
+      <returns>這個字元用於取代所呈現表單控制項之 id 屬性中的句點。預設值為底線 (_)。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Label(System.String)">
+      <summary>傳回 HTML 標籤，這個標籤會顯示指定的文字。</summary>
+      <returns>表示標籤的 HTML 標記。</returns>
+      <param name="labelText">要顯示的文字。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="labelText" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Label(System.String,System.Object)">
+      <summary>傳回 HTML 標籤，此標籤會顯示指定的文字，並含有指定的自訂屬性。</summary>
+      <returns>表示標籤的 HTML 標記。</returns>
+      <param name="labelText">要顯示的文字。</param>
+      <param name="attributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="labelText" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Label(System.String,System.String)">
+      <summary>傳回 HTML 標籤，此標籤會顯示指定的文字，並含有指定的 for 屬性。</summary>
+      <returns>表示標籤的 HTML 標記。</returns>
+      <param name="labelText">要顯示的文字。</param>
+      <param name="labelFor">指派給 HTML 控制項項目之 for 屬性的值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="labelText" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Label(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 標籤，此標籤會顯示指定的文字，並含有指定的 for 屬性和透過屬性字典定義的自訂屬性。</summary>
+      <returns>表示標籤的 HTML 標記。</returns>
+      <param name="labelText">要顯示的文字。</param>
+      <param name="labelFor"> 指派給 HTML 控制項項目之 for 屬性的值。</param>
+      <param name="attributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="labelText" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Label(System.String,System.String,System.Object)">
+      <summary>傳回 HTML 標籤，此標籤會顯示指定的文字，並含有指定的 for 屬性和透過屬性物件定義的自訂屬性。</summary>
+      <returns>表示標籤的 HTML 標記。</returns>
+      <param name="labelText">要顯示的文字。</param>
+      <param name="labelFor">指派給 HTML 控制項項目之 for 屬性的值。</param>
+      <param name="attributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="labelText" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem})">
+      <summary>傳回 HTML 清單方塊控制項，此控制項含有指定名稱並包含指定清單項目。</summary>
+      <returns>代表清單方塊控制項的 HTML 標記。</returns>
+      <param name="name"> 指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 清單方塊控制項，此控制項含有指定名稱和透過屬性字典定義的自訂屬性，並包含指定清單項目。</summary>
+      <returns>代表清單方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object)">
+      <summary>傳回 HTML 清單方塊控制項，此控制項含有指定名稱和透過屬性物件定義的自訂屬性，並包含指定清單項目。</summary>
+      <returns>代表清單方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object,System.Int32,System.Boolean)">
+      <summary>傳回 HTML 清單方塊控制項，此控制項含有指定的名稱、大小、清單項目及預設的選取項目，並指定是否已啟用多個選取項目。</summary>
+      <returns>代表清單方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="selectedValues">用以指定清單中預設選取之項目的物件。這些選取項目是藉由檢查物件之屬性，透過反映所擷取而來。</param>
+      <param name="size">指派給項目 size 屬性的值。</param>
+      <param name="allowMultiple">true 表示已啟用多個選取項目，否則為 false。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem})">
+      <summary>傳回 HTML 清單方塊控制項，此控制項含有指定名稱，並包含指定清單項目和預設項目。</summary>
+      <returns>代表清單方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="defaultOption">要針對清單中預設選項顯示的文字。</param>
+      <param name="selectList">用來填入清單方塊的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 清單方塊控制項，此控制項含有指定的名稱和透過屬性字典定義的自訂屬性，並包含指定的清單項目和預設項目。</summary>
+      <returns>代表清單方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="defaultOption">要針對清單中預設選項顯示的文字。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object)">
+      <summary>傳回 HTML 清單方塊控制項，此控制項含有指定的名稱和透過屬性物件定義的自訂屬性，並包含指定的清單項目和預設項目。</summary>
+      <returns>代表清單方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="defaultOption">要針對清單中預設選項顯示的文字。</param>
+      <param name="selectList">用來填入清單方塊的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 清單方塊控制項，此控制項含有指定的名稱和透過屬性字典定義的自訂屬性，並包含指定的清單項目、預設項目及選取項目。</summary>
+      <returns>代表清單方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="defaultOption">要針對清單中預設選項顯示的文字。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="selectedValues">用以指定清單中預設選取之項目的物件。這些選取項目是藉由檢查物件之屬性，透過反映所擷取而來。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object,System.Int32,System.Boolean)">
+      <summary>傳回 HTML 清單方塊控制項，此控制項含有指定的名稱、大小、項目、預設項目及選取項目，並指定是否已啟用多個選取項目。</summary>
+      <returns>代表清單方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="defaultOption">要針對清單中預設選項顯示的文字。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="selectedValues">用以指定清單中預設選取之項目的物件。這些選取項目是藉由檢查物件之屬性，透過反映所擷取而來。</param>
+      <param name="size">指派給項目 size 屬性的值。</param>
+      <param name="allowMultiple">true 表示已啟用多個選取項目，否則為 false。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object,System.Int32,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 清單方塊控制項，此控制項含有指定的名稱、大小、透過屬性字典定義的自訂屬性、項目、預設項目及選取項目，並指定是否已啟用多個選取項目。</summary>
+      <returns>代表清單方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="defaultOption">要針對清單中預設選項顯示的文字。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="selectedValues">用以指定清單中預設選取之項目的物件。這些選取項目是藉由檢查物件之屬性，透過反映所擷取而來。</param>
+      <param name="size">指派給項目 size 屬性的值。</param>
+      <param name="allowMultiple">true 表示已啟用多個選取項目，否則為 false。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object,System.Int32,System.Boolean,System.Object)">
+      <summary>傳回 HTML 清單方塊控制項，此控制項含有指定的名稱、大小、透過屬性物件定義的自訂屬性、項目、預設項目及選取項目，並指定是否已啟用多個選取項目。</summary>
+      <returns>代表清單方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="defaultOption">要針對清單中預設選項顯示的文字。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="selectedValues">用以指定清單中預設選取之項目的物件。這些選取項目是藉由檢查物件之屬性，透過反映所擷取而來。</param>
+      <param name="size">指派給項目 size 屬性的值。</param>
+      <param name="allowMultiple">true 表示已啟用多個選取項目，否則為 false。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ListBox(System.String,System.String,System.Collections.Generic.IEnumerable{System.Web.WebPages.Html.SelectListItem},System.Object,System.Object)">
+      <summary>傳回 HTML 清單方塊控制項，此控制項含有指定的名稱、項目、預設項目、透過屬性物件定義的自訂屬性，以及選取項目。</summary>
+      <returns>代表清單方塊控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML select 項目之 name 屬性的值。</param>
+      <param name="defaultOption">要針對清單中預設選項顯示的文字。</param>
+      <param name="selectList">用來填入清單的 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體清單。</param>
+      <param name="selectedValues">用以指定清單中預設選取之項目的物件。這些選取項目是藉由檢查物件之屬性，透過反映所擷取而來。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Password(System.String)">
+      <summary>傳回 HTML 密碼控制項，此控制項含有指定的名稱。</summary>
+      <returns>表示密碼控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Password(System.String,System.Object)">
+      <summary>傳回 HTML 密碼控制項，此控制項含有指定的名稱和值。</summary>
+      <returns>表示密碼控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <param name="value">指派給項目之 value 屬性的值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Password(System.String,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 密碼控制項，此控制項含有指定名稱、值和透過屬性字典定義的自訂屬性。</summary>
+      <returns>表示密碼控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <param name="value">指派給項目之 value 屬性的值。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Password(System.String,System.Object,System.Object)">
+      <summary>傳回 HTML 密碼控制項，此控制項含有指定名稱、值和透過屬性物件定義的自訂屬性。</summary>
+      <returns>表示密碼控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <param name="value">指派給項目之 value 屬性的值。</param>
+      <param name="htmlAttributes"> 包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.RadioButton(System.String,System.Object)">
+      <summary>傳回 HTML 選項按鈕控制項，此控制項含有指定的名稱和值。</summary>
+      <returns>代表選項按鈕控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。name 屬性會定義選項按鈕所屬的群組。</param>
+      <param name="value">指派給項目之 value 屬性的值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.RadioButton(System.String,System.Object,System.Boolean)">
+      <summary>傳回 HTML 選項按鈕控制項，此控制項含有指定的名稱、值及預設的已選取狀態。</summary>
+      <returns>代表選項按鈕控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。name 屬性會定義選項按鈕所屬的群組。</param>
+      <param name="value">指派給項目之 value 屬性的值。</param>
+      <param name="isChecked">true 表示已選取該控制項，否則為 false。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.RadioButton(System.String,System.Object,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 選項按鈕控制項，此控制項含有指定的名稱、值、預設的已選取狀態，以及透過屬性字典定義的自訂屬性。</summary>
+      <returns>代表選項按鈕控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。name 屬性會定義選項按鈕所屬的群組。</param>
+      <param name="value">指派給項目之 value 屬性的值。</param>
+      <param name="isChecked">true 表示已選取該控制項，否則為 false。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.RadioButton(System.String,System.Object,System.Boolean,System.Object)">
+      <summary>傳回 HTML 選項按鈕控制項，此控制項含有指定的名稱、值、預設的已選取狀態，以及透過屬性物件定義的自訂屬性。</summary>
+      <returns>代表選項按鈕控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。name 屬性會定義選項按鈕所屬的群組。</param>
+      <param name="value">指派給項目之 value 屬性的值。</param>
+      <param name="isChecked">true 表示已選取該控制項，否則為 false。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.RadioButton(System.String,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 選項按鈕控制項，此控制項含有指定名稱、值和透過屬性字典定義的自訂屬性。</summary>
+      <returns>代表選項按鈕控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。name 屬性會定義選項按鈕所屬的群組。</param>
+      <param name="value">指派給項目之 value 屬性的值。</param>
+      <param name="htmlAttributes"> 元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.RadioButton(System.String,System.Object,System.Object)">
+      <summary>傳回 HTML 選項按鈕控制項，此控制項含有指定名稱、值和透過屬性物件定義的自訂屬性。</summary>
+      <returns>代表選項按鈕控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。name 屬性會定義選項按鈕所屬的群組。</param>
+      <param name="value">指派給項目之 value 屬性的值。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Raw(System.Object)">
+      <summary>將 HTML 標記包裝於 <see cref="T:System.Web.HtmlString" /> 執行個體中，如此即能將它解譯為 HTML 標記。</summary>
+      <returns>未編碼的 HTML。</returns>
+      <param name="value">用以呈現 HTML 的物件。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.Raw(System.String)">
+      <summary>將 HTML 標記包裝於 <see cref="T:System.Web.HtmlString" /> 執行個體中，如此即能將它解譯為 HTML 標記。</summary>
+      <returns>未編碼的 HTML。</returns>
+      <param name="value">要解譯為 HTML 標記的字串，而不是進行 HTML 編碼。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.TextArea(System.String)">
+      <summary>傳回 HTML 多行文字輸入 (文字區域) 控制項，此控制項含有指定的名稱。</summary>
+      <returns>表示文字區域控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML textarea 項目之 name 屬性的值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.TextArea(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 多行文字輸入 (文字區域) 控制項，此控制項含有指定的名稱和透過屬性字典定義的自訂屬性。</summary>
+      <returns>表示文字區域控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML textarea 項目之 name 屬性的值。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.TextArea(System.String,System.Object)">
+      <summary>傳回 HTML 多行文字輸入 (文字區域) 控制項，此控制項含有指定的名稱和透過屬性物件定義的自訂屬性。</summary>
+      <returns>表示文字區域控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML textarea 項目之 name 屬性的值。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.TextArea(System.String,System.String)">
+      <summary>傳回 HTML 多行文字輸入 (文字區域) 控制項，此控制項含有指定的名稱和值。</summary>
+      <returns>表示文字區域控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML textrarea 項目之 name 屬性的值。</param>
+      <param name="value">要顯示的文字。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.TextArea(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 多行文字輸入 (文字區域) 控制項，此控制項含有指定的名稱、值和透過屬性字典定義的自訂屬性。</summary>
+      <returns>表示文字區域控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML textarea 項目之 name 屬性的值。</param>
+      <param name="value">要顯示的文字。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.TextArea(System.String,System.String,System.Int32,System.Int32,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 多行文字輸入 (文字區域) 控制項，此控制項含有指定的名稱、值、row 屬性、col 屬性及透過屬性字典定義的自訂屬性。</summary>
+      <returns>表示文字區域控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML textarea 項目之 name 屬性的值。</param>
+      <param name="value">要顯示的文字。</param>
+      <param name="rows">指派給項目之 rows 屬性的值。</param>
+      <param name="columns">指派給項目之 cols 屬性的值。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.TextArea(System.String,System.String,System.Int32,System.Int32,System.Object)">
+      <summary>傳回 HTML 多行文字輸入 (文字區域) 控制項，此控制項含有指定的名稱、值、row 屬性、col 屬性及透過屬性物件定義的自訂屬性。</summary>
+      <returns>表示文字區域控制項的 HTML 標記。</returns>
+      <param name="name"> 指派給 HTML textarea 項目之 name 屬性的值。</param>
+      <param name="value">要顯示的文字。</param>
+      <param name="rows">指派給項目之 rows 屬性的值。</param>
+      <param name="columns">指派給項目之 cols 屬性的值。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.TextArea(System.String,System.String,System.Object)">
+      <summary>傳回 HTML 多行文字輸入 (文字區域) 控制項，此控制項含有指定的名稱、值及透過屬性物件定義的自訂屬性。</summary>
+      <returns>表示文字區域控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML textarea 項目之 name 屬性的值。</param>
+      <param name="value">要顯示的文字。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.TextBox(System.String)">
+      <summary>傳回 HTML 文字控制項，此控制項含有指定的名稱。</summary>
+      <returns>表示文字控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.TextBox(System.String,System.Object)">
+      <summary>傳回 HTML 文字控制項，此控制項含有指定的名稱和值。</summary>
+      <returns>表示文字控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <param name="value">指派給項目之 value 屬性的值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.TextBox(System.String,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML 文字控制項，此控制項含有指定的名稱、值及透過屬性字典定義的自訂屬性。</summary>
+      <returns>表示文字控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <param name="value">指派給項目之 value 屬性的值。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.TextBox(System.String,System.Object,System.Object)">
+      <summary>傳回 HTML 文字控制項，此控制項含有指定的名稱、值及透過屬性物件定義的自訂屬性。</summary>
+      <returns>表示文字控制項的 HTML 標記。</returns>
+      <param name="name">指派給 HTML 控制項元素之 name 屬性的值。</param>
+      <param name="value">指派給項目之 value 屬性的值。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="P:System.Web.WebPages.Html.HtmlHelper.UnobtrusiveJavaScriptEnabled">
+      <summary>取得或設定值，這個值表示頁面是否會針對 Ajax 功能使用不顯眼的 JavaScript。</summary>
+      <returns>如果頁面會使用不顯眼的 JavaScript，則為 true，否則為 false。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Html.HtmlHelper.ValidationInputCssClassName">
+      <summary>取得或設定 CSS 類別的名稱，這個類別定義驗證失敗時 input 項目的出現方式。</summary>
+      <returns>CSS 類別的名稱。預設值為 field-validation-error。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Html.HtmlHelper.ValidationInputValidCssClassName">
+      <summary>取得或設定 CSS 類別的名稱，這個類別定義驗證通過時 input 項目的出現方式。</summary>
+      <returns>CSS 類別的名稱。預設值為 input-validation-valid。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationMessage(System.String)">
+      <summary>傳回 HTML span 項目，此項目包含指定表單欄位的第一個驗證錯誤訊息。</summary>
+      <returns>如果指定欄位的值為有效值，則為 null，否則為 HTML 標記，此標記代表與指定欄位相關聯的驗證錯誤訊息。</returns>
+      <param name="name">所驗證之表單欄位的名稱。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationMessage(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML span 項目，此項目含有透過屬性字典定義的指定自訂屬性，並包含指定表單欄位的第一個驗證錯誤訊息。</summary>
+      <returns>如果指定欄位的值為有效值，則為 null，否則為 HTML 標記，此標記代表與指定欄位相關聯的驗證錯誤訊息。</returns>
+      <param name="name">所驗證之表單欄位的名稱。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationMessage(System.String,System.Object)">
+      <summary>傳回 HTML span 項目，此項目含有透過屬性物件定義的指定自訂屬性，並包含指定表單欄位的第一個驗證錯誤訊息。</summary>
+      <returns>如果指定欄位的值為有效值，則為 null，否則為 HTML 標記，此標記代表與指定欄位相關聯的驗證錯誤訊息。</returns>
+      <param name="name">所驗證之表單欄位的名稱。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationMessage(System.String,System.String)">
+      <summary>傳回 HTML span 項目，此項目包含指定表單欄位的第一個驗證錯誤訊息。</summary>
+      <returns>如果指定欄位的值為有效值，則為 null，否則為 HTML 標記，此標記代表與指定欄位相關聯的驗證錯誤訊息。</returns>
+      <param name="name">所驗證之表單欄位的名稱。</param>
+      <param name="message">要顯示的驗證錯誤訊息。如果 null，則會顯示與指定表單欄位相關聯的第一個驗證錯誤訊息。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationMessage(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML span 項目，此項目含有透過屬性字典定義的指定自訂屬性，並包含指定表單欄位的驗證錯誤訊息。</summary>
+      <returns>如果指定的欄位有效，則為 null，否則為 HTML 標記，此標記代表與指定欄位相關聯的驗證錯誤訊息。</returns>
+      <param name="name">所驗證之表單欄位的名稱。</param>
+      <param name="message">要顯示的驗證錯誤訊息。如果 null，則會顯示與指定表單欄位相關聯的第一個驗證錯誤訊息。</param>
+      <param name="htmlAttributes"> 元素之自訂屬性的名稱和值。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationMessage(System.String,System.String,System.Object)">
+      <summary>傳回 HTML span 項目，此項目含有透過屬性物件定義的指定自訂屬性，並包含指定表單欄位的驗證錯誤訊息。</summary>
+      <returns>如果指定的欄位有效，則為 null，否則為 HTML 標記，此標記代表與指定欄位相關聯的驗證錯誤訊息。</returns>
+      <param name="name">所驗證之表單欄位的名稱。</param>
+      <param name="message">要顯示的驗證錯誤訊息。如果 null，則會顯示與指定表單欄位相關聯的第一個驗證錯誤訊息。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+      <exception cref="T:Sytem.ArgumentException">
+        <paramref name="name" /> 為 null 或空白。</exception>
+    </member>
+    <member name="P:System.Web.WebPages.Html.HtmlHelper.ValidationMessageCssClassName">
+      <summary>取得或設定 CSS 類別的名稱，這個類別定義驗證失敗時驗證錯誤訊息的出現方式。</summary>
+      <returns>CSS 類別的名稱。預設值為 field-validation-error。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Html.HtmlHelper.ValidationMessageValidCssClassName">
+      <summary>取得或設定 CSS 類別的名稱，這個類別定義驗證通過時驗證錯誤訊息的出現方式。</summary>
+      <returns>CSS 類別的名稱。預設值為 field-validation-valid。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationSummary">
+      <summary>傳回 HTML div 項目，此項目包含來自模型狀態字典之所有驗證錯誤訊息的未排序清單。</summary>
+      <returns>代表驗證錯誤訊息的 HTML 標記。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationSummary(System.Boolean)">
+      <summary>傳回 HTML div 項目，此項目包含來自模型狀態字典之驗證錯誤訊息的未排序清單 (可選擇性地排除欄位層級錯誤)。</summary>
+      <returns>代表驗證錯誤訊息的 HTML 標記。</returns>
+      <param name="excludeFieldErrors">true 會從清單中排除欄位層級的驗證錯誤訊息，false 則會包含模型層級和欄位層級的驗證錯誤訊息。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationSummary(System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML div 項目，此項目含有透過屬性字典定義的指定自訂屬性，並包含位於模型狀態字典中所有驗證錯誤訊息的未排序清單。</summary>
+      <returns>代表驗證錯誤訊息的 HTML 標記。</returns>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationSummary(System.Object)">
+      <summary>傳回 HTML div 項目，此項目含有透過屬性物件定義的指定自訂屬性，並包含位於模型狀態字典中所有驗證錯誤訊息的未排序清單。</summary>
+      <returns>代表驗證錯誤訊息的 HTML 標記。</returns>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationSummary(System.String)">
+      <summary>傳回 HTML div 項目，此項目包含摘要訊息和位於模型狀態字典中所有驗證錯誤訊息的未排序清單。</summary>
+      <returns>代表驗證錯誤訊息的 HTML 標記。</returns>
+      <param name="message">出現在驗證錯誤訊息清單之前的訊息。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationSummary(System.String,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML div 項目，此項目含有透過屬性字典定義的指定自訂屬性，並包含摘要訊息和來自模型狀態字典之驗證錯誤訊息的未排序清單 (可選擇性地排除欄位層級錯誤)。</summary>
+      <returns>代表驗證錯誤訊息的 HTML 標記。</returns>
+      <param name="message">出現在驗證錯誤訊息清單之前的摘要訊息。</param>
+      <param name="excludeFieldErrors">true 會從結果中排除欄位層級驗證錯誤訊息，false 則會包含模型層級和欄位層級的驗證錯誤訊息。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationSummary(System.String,System.Boolean,System.Object)">
+      <summary>傳回 HTML div 項目，此項目含有透過屬性物件定義的指定自訂屬性，並包含摘要訊息和來自模型狀態字典之驗證錯誤訊息的未排序清單 (可選擇性地排除欄位層級錯誤)。</summary>
+      <returns>代表驗證錯誤訊息的 HTML 標記。</returns>
+      <param name="message">出現在驗證錯誤訊息清單之前的摘要訊息。</param>
+      <param name="excludeFieldErrors">true 會從結果中排除欄位層級驗證錯誤訊息，false 則會包含欄位層級驗證錯誤訊息。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationSummary(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+      <summary>傳回 HTML div 項目，此項目含有透過屬性字典定義的指定自訂屬性，並包含摘要訊息和來自模型狀態字典之所有驗證錯誤訊息的未排序清單。</summary>
+      <returns>代表驗證錯誤訊息的 HTML 標記。</returns>
+      <param name="message">出現在驗證錯誤訊息清單之前的訊息。</param>
+      <param name="htmlAttributes">元素之自訂屬性的名稱和值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.HtmlHelper.ValidationSummary(System.String,System.Object)">
+      <summary>傳回 HTML div 項目，此項目含有透過屬性物件定義的指定自訂屬性，並包含摘要訊息和來自模型狀態字典之所有驗證錯誤訊息的未排序清單。</summary>
+      <returns>代表驗證錯誤訊息的 HTML 標記。</returns>
+      <param name="message">出現在驗證錯誤訊息清單之前的摘要訊息。</param>
+      <param name="htmlAttributes">包含元素之自訂屬性的物件。這些屬性 (Attribute) 名稱和值是藉由檢查物件之屬性 (Property)，透過反映所擷取而來。</param>
+    </member>
+    <member name="P:System.Web.WebPages.Html.HtmlHelper.ValidationSummaryClass">
+      <summary>取得或設定 CSS 類別的名稱，這個類別定義驗證失敗時驗證摘要的出現方式。</summary>
+      <returns>CSS 類別的名稱。預設值為 validation-summary-errors。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Html.HtmlHelper.ValidationSummaryValidClass">
+      <summary>取得或設定 CSS 類別的名稱，這個類別定義驗證通過時驗證摘要的出現方式。</summary>
+      <returns>CSS 類別的名稱。預設值為 validation-summary-valid。</returns>
+    </member>
+    <member name="T:System.Web.WebPages.Html.ModelState">
+      <summary>封裝繫結至動作方法引數之屬性或繫結至引數本身的模型繫結狀態。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelState.#ctor">
+      <summary>初始化 <see cref="T:System.Web.WebPages.Html.ModelState" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.Html.ModelState.Errors">
+      <summary>傳回字串清單，其中包含模型繫結期間發生的任何錯誤。</summary>
+      <returns>模型繫結期間發生的錯誤。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Html.ModelState.Value">
+      <summary>傳回物件，其中封裝模型繫結期間所繫結的值。</summary>
+      <returns>當時所繫結的值。</returns>
+    </member>
+    <member name="T:System.Web.WebPages.Html.ModelStateDictionary">
+      <summary>表示將已張貼的表單繫結至動作方法的結果，其中包括驗證狀態和驗證錯誤訊息等資訊。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.#ctor">
+      <summary>初始化 <see cref="T:System.Web.WebPages.Html.ModelStateDictionary" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.#ctor(System.Web.WebPages.Html.ModelStateDictionary)">
+      <summary>使用從指定的模型狀態字典複製過來的值，初始化 <see cref="T:System.Web.WebPages.Html.ModelStateDictionary" /> 類別的新執行個體。</summary>
+      <param name="dictionary">要從中複製值的模型狀態字典。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.Add(System.Collections.Generic.KeyValuePair{System.String,System.Web.WebPages.Html.ModelState})">
+      <summary>將指定的項目加入至模型狀態字典。</summary>
+      <param name="item">要加入至模型狀態字典的項目。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.Add(System.String,System.Web.WebPages.Html.ModelState)">
+      <summary>將具有指定索引鍵和值的項目加入至模型狀態字典。</summary>
+      <param name="key">索引鍵。</param>
+      <param name="value">數值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.AddError(System.String,System.String)">
+      <summary>將錯誤訊息加入至與指定之索引鍵相關聯的模型狀態。</summary>
+      <param name="key">與加入錯誤訊息之模型狀態相關聯的索引鍵。</param>
+      <param name="errorMessage">錯誤訊息。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.AddFormError(System.String)">
+      <summary>將錯誤訊息加入至與整個表單相關聯的模型狀態。</summary>
+      <param name="errorMessage">錯誤訊息。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.Clear">
+      <summary>從模型狀態字典移除所有項目。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.Contains(System.Collections.Generic.KeyValuePair{System.String,System.Web.WebPages.Html.ModelState})">
+      <summary>判斷模型狀態字典是否包含指定的項目。</summary>
+      <returns>如果模型狀態字典包含指定的項目，則為 true，否則為 false。</returns>
+      <param name="item">要尋找的項目。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.ContainsKey(System.String)">
+      <summary>判斷模型狀態字典是否包含指定的索引鍵。</summary>
+      <returns>如果模型狀態字典包含指定的索引鍵，則為 true，否則為 false。</returns>
+      <param name="key">要尋找的索引鍵。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.CopyTo(System.Collections.Generic.KeyValuePair{System.String,System.Web.WebPages.Html.ModelState}[],System.Int32)">
+      <summary>從指定的索引開始，將模型狀態字典的項目複製到陣列。</summary>
+      <param name="array">要將項目複製到其中的一維 <see cref="T:System.Array" /> 執行個體。</param>
+      <param name="arrayIndex">
+        <paramref name="array" /> 中的索引，是複製開始的位置。</param>
+    </member>
+    <member name="P:System.Web.WebPages.Html.ModelStateDictionary.Count">
+      <summary>取得模型狀態字典包含的模型狀態數量。</summary>
+      <returns>模型狀態字典中的模型狀態數量。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.GetEnumerator">
+      <summary>傳回可用來逐一查看集合的列舉程式。</summary>
+      <returns>可用來逐一查看集合的列舉程式。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Html.ModelStateDictionary.IsReadOnly">
+      <summary>取得值，這個值表示模型狀態字典是否為唯讀。</summary>
+      <returns>如果模型狀態字典為唯讀，則為 true，否則為 false。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Html.ModelStateDictionary.IsValid">
+      <summary>取得值，這個值表示是否有任何錯誤訊息與模型狀態字典中的任何模型狀態相關聯。</summary>
+      <returns>如果有任何錯誤訊息與字典中的任何模型狀態相關聯，則為 true，否則為 false。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.IsValidField(System.String)">
+      <summary>判斷是否有任何錯誤訊息與指定的索引鍵相關聯。</summary>
+      <returns>如果沒有任何錯誤訊息與指定的索引鍵相關聯，則為 true，否則為 false。</returns>
+      <param name="key">索引鍵。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="key" /> 是 null。</exception>
+    </member>
+    <member name="P:System.Web.WebPages.Html.ModelStateDictionary.Item(System.String)">
+      <summary>取得或設定模型狀態，這個模型狀態會與模型狀態字典中指定的索引鍵相關聯。</summary>
+      <returns>與模型狀態字典中指定的索引鍵相關聯的模型狀態。</returns>
+      <param name="key">與模型狀態相關聯的索引鍵。</param>
+    </member>
+    <member name="P:System.Web.WebPages.Html.ModelStateDictionary.Keys">
+      <summary>取得包含模型狀態字典中索引鍵的清單。</summary>
+      <returns>字典中索引鍵的清單。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.Merge(System.Web.WebPages.Html.ModelStateDictionary)">
+      <summary>從指定的模型狀態字典將值複製到這個 <see cref="T:System.Web.WebPages.Html.ModelStateDictionary" /> 執行個體，而如果索引鍵相同則覆寫現有的值。</summary>
+      <param name="dictionary">要從中複製值的模型狀態字典。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.Remove(System.Collections.Generic.KeyValuePair{System.String,System.Web.WebPages.Html.ModelState})">
+      <summary>從模型狀態字典中移除第一次出現的指定項目。</summary>
+      <returns>如果已成功從模型狀態字典移除項目，則為 true，如果未移除項目或項目不存在於模型狀態字典中，則為 false。</returns>
+      <param name="item">要移除的項目。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.Remove(System.String)">
+      <summary>從模型狀態字典移除具有指定之索引鍵的項目。</summary>
+      <returns>如果已成功從模型狀態字典移除項目，則為 true，如果未移除項目或項目不存在於模型狀態字典中，則為 false。</returns>
+      <param name="key">要移除之項目的索引鍵。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.SetModelValue(System.String,System.Object)">
+      <summary>設定與指定之索引鍵相關聯的模型狀態值。</summary>
+      <param name="key">要設定值的索引鍵。</param>
+      <param name="value">要設定索引鍵的值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.System#Collections#IEnumerable#GetEnumerator">
+      <summary>傳回可用來逐一查看模型狀態字典的列舉程式。</summary>
+      <returns>可用來逐一查看模型狀態字典的列舉程式。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.Html.ModelStateDictionary.TryGetValue(System.String,System.Web.WebPages.Html.ModelState@)">
+      <summary>取得與指定之索引鍵相關聯的模型狀態值。</summary>
+      <returns>如果模型狀態字典包含具有指定之索引鍵的項目，則為 true，否則為 false。</returns>
+      <param name="key">要取得值的索引鍵。</param>
+      <param name="value">這個方法傳回時，如果有找到指定的索引鍵，則為與該索引鍵相關聯的模型狀態值，否則會包含 <see cref="T:System.Web.WebPages.Html.ModelState" /> 型別的預設值。傳遞此參數時不需設定初始值。</param>
+    </member>
+    <member name="P:System.Web.WebPages.Html.ModelStateDictionary.Values">
+      <summary>取得包含模型狀態字典中值的清單。</summary>
+      <returns>字典中值的清單。</returns>
+    </member>
+    <member name="T:System.Web.WebPages.Html.SelectListItem">
+      <summary>表示 HTML 選取清單中的項目。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Html.SelectListItem.#ctor">
+      <summary>使用預設設定，初始化 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Html.SelectListItem.#ctor(System.Web.WebPages.Html.SelectListItem)">
+      <summary>藉由複製指定的選取清單項目，初始化 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 類別的新執行個體。</summary>
+      <param name="item">要複製的選取清單項目。</param>
+    </member>
+    <member name="P:System.Web.WebPages.Html.SelectListItem.Selected">
+      <summary>取得或設定值，這個值表示是否已選取 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體。</summary>
+      <returns>如果已選取選取清單項目，則為 true，否則為 false。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Html.SelectListItem.Text">
+      <summary>取得或設定文字，這個文字可用於在網頁上顯示 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體。</summary>
+      <returns>用來顯示選取清單項目的文字。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Html.SelectListItem.Value">
+      <summary>取得或設定 HTML option 項目的 HTML value 屬性值，這個項目會與 <see cref="T:System.Web.WebPages.Html.SelectListItem" /> 執行個體相關聯。</summary>
+      <returns>與選取清單項目相關聯的 HTML value 屬性值。</returns>
+    </member>
+    <member name="T:System.Web.WebPages.Instrumentation.InstrumentationService">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Instrumentation.InstrumentationService.#ctor">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Instrumentation.InstrumentationService.BeginContext(System.Web.HttpContextBase,System.String,System.IO.TextWriter,System.Int32,System.Int32,System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Instrumentation.InstrumentationService.EndContext(System.Web.HttpContextBase,System.String,System.IO.TextWriter,System.Int32,System.Int32,System.Boolean)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.Instrumentation.InstrumentationService.IsAvailable">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.Instrumentation.PositionTagged`1">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+      <typeparam name="T"></typeparam>
+    </member>
+    <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.#ctor(`0,System.Int32)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.Equals(System.Object)">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.GetHashCode">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.op_Equality(System.Web.WebPages.Instrumentation.PositionTagged{`0},System.Web.WebPages.Instrumentation.PositionTagged{`0})">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.op_Implicit(System.Tuple`2)~System.Web.WebPages.Instrumentation.PositionTagged{`0}">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.op_Implicit(System.Web.WebPages.Instrumentation.PositionTagged{`0})~`0">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.op_Inequality(System.Web.WebPages.Instrumentation.PositionTagged{`0},System.Web.WebPages.Instrumentation.PositionTagged{`0})">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.Instrumentation.PositionTagged`1.Position">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Instrumentation.PositionTagged`1.ToString">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.Instrumentation.PositionTagged`1.Value">
+      <summary>這個類型/成員可以支援 .NET Framework 基礎結構，但不能直接使用於您的程式碼中。</summary>
+    </member>
+    <member name="T:System.Web.WebPages.Scope.AspNetRequestScopeStorageProvider">
+      <summary>定義 ASP.NET 要求領域存放區提供者。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.AspNetRequestScopeStorageProvider.#ctor">
+      <summary>初始化 <see cref="T:System.Web.WebPages.Scope.AspNetRequestScopeStorageProvider" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.AspNetRequestScopeStorageProvider.ApplicationScope">
+      <summary>取得字典，以便將資料儲存於應用程式領域中。</summary>
+      <returns>儲存應用程式領域資料的字典。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.AspNetRequestScopeStorageProvider.CurrentScope">
+      <summary>取得或設定字典，以便將資料儲存於目前的領域中。</summary>
+      <returns>儲存目前領域資料的字典。</returns>
+      <exception cref="T:System.InvalidOperationException">在嘗試設定此屬性之前，不會執行應用程式起始頁。</exception>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.AspNetRequestScopeStorageProvider.GlobalScope">
+      <summary>取得字典，以便將資料儲存於全域領域中。</summary>
+      <returns>儲存全域領域資料的字典。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.AspNetRequestScopeStorageProvider.RequestScope">
+      <summary>取得字典，以便將資料儲存於要求領域中。</summary>
+      <returns>儲存要求領域資料的字典。</returns>
+      <exception cref="T:System.InvalidOperationException">在嘗試取得此屬性之前，不會執行應用程式起始頁。</exception>
+    </member>
+    <member name="T:System.Web.WebPages.Scope.IScopeStorageProvider">
+      <summary>定義字典，此字典可以提供已設定領域的資料存取權。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.IScopeStorageProvider.CurrentScope">
+      <summary>取得和設定用來將資料儲存於目前領域的字典。</summary>
+      <returns>儲存目前領域資料的字典。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.IScopeStorageProvider.GlobalScope">
+      <summary>取得用來將資料儲存於全域領域的字典。</summary>
+      <returns>儲存全域領域資料的字典。</returns>
+    </member>
+    <member name="T:System.Web.WebPages.Scope.ScopeStorage">
+      <summary>定義用於包含暫時性領域之存放區的類別。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorage.CreateTransientScope">
+      <summary>根據 <see cref="P:System.Web.WebPages.Scope.ScopeStorage.CurrentScope" /> 屬性中的領域，傳回用來將資料儲存於暫時性領域的字典。</summary>
+      <returns>儲存暫時性領域資料的字典。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorage.CreateTransientScope(System.Collections.Generic.IDictionary{System.Object,System.Object})">
+      <summary>傳回用來將資料儲存於暫時性領域的字典。</summary>
+      <returns>儲存暫時性領域資料的字典。</returns>
+      <param name="context">內容。</param>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.ScopeStorage.CurrentProvider">
+      <summary>取得或設定目前的領域提供者。</summary>
+      <returns>目前的領域提供者。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.ScopeStorage.CurrentScope">
+      <summary>取得用來將資料儲存於目前領域的字典。</summary>
+      <returns>儲存目前領域資料的字典。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.ScopeStorage.GlobalScope">
+      <summary>取得用來將資料儲存於全域領域的字典。</summary>
+      <returns>儲存全域領域資料的字典。</returns>
+    </member>
+    <member name="T:System.Web.WebPages.Scope.ScopeStorageDictionary">
+      <summary>代表索引鍵和值的集合，可用來在不同的領域層級 (本機、全域等) 儲存資料。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.#ctor">
+      <summary>初始化 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.#ctor(System.Collections.Generic.IDictionary{System.Object,System.Object})">
+      <summary>使用指定的基底領域，初始化 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 類別的新執行個體。</summary>
+      <param name="baseScope">基底領域。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.Add(System.Collections.Generic.KeyValuePair{System.Object,System.Object})">
+      <summary>使用指定的一般集合，將索引鍵/值組加入至 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 物件。</summary>
+      <param name="item">索引鍵/值組。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.Add(System.Object,System.Object)">
+      <summary>將指定的索引鍵和指定的值加入至 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 物件。</summary>
+      <param name="key">索引鍵。</param>
+      <param name="value">數值。</param>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BackingStore">
+      <summary>取得儲存 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 物件資料的字典。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope">
+      <summary>取得 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 物件的基底領域。</summary>
+      <returns>
+        <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 物件的基底領域。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.Clear">
+      <summary>從串連的 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 和 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件，移除所有的索引鍵和值。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.Contains(System.Collections.Generic.KeyValuePair{System.Object,System.Object})">
+      <summary>傳回值，這個值表示指定的索引鍵/值組是否存在於 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 物件中或 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件中。</summary>
+      <returns>如果 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 物件或 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件包含具有指定之索引鍵/值組的項目，為 true，否則為 false。</returns>
+      <param name="item">索引鍵/值組。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.ContainsKey(System.Object)">
+      <summary>傳回值，這個值表示指定的索引鍵是否存在於 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 物件中或 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件中。</summary>
+      <returns>如果 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 物件或 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件包含具有指定之索引鍵的項目，為 true，否則為 false。</returns>
+      <param name="key">索引鍵。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.CopyTo(System.Collections.Generic.KeyValuePair{System.Object,System.Object}[],System.Int32)">
+      <summary>從指定的索引開始，將 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 物件和 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件中的所有項目複製到 <see cref="T:System.Array" /> 物件。</summary>
+      <param name="array">陣列。</param>
+      <param name="arrayIndex">
+        <paramref name="array" /> 中索引 (以零為基底)。</param>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.ScopeStorageDictionary.Count">
+      <summary>取得位於串連之 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 和 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件中的索引鍵/值組數目。</summary>
+      <returns>索引鍵/值組的數目。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.GetEnumerator">
+      <summary>傳回可用來逐一查看串連之 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 和 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件的列舉程式。</summary>
+      <returns>
+        <see cref="T:System.Collections.Generic.IEnumerator" /> 物件。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.GetItems">
+      <summary>傳回列舉程式，此列舉程式可用來逐一查看串連之 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 和 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件的相異項目。</summary>
+      <returns>列舉程式，其中包含來自串連之字典物件的相異元素。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.ScopeStorageDictionary.IsReadOnly">
+      <summary>取得值，這個值表示 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 物件是否為唯讀。</summary>
+      <returns>如果 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 物件為唯讀，為 true，否則為 false。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.ScopeStorageDictionary.Item(System.Object)">
+      <summary>取得或設定與指定索引鍵相關聯的元素。</summary>
+      <returns>具有指定索引鍵的元素。</returns>
+      <param name="key">要取得或設定的元素索引鍵。</param>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.ScopeStorageDictionary.Keys">
+      <summary>取得 <see cref="T:System.Collections.Generic.List`1" /> 物件，此物件包含來自串連之 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 和 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件的索引鍵。</summary>
+      <returns>包含索引鍵的物件。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.Remove(System.Collections.Generic.KeyValuePair{System.Object,System.Object})">
+      <summary>從串連的 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 和 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件移除指定的索引鍵/值組。</summary>
+      <returns>如果已移除索引鍵/值組，則為 true，或者，如果在串連的 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 和 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件中找不到 <paramref name="item" />，則為 false。</returns>
+      <param name="item">索引鍵/值組。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.Remove(System.Object)">
+      <summary>移除值，這個值含有來自串連之 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 和 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件的指定索引鍵。</summary>
+      <returns>如果已移除索引鍵/值組，則為 true，或者，如果在串連的 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 和 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件中找不到 <paramref name="key" />，則為 false。</returns>
+      <param name="key">索引鍵。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.SetValue(System.Object,System.Object)">
+      <summary>使用串連之 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 和 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件中的指定索引鍵來設定值。</summary>
+      <param name="key">索引鍵。</param>
+      <param name="value">數值。</param>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.System#Collections#IEnumerable#GetEnumerator">
+      <summary>傳回串連之 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 和 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件的列舉程式。</summary>
+      <returns>列舉程式。</returns>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.ScopeStorageDictionary.TryGetValue(System.Object,System.Object@)">
+      <summary>取得值，這個值會與來自串連之 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 和 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件的指定索引鍵相關聯。</summary>
+      <returns>如果串連的 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 和 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件包含具有指定索引鍵的項目，為 true，否則為 false。</returns>
+      <param name="key">索引鍵。</param>
+      <param name="value">當此方法傳回時，如果找到索引鍵，則會包含與指定索引鍵關聯的值，否則為 <paramref name="value" /> 參數之類型的預設值。傳遞此參數時不需設定初始值。</param>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.ScopeStorageDictionary.Values">
+      <summary>取得 <see cref="T:System.Collections.Generic.List`1" /> 物件，此物件包含來自串連之 <see cref="T:System.Web.WebPages.Scope.ScopeStorageDictionary" /> 和 <see cref="P:System.Web.WebPages.Scope.ScopeStorageDictionary.BaseScope" /> 物件的值。</summary>
+      <returns>包含值的物件。</returns>
+    </member>
+    <member name="T:System.Web.WebPages.Scope.StaticScopeStorageProvider">
+      <summary>提供已設定領域的靜態資料存取權限。</summary>
+    </member>
+    <member name="M:System.Web.WebPages.Scope.StaticScopeStorageProvider.#ctor">
+      <summary>初始化 <see cref="T:System.Web.WebPages.Scope.StaticScopeStorageProvider" /> 類別的新執行個體。</summary>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.StaticScopeStorageProvider.CurrentScope">
+      <summary>取得或設定字典，此字典會在靜態內容下方儲存目前的資料。</summary>
+      <returns>提供目前已設定領域之資料的字典。</returns>
+    </member>
+    <member name="P:System.Web.WebPages.Scope.StaticScopeStorageProvider.GlobalScope">
+      <summary>取得字典，此字典會在靜態內容下方儲存全域資料。</summary>
+      <returns>提供全域且已設定領域之資料的字典。</returns>
+    </member>
+  </members>
+</doc>
