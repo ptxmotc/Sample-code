@@ -8,7 +8,7 @@
 
 - 如何使用HMAC 機制:[影片教學請點我](https://www.youtube.com/watch?v=m6mjfnvfeZE&feature=youtu.be)
 
-- 提醒您可在 HTTP Header中加入 Accept-Encoding: gzip, deflate，以加速資料的下載。
+- 使用程式(如:C#、Java、JavaScript等)取得資料時，請記得加入HTTP Header設定(Accept-Encoding: gzip, deflate)，可有效減傳輸量。
 
 除PTX所提供之java、javascript及.NET範例程式碼外，PTX會員SHI HAO WANG及Benyi也提供不同種程式語言之範例程式碼供使用者作參考。
 
