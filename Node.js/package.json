@@ -1,0 +1,15 @@
+{
+  "name": "ptx-sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sample.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "NoobTW",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "jssha": "^2.3.1"
+  }
+}
