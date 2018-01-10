@@ -12,10 +12,10 @@
 
 ## 各種語言教學範例
 
-- [ASP.NET](/ASP.NET)
-- [Java](/Java)
-- [JavaScript](/JavaScript)
-- [Node.js](/Node.js)（會員NoobTW提供）
+- [ASP.NET](https://github.com/ptxmotc/Sample-code/tree/master/ASP.NET)
+- [Java](https://github.com/ptxmotc/Sample-code/tree/master/Java)
+- [JavaScript](https://github.com/ptxmotc/Sample-code/tree/master/JavaScript)
+- [Node.js](https://github.com/ptxmotc/Sample-code/tree/master/Node.js)（會員NoobTW提供）
 
 ## 其他語言範例
 
