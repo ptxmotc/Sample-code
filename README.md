@@ -24,9 +24,9 @@
 
 - PHP 範例程式碼（會員Benyi提供）：[請點我](https://gist.github.com/banqhsia/e157a68f730785c0727481d57e5325e0)
 
-- [Node.js](https://github.com/ptxmotc/Sample-code/tree/master/Node.js)（會員NoobTW提供）
+- Node.js範例程式碼（會員NoobTW提供）：[請點我](https://github.com/ptxmotc/Sample-code/tree/master/Node.js)
 
-- [python](https://github.com/ptxmotc/Sample-code/tree/master/Python3)（WeselyOng提供）
+- python範例程式碼（WeselyOng提供）：[請點我](https://github.com/ptxmotc/Sample-code/tree/master/Python3)
 
 
 
