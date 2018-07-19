@@ -10,18 +10,23 @@
 
 - 使用程式（如：C#、Java、JavaScript 等）取得資料時，請記得加入 HTTP Header 設定 (Accept-Encoding: gzip, deflate)，可有效減傳輸量。
 
-## 各種語言教學範例
+## 平台提供教學範例
 
 - [ASP.NET](https://github.com/ptxmotc/Sample-code/tree/master/ASP.NET)
 - [Java](https://github.com/ptxmotc/Sample-code/tree/master/Java)
 - [JavaScript](https://github.com/ptxmotc/Sample-code/tree/master/JavaScript)
-- [Node.js](https://github.com/ptxmotc/Sample-code/tree/master/Node.js)（會員NoobTW提供）
 
-## 其他語言範例
+## 熱心鄉民提供範例
 
 除PTX所提供之 Java、JavaScript及 .NET 範例程式碼外，PTX 會員 SHI HAO WANG 及 Benyi 也提供不同種程式語言之範例程式碼供使用者作參考。
 
 - CSharp 與 .NET Standard 2.0 範例程式碼（會員txstudio提供）：[請點我](https://github.com/txstudio/ptx-api-authorize-httpclient-sample)
 
 - PHP 範例程式碼（會員Benyi提供）：[請點我](https://gist.github.com/banqhsia/e157a68f730785c0727481d57e5325e0)
+
+- [Node.js](https://github.com/ptxmotc/Sample-code/tree/master/Node.js)（會員NoobTW提供）
+
+- [python](https://github.com/ptxmotc/Sample-code/tree/master/Python3)（WeselyOng提供）
+
+
 
