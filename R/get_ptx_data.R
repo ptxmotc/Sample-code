@@ -7,7 +7,7 @@ get_ptx_data <- function(app_id, app_key, url, Windows = FALSE){
   if (Windows){
     Sys.setlocale(category = "LC_TIME", locale = "English_United States.1252")
   } else {
-    Sys.setlocale("LC_TIME", "en_US.UTF8")
+    Sys.setlocale(category = "LC_TIME", locale = "en_US.UTF8")
   }
   
   # "Tue, 21 Aug 2018 01:18:42 GMT"
