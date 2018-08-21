@@ -9,7 +9,7 @@ app_id <- 'your_app_id'
 app_key <- 'your_app_key'
 url <- 'https://ptx.transportdata.tw/MOTC/v2/Bus/Stop/City/YilanCounty?$top=30&$format=xml'
 
-x <- get_ptx_data(app_id, app_key, url)
+x <- get_ptx_data(app_id, app_key, url, Windows = FALSE)
 
 library(XML)
 dat <- xmlParse(x, encoding = 'utf-8') # 以 xmlParse 解析 XML 檔案
