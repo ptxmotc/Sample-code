@@ -28,5 +28,7 @@
 
 - python範例程式碼（WeselyOng提供）：[請點我](https://github.com/ptxmotc/Sample-code/tree/master/Python3)
 
+- HMAC （會員g78101提供）：[請點我](https://github.com/ptxmotc/Sample-code/tree/master/HMAC)
+
 
 
