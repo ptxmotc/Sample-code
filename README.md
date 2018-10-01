@@ -28,7 +28,7 @@
 
 - python範例程式碼（WeselyOng提供）：[請點我](https://github.com/ptxmotc/Sample-code/tree/master/Python3)
 
-- Swift （會員g78101提供）：[請點我](https://github.com/ptxmotc/Sample-code/tree/master/Swift)
+- Swift範例程式碼 （會員g78101提供）：[請點我](https://github.com/ptxmotc/Sample-code/tree/master/Swift)
 
 
 
