@@ -18,7 +18,7 @@
 
 ## 熱心鄉民提供範例
 
-除PTX所提供之 Java、JavaScript及 .NET 範例程式碼外，PTX 會員 SHI HAO WANG 及 Benyi 也提供不同種程式語言之範例程式碼供使用者作參考。
+除PTX所提供之 Java、JavaScript及 .NET 範例程式碼外，也提供不同種程式語言之範例程式碼供使用者作參考。
 
 - CSharp 與 .NET Standard 2.0 範例程式碼（會員txstudio提供）：[請點我](https://github.com/txstudio/ptx-api-authorize-httpclient-sample)
 
@@ -30,5 +30,6 @@
 
 - Swift範例程式碼 （會員g78101提供）：[請點我](https://github.com/ptxmotc/Sample-code/tree/master/Swift)
 
+- Go範例程式碼 （會員hpcslag提供）：[請點我](https://github.com/ptxmotc/Sample-code/tree/master/Golang)
 
 
