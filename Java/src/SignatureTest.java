@@ -23,7 +23,7 @@ public class SignatureTest {
 
 	public static void main(String[] args) {
 		HttpURLConnection connection=null;
-		String APIUrl = "http://ptx.transportdata.tw/MOTC/APIs/v2/Rail/TRA/Station?$top=10&$format=JSON";
+		String APIUrl = "https://ptx.transportdata.tw/MOTC/v2/Bus/RealTimeByFrequency/City/Chiayi?$top=1&$format=JSON";
 	    //申請的APPID
         //（FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF 為 Guest 帳號，以IP作為API呼叫限制，請替換為註冊的APPID & APPKey）
         String APPID = "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF";
@@ -50,6 +50,9 @@ public class SignatureTest {
         System.out.println(sAuth);
 		   try{  
 		      URL url=new URL(APIUrl);
+		      if("https".equalsIgnoreCase(url.getProtocol())){
+		            SslUtils.ignoreSsl();
+		        }
 		      connection=(HttpURLConnection)url.openConnection();
 		      connection.setRequestMethod("GET");
 		      connection.setRequestProperty("Authorization", sAuth);
@@ -58,19 +61,9 @@ public class SignatureTest {
 		      connection.setDoInput(true);
 		      connection.setDoOutput(true);
 		      
-		      //將InputStream轉換為Byte
+		      //返回的數據已經過解壓
 		      InputStream inputStream = connection.getInputStream();
-	          ByteArrayOutputStream bao = new ByteArrayOutputStream();
-		      byte[] buff = new byte[1024];
-	          int bytesRead = 0;
-	          while((bytesRead = inputStream.read(buff)) != -1) {
-	             bao.write(buff, 0, bytesRead);
-	          }
-	          
-	          //解開GZIP
-		      ByteArrayInputStream bais = new ByteArrayInputStream(bao.toByteArray());
-		      GZIPInputStream gzis = new GZIPInputStream(bais);
-		      InputStreamReader reader = new InputStreamReader(gzis);
+		      InputStreamReader reader = new InputStreamReader(inputStream,"UTF-8");
 		      BufferedReader in = new BufferedReader(reader);
 		      
 		      //讀取回傳資料
