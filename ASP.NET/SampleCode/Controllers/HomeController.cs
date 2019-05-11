@@ -37,7 +37,7 @@ namespace SampleCode.Controllers
 
             List<RailStation> Data = new List<RailStation>();
             //欲呼叫之API網址(此範例為台鐵車站資料)
-            var APIUrl = "http://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station?$top=10&$format=JSON";
+            var APIUrl = "https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station?$top=10&$format=JSON";
             string Result = string.Empty;
 
             using (HttpClient Client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip }))
@@ -80,7 +80,7 @@ namespace SampleCode.Controllers
                 var ticket = UserData.ticket;
                 ViewBag.ticket = ticket;
                 //欲呼叫之API網址(此範例為台鐵車站資料)
-                var APIUrl = "http://ptx.transportdata.tw:80/MOTC/Rail/TRA/Station?ticket=" + ticket;
+                var APIUrl = "https://ptx.transportdata.tw:80/MOTC/Rail/TRA/Station?ticket=" + ticket;
                 string result = wc.DownloadString(APIUrl);
                 Data = JsonConvert.DeserializeObject<List<RailStation>>(result);
                 return View(Data);

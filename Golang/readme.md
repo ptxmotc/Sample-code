@@ -4,7 +4,7 @@
 給予立即需要使用 ptx platform api 的開發者:
 ``` go
 //從 local 或 GitHub 上獲取這個 Golang Wrapper
-//若您從 GitHub 上獲取這個專案，請記得使用 go get http://....../lib
+//若您從 GitHub 上獲取這個專案，請記得使用 go get https://....../lib
 //import "########/lib" 
 
 APPID := "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF";
@@ -17,7 +17,7 @@ ptx := lib.PTXService{
 }
 
 //調用 ptx.Get(url) 即可獲得資料
-fmt.Println(ptx.Get("http://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station?$top=10&$format=JSON"))
+fmt.Println(ptx.Get("https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station?$top=10&$format=JSON"))
 ```
 
 ## 測試

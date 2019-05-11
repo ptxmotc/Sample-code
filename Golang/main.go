@@ -13,5 +13,5 @@ func main(){
 	}
 
 	//usage
-	fmt.Println(ptx.Get("http://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station?$top=10&$format=JSON"))
+	fmt.Println(ptx.Get("https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station?$top=10&$format=JSON"))
 }
