@@ -34,5 +34,5 @@ class Auth():
 
 if __name__ == '__main__':
     a = Auth(app_id, app_key)
-    response = request('get', 'http://ptx.transportdata.tw/MOTC/v2/Bus/Stop/City/Taipei?$top=30&$format=JSON', headers= a.get_auth_header())
+    response = request('get', 'https://ptx.transportdata.tw/MOTC/v2/Bus/Stop/City/Taipei?$top=30&$format=JSON', headers= a.get_auth_header())
     pprint(response.content)
