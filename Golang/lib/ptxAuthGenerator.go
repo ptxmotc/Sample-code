@@ -26,9 +26,7 @@ func signGenerator(APPID, APPKEY string) (string, string){
 
 func getServerTime() string {
 	//ptx platform time is GMT 0.
-	timeZone, _ := time.LoadLocation("Europe/London")
-	dt := time.Now().In(timeZone)
-	return dt.Format(http.TimeFormat)
+	return time.Now().UTC().Format(http.TimeFormat)
 }
 
 func hmac_sha1_generator(enc_xdate string, appkey string) string{
