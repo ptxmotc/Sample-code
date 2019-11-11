@@ -20,16 +20,18 @@
 
 除PTX所提供之 Java、JavaScript及 .NET 範例程式碼外，也提供不同種程式語言之範例程式碼供使用者作參考。
 
-- CSharp 與 .NET Standard 2.0 範例程式碼（會員txstudio提供）：[請點我](https://github.com/txstudio/ptx-api-authorize-httpclient-sample)
+- [Bourne Shell](https://github.com/ptxmotc/Sample-code/tree/master/sh) 
 
-- PHP 範例程式碼（會員Benyi提供）：[請點我](https://gist.github.com/banqhsia/e157a68f730785c0727481d57e5325e0)
+- [CSharp 與 .NET Standard 2.0](https://github.com/txstudio/ptx-api-authorize-httpclient-sample)
 
-- Node.js範例程式碼（會員NoobTW提供）：[請點我](https://github.com/ptxmotc/Sample-code/tree/master/Node.js)
+- [Go](https://github.com/ptxmotc/Sample-code/tree/master/Golang)
 
-- python範例程式碼（WeselyOng提供）：[請點我](https://github.com/ptxmotc/Sample-code/tree/master/Python3)
+- [Node.js](https://github.com/ptxmotc/Sample-code/tree/master/Node.js)
 
-- Swift範例程式碼 （會員g78101提供）：[請點我](https://github.com/ptxmotc/Sample-code/tree/master/Swift)
+- [PHP](https://gist.github.com/banqhsia/e157a68f730785c0727481d57e5325e0)
 
-- Go範例程式碼 （會員hpcslag提供）：[請點我](https://github.com/ptxmotc/Sample-code/tree/master/Golang)
+- [python](https://github.com/ptxmotc/Sample-code/tree/master/Python3)
 
-- Bourne Shell 範例程式碼：[請點我](https://github.com/ptxmotc/Sample-code/tree/master/sh)
+- [Ruby](https://github.com/ptxmotc/Sample-code/tree/master/Ruby)
+
+- [Swift](https://github.com/ptxmotc/Sample-code/tree/master/Swift)
