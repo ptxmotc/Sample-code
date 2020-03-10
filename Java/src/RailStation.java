@@ -7,71 +7,111 @@
  */
 public class RailStation {
 
-    // 車站代碼
-    public String StationID;
-    // 車站中文
-    public String StationNameZh;
-    // 車站英文
-    public String StationNameEn;
-    // 經度
-    public long StationLon;
-    // 緯度
-    public long StationLat;
-    // 車站地址
-    public String StationAddress;
-    // 聯繫電話
-    public String StationPhone;
-    // 車站級別定義
-    public String StationClass;
-    
-    
+	private  String StationUID;
+	private  String StationID;
+	private  NameType StationName;
+	private  PointType StationPosition;
+	private  String StationAddress;
+	private  String StationPhone;
+	private  String OperatorID ;
+	private  String StationClass;
+	private  String ReservationCode;
+    private  String UpdateTime;
+    private  int VersionID ;
+
+	public String getStationUID() {
+		return StationUID;
+	}
+
+	public void setStationUID(String stationUID) {
+		StationUID = stationUID;
+	}
+
 	public String getStationID() {
 		return StationID;
 	}
+
 	public void setStationID(String stationID) {
 		StationID = stationID;
 	}
-	public String getStationNameZh() {
-		return StationNameZh;
+
+	public NameType getStationName() {
+		return StationName;
 	}
-	public void setStationNameZh(String stationNameZh) {
-		StationNameZh = stationNameZh;
+
+	public void setStationName(NameType stationName) {
+		StationName = stationName;
 	}
-	public String getStationNameEn() {
-		return StationNameEn;
+
+	public PointType getStationPosition() {
+		return StationPosition;
 	}
-	public void setStationNameEn(String stationNameEn) {
-		StationNameEn = stationNameEn;
+
+	public void setStationPosition(PointType stationPosition) {
+		StationPosition = stationPosition;
 	}
-	public long getStationLon() {
-		return StationLon;
-	}
-	public void setStationLon(long stationLon) {
-		StationLon = stationLon;
-	}
-	public long getStationLat() {
-		return StationLat;
-	}
-	public void setStationLat(long stationLat) {
-		StationLat = stationLat;
-	}
+
 	public String getStationAddress() {
 		return StationAddress;
 	}
+
 	public void setStationAddress(String stationAddress) {
 		StationAddress = stationAddress;
 	}
+
 	public String getStationPhone() {
 		return StationPhone;
 	}
+
 	public void setStationPhone(String stationPhone) {
 		StationPhone = stationPhone;
 	}
+
+	public String getOperatorID() {
+		return OperatorID;
+	}
+
+	public void setOperatorID(String operatorID) {
+		OperatorID = operatorID;
+	}
+
 	public String getStationClass() {
 		return StationClass;
 	}
+
 	public void setStationClass(String stationClass) {
 		StationClass = stationClass;
 	}
 
+	public String getReservationCode() {
+		return ReservationCode;
+	}
+
+	public void setReservationCode(String reservationCode) {
+		ReservationCode = reservationCode;
+	}
+
+	public String getUpdateTime() {
+		return UpdateTime;
+	}
+
+	public void setUpdateTime(String updateTime) {
+		UpdateTime = updateTime;
+	}
+
+	public int getVersionID() {
+		return VersionID;
+	}
+
+	public void setVersionID(int versionID) {
+		VersionID = versionID;
+	}
+
+	@Override
+	public String toString() {
+		return "RailStation [StationUID=" + StationUID + ", StationID=" + StationID + ", StationName=" + StationName
+				+ ", StationPosition=" + StationPosition + ", StationAddress=" + StationAddress + ", StationPhone="
+				+ StationPhone + ", OperatorID=" + OperatorID + ", StationClass=" + StationClass + ", ReservationCode="
+				+ ReservationCode + ", UpdateTime=" + UpdateTime + ", VersionID=" + VersionID + "]";
+	}
 }
