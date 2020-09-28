@@ -28,10 +28,12 @@
 
 - [Node.js](https://github.com/ptxmotc/Sample-code/tree/master/Node.js)
 
-- [PHP](https://gist.github.com/banqhsia/e157a68f730785c0727481d57e5325e0)
+- [PHP範例1](https://gist.github.com/banqhsia/e157a68f730785c0727481d57e5325e0)
 
 - [python](https://github.com/ptxmotc/Sample-code/tree/master/Python3)
 
 - [Ruby](https://github.com/ptxmotc/Sample-code/tree/master/Ruby)
 
 - [Swift](https://github.com/ptxmotc/Sample-code/tree/master/Swift)
+
+- [PHP範例2](https://gist.github.com/ckhung/4558dec03460d34b431e78ce541f36ba)
