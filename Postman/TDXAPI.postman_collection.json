@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "91bc88aa-1347-4fb5-8bfa-222a8bd37500",
+		"name": "TDXAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "取得站點資訊",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest('https://cdnjs.cloudflare.com/ajax/libs/jsSHA/3.2.0/sha.js', (err, res) => {",
+							"    (new Function(res.text()))();",
+							"",
+							"    var AppID = 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF';",
+							"    var AppKey = 'FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF';",
+							"",
+							"    var GMTString = new Date().toGMTString();",
+							"    var ShaObj = new jsSHA('SHA-1', 'TEXT');",
+							"    ShaObj.setHMACKey(AppKey, 'TEXT');",
+							"    ShaObj.update('x-date: ' + GMTString);",
+							"    var HMAC = ShaObj.getHMAC('B64');",
+							"",
+							"    pm.globals.set(\"AppID\", AppID);",
+							"    pm.globals.set(\"hmacKey\", HMAC);",
+							"    pm.globals.set(\"GMTString\", GMTString);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "hmac username=\"{{AppID}}\", algorithm=\"hmac-sha1\", headers=\"x-date\", signature=\"{{hmacKey}}\"",
+						"type": "text"
+					},
+					{
+						"key": "X-Date",
+						"value": "{{GMTString}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://ptx.transportdata.tw/MOTC/v2/Rail/TRA/Station?$top=10&$format=JSON",
+					"protocol": "https",
+					"host": [
+						"ptx",
+						"transportdata",
+						"tw"
+					],
+					"path": [
+						"MOTC",
+						"v2",
+						"Rail",
+						"TRA",
+						"Station"
+					],
+					"query": [
+						{
+							"key": "$top",
+							"value": "10"
+						},
+						{
+							"key": "$format",
+							"value": "JSON"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
