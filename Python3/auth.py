@@ -28,7 +28,7 @@ class Auth():
         return {
             'Authorization': authorization,
             'x-date': format_date_time(mktime(datetime.now().timetuple())),
-            'Accept - Encoding': 'gzip'
+            'Accept-Encoding': 'gzip'
         }
 
 
